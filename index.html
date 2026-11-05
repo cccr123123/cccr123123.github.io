@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prism · Portfolio</title>
+<style>
+:root{
+  --card-a:#f6f3ec;
+  --card-b:#e7e1d5;
+  --ink:#171720;
+  --ink-2:#5f5f6a;
+  --ink-3:#9a9aa6;
+  --line:rgba(0,0,0,.12);
+  --ui:#ece9e4;
+  --sans:"PingFang SC","Microsoft YaHei",system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,"SF Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;}
+html,body{height:100%;margin:0;}
+body{
+  background:#050508; color:var(--ui);
+  font-family:var(--sans); overflow:hidden;
+  -webkit-font-smoothing:antialiased; user-select:none;
+}
+body.no-cursor{cursor:none;}
+
+/* ==========================================================
+   开场
+   ========================================================== */
+#intro{position:fixed; inset:0; z-index:100; overflow:hidden; background:#05050a;}
+#hero{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:50% 42%;
+  transform:scale(1.14);
+  filter:brightness(.86) saturate(1.05);
+  transition:transform 1.6s cubic-bezier(.22,.61,.36,1), opacity .6s;
+}
+#intro.gone #hero{opacity:0;}
+
+/* 碎片层：平时藏着，一整张图没有缝；碎裂时才切出来 */
+#frags{
+  position:absolute; inset:0; z-index:2; pointer-events:none; display:none;
+  perspective:1400px; perspective-origin:50% 50%;
+  transform-style:preserve-3d;
+}
+#intro.breaking #frags{display:block;}
+.frag{
+  position:absolute; inset:0;
+  background-image:url(assets/wp-eye.jpg);
+  background-size:cover; background-position:50% 42%;
+  will-change:transform, opacity;
+}
+
+/* 开场文字 */
+.intro-text{
+  position:absolute; inset:0; z-index:3;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  transition:opacity .6s, transform .6s;
+}
+.intro-text::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 62% 46% at 50% 47%,
+    rgba(0,0,0,.62), rgba(0,0,0,.18) 62%, transparent 78%);
+}
+#intro.breaking .intro-text{opacity:0; transform:scale(1.04);}
+.intro-kicker{
+  position:relative;
+  font-family:var(--mono); font-size:10px; letter-spacing:.46em;
+  text-transform:uppercase; color:rgba(236,233,228,.5); margin:0 0 24px;
+}
+.intro-name{
+  position:relative; margin:0;
+  font-size:clamp(42px,8.6vw,110px); font-weight:500;
+  letter-spacing:.05em; line-height:1.06; color:#fff;
+  text-shadow:0 0 60px rgba(155,139,255,.55), 0 0 140px rgba(120,160,255,.35), 0 2px 40px rgba(0,0,0,.8);
+}
+.intro-sub{
+  position:relative; margin:24px 0 0;
+  font-size:clamp(12px,1.25vw,14.5px); letter-spacing:.24em;
+  color:rgba(236,233,228,.62);
+}
+.scroll-hint{
+  position:absolute; z-index:4; bottom:7vh; left:50%; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  font-family:var(--mono); font-size:9.5px; letter-spacing:.36em;
+  text-transform:uppercase; color:rgba(236,233,228,.5);
+  transition:opacity .5s;
+}
+#intro.breaking .scroll-hint{opacity:0;}
+.scroll-hint .arw{
+  width:1px; height:46px; overflow:hidden; position:relative;
+  background:linear-gradient(180deg, rgba(255,255,255,.45), transparent);
+}
+.scroll-hint .arw::after{
+  content:""; position:absolute; left:0; top:-100%; width:1px; height:100%;
+  background:linear-gradient(180deg, transparent, #fff);
+  animation:drip 2.2s ease-in-out infinite;
+}
+@keyframes drip{0%{top:-100%;}60%,100%{top:100%;}}
+
+/* 碎裂冲击：轻震 + 冲击波 */
+@keyframes shake{
+  0%,100%{ transform:translate(0,0); }
+  14%{ transform:translate(-5px,4px); }
+  28%{ transform:translate(4px,-5px); }
+  42%{ transform:translate(-4px,-3px); }
+  58%{ transform:translate(3px,4px); }
+  74%{ transform:translate(-2px,2px); }
+  88%{ transform:translate(2px,-1px); }
+}
+#intro.shake{ animation:shake .26s cubic-bezier(.36,.07,.19,.97); }
+
+.shock{display:none;}
+
+/* ==========================================================
+   第二幕：格子 + 卡片
+   ========================================================== */
+#space{
+  position:fixed; inset:0; z-index:10;
+  opacity:0; visibility:hidden; pointer-events:none;
+  transition:opacity 1s var(--ease, ease), visibility 1s;
+}
+#space.on{opacity:1; visibility:visible; pointer-events:auto;}
+
+#grid{position:fixed; inset:0; z-index:1; display:block; pointer-events:none;}
+
+#wave{
+  position:fixed; inset:-15%; z-index:2; pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 38% at 30% 62%, rgba(255,255,255,.10), transparent 62%),
+    radial-gradient(ellipse 48% 34% at 72% 36%, rgba(255,255,255,.075), transparent 62%),
+    radial-gradient(ellipse 40% 30% at 55% 80%, rgba(255,255,255,.05), transparent 65%);
+  filter:blur(6px);
+  mix-blend-mode:screen;
+  animation:drift 26s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  0%{transform:translate3d(0,0,0) scale(1);}
+  50%{transform:translate3d(-3%,2.5%,0) scale(1.05);}
+  100%{transform:translate3d(-6%,-2%,0) scale(1.1);}
+}
+#vig{position:fixed; inset:0; z-index:3; pointer-events:none;
+  background:radial-gradient(circle at 50% 48%, transparent 26%, rgba(0,0,0,.72) 100%);}
+
+#cam{
+  position:fixed; inset:0; z-index:10;
+  perspective:2800px; perspective-origin:50% 50%;
+}
+#world{
+  position:absolute; inset:0;
+  transform-style:preserve-3d; transform-origin:50% 50%;
+  transition:transform 1.2s cubic-bezier(.65,0,.35,1);
+  will-change:transform;
+}
+
+/* 卡片 */
+.card{
+  position:absolute; left:50%; top:50%;
+  width:1280px; height:486px;
+  margin:-243px 0 0 -640px;
+  display:grid; grid-template-columns:436px 1fr;
+  background:linear-gradient(158deg, var(--card-a), var(--card-b));
+  border:1px solid var(--line);
+  /* ⚠️ 这里绝对不能写 overflow:hidden。
+     3D 变换 + overflow:hidden 会让整张卡片从命中测试里消失 ——
+     鼠标点不到、链接点不动、光标也不吸附。裁剪交给 .shot 和 .body 各自处理。 */
+  backface-visibility:hidden; transform-style:preserve-3d;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),
+             0 26px 50px -22px rgba(0,0,0,.9),
+             0 0 90px -46px rgba(255,255,255,.18);
+  transition:filter .7s ease, opacity .7s ease;
+  will-change:filter, opacity;
+}
+.card .shot{position:relative;overflow:hidden;border-right:1px solid var(--line);background:#0a0a10;}
+.card .shot img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  /* 推近到眼睛：--zoom 控制推多近，--focus 是放大中心（对准眼睛所在的纵向位置） */
+  transform:scale(var(--zoom, 1.7));
+  transform-origin:50% var(--focus, 24%);
+}
+.card .shot::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.45));
+}
+.card .num{
+  position:absolute;left:20px;bottom:18px;z-index:2;
+  font-family:var(--mono);font-size:13px;letter-spacing:.24em;
+  color:rgba(255,255,255,.88);text-shadow:0 1px 10px #000;
+}
+.card .body{padding:46px 48px 40px;display:flex;flex-direction:column;min-width:0;color:var(--ink);}
+.card .kicker{
+  font-family:var(--mono);font-size:13px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 18px;
+}
+.card h2{margin:0 0 18px;font-size:46px;font-weight:500;line-height:1.24;color:var(--ink);}
+.card .lead{
+  margin:0 0 22px;font-size:20px;line-height:1.78;color:var(--ink-2);max-width:42ch;
+}
+.card .chips{display:flex;gap:9px;flex-wrap:wrap;}
+.chip{
+  font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-2);
+  border:1px solid var(--line);padding:5px 11px;
+}
+
+/* 卡片里的链接按钮 —— kaygb 那种：直角、实心、带图标、hover 往左上漏光 */
+.card .links{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));  /* 一行最多三个 */
+  gap:0;                                            /* 紧挨着，不分隔 */
+  margin-top:auto;
+  padding-top:24px;
+}
+.lnk{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:56px;
+  padding:0 12px;
+  min-width:0;
+  border-radius:0;
+  font-family:var(--mono);
+  font-size:15px; font-weight:500; letter-spacing:.05em;
+  color:#fff; text-decoration:none;
+  background:var(--brand,#6C757D);
+  border:1px solid rgba(0,0,0,.12);
+  margin-right:-1px;                 /* 相邻边框叠成一条线 */
+  transition:box-shadow .26s ease, transform .26s ease, filter .26s ease;
+  pointer-events:auto;
+  cursor:pointer;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.lnk svg{
+  width:17px; height:17px; flex:0 0 auto;
+  fill:currentColor;
+  opacity:.95;
+}
+.lnk span{
+  min-width:0; overflow:hidden; text-overflow:ellipsis;
+}
+.lnk:hover{
+  filter:brightness(1.14);
+  transform:translateY(-2px);
+  box-shadow:5px -2px 15px 0 rgba(203,221,232,.85);
+}
+.lnk:active{ transform:translateY(0); box-shadow:none; }
+.lnk.dim{ filter:brightness(.86); }
+
+/* ==========================================================
+   光标：两个角，跟格子一样大
+   ========================================================== */
+#cursor{
+  position:fixed; z-index:90; left:0; top:0;
+  width:var(--w,40px); height:var(--h,40px);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .35s,
+             width .24s cubic-bezier(.22,.61,.36,1),
+             height .24s cubic-bezier(.22,.61,.36,1);
+  transform:translate(-50%,-50%);
+  will-change:transform, left, top, width, height;
+}
+#cursor.show{opacity:1;}
+#cursor i{
+  position:absolute; background:#fff;
+  box-shadow:0 0 8px rgba(255,255,255,.85), 0 0 18px rgba(255,255,255,.35);
+}
+/* 左上角 */
+#cursor i:nth-child(1){left:0;top:0;width:2px;height:14px;}
+#cursor i:nth-child(2){left:0;top:0;height:2px;width:14px;}
+/* 右下角 */
+#cursor i:nth-child(3){right:0;bottom:0;width:2px;height:14px;}
+#cursor i:nth-child(4){right:0;bottom:0;height:2px;width:14px;}
+/* 吸附按钮时，角变长一点，像把按钮“夹”住 */
+#cursor.snap i:nth-child(1),
+#cursor.snap i:nth-child(3){height:20px;}
+#cursor.snap i:nth-child(2),
+#cursor.snap i:nth-child(4){width:20px;}
+
+/* ==========================================================
+   底部
+   ========================================================== */
+.hud{
+  position:fixed; z-index:60; left:50%; bottom:96px; transform:translateX(-50%);
+  display:flex; align-items:center; gap:14px;
+  opacity:0; pointer-events:none; transition:opacity .8s;
+}
+#space.on ~ .hud{opacity:1; pointer-events:auto;}
+
+/* 底部频谱 */
+.audio-bar{
+  position:fixed; z-index:60; left:0; right:0; bottom:0;
+  height:76px;
+  display:flex; align-items:flex-end; gap:10px;
+  padding:0 18px 12px;
+  opacity:0; pointer-events:none; transition:opacity .9s;
+  background:linear-gradient(180deg, transparent, rgba(0,0,0,.55));
+}
+#space.on ~ .audio-bar{opacity:1; pointer-events:auto;}
+
+#spec{
+  flex:1; height:54px; display:block;
+  pointer-events:none;
+}
+
+#play{
+  flex:0 0 auto; width:40px; height:40px; margin-bottom:4px;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(20,20,30,.5);
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.7); cursor:pointer;
+  font-family:var(--mono); font-size:11px;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  transition:background .3s, border-color .3s, color .3s;
+}
+#play:hover{background:rgba(40,40,60,.7); border-color:rgba(255,255,255,.34); color:#fff;}
+
+/* 复制提示 */
+.toast{
+  position:fixed; z-index:200; left:50%; bottom:140px;
+  transform:translate(-50%, 12px);
+  padding:11px 20px;
+  background:rgba(10,10,16,.9);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.06em;
+  opacity:0; pointer-events:none;
+  transition:opacity .25s ease, transform .25s ease;
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.toast.on{ opacity:1; transform:translate(-50%, 0); }
+
+.btn{
+  width:56px; height:44px; padding:0; display:flex; align-items:center; justify-content:center;
+  background:rgba(20,20,30,.55);
+  border:1px solid rgba(255,255,255,.16);
+  color:rgba(255,255,255,.75); cursor:pointer;
+  font-family:var(--mono); font-size:17px; line-height:1; letter-spacing:0;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  transition:background .3s, border-color .3s, color .3s;
+}
+.btn:hover{background:rgba(40,40,60,.75); border-color:rgba(255,255,255,.34); color:#fff;}
+.counter{
+  font-family:var(--mono); font-size:10px; letter-spacing:.26em;
+  color:rgba(255,255,255,.45); min-width:70px; text-align:center;
+}
+.counter b{color:#fff; font-weight:500;}
+</style>
+</head>
+<body class="no-cursor">
+
+<!-- ============ 开场 ============ -->
+<div id="intro">
+  <img id="hero" src="assets/wp-eye.jpg" alt="">
+  <div id="frags"></div>
+  <div class="intro-text">
+    <p class="intro-kicker">prism · portfolio</p>
+    <h1 class="intro-name">你的名字</h1>
+    <p class="intro-sub">有些东西碎了，才看得见光</p>
+  </div>
+  <div class="scroll-hint"><span>向下滑</span><span class="arw"></span></div>
+</div>
+
+<!-- ============ 第二幕 ============ -->
+<div id="space">
+  <canvas id="grid"></canvas>
+  <div id="wave"></div>
+  <div id="vig"></div>
+  <div id="cam"><div id="world"></div></div>
+</div>
+
+<div id="cursor"><i></i><i></i><i></i><i></i></div>
+
+<nav class="hud">
+  <button class="btn" id="prev" aria-label="上一张">←</button>
+  <button class="btn" id="next" aria-label="下一张">→</button>
+</nav>
+
+<div class="audio-bar">
+  <button id="play" aria-label="播放/暂停">▶</button>
+  <canvas id="spec"></canvas>
+</div>
+
+<audio id="bgm" src="assets/bgm.mp3" loop preload="auto"></audio>
+
+<script>
+/* ==========================================================
+   数据
+   ========================================================== */
+const CARDS = [
+  { n:"01", name:"介绍", img:"assets/prism-c1.jpg", title:"陈浩然",
+    lead:"武汉理工大学的一名学生。喜欢把东西做出来，也喜欢弄明白它为什么这么跑。",
+    chips:["武汉理工大学","学生"],
+    links:[
+      { label:"WHUT", href:"https://www.whut.edu.cn", icon:"globe", color:"#007BFF" }
+    ],
+    x:0, y:0, z:0, ry:0 },
+
+  { n:"02", name:"兴趣", img:"assets/girl1.jpg", pos:"50% 18%", zoom:1.75, focus:"23%", title:"兴趣爱好",
+    lead:"喜欢玩游戏——CS2 打得最多，也玩一些单机；闲下来会看小说，一坐就是一整晚。",
+    chips:["CS2","单机游戏","小说"],
+    x:1369, y:-520, z:-499, ry:-45 },
+
+  { n:"03", name:"经历", img:"assets/girl2.jpg", pos:"50% 22%", zoom:1.75, focus:"21%", title:"个人经历",
+    lead:"在武汉理工读书，走过几段实习，做过几个半途而废的项目。回头看，那些没做完的反而教会我最多。",
+    chips:["武汉理工大学","实习 × 2","还在路上"],
+    x:-36, y:460, z:-1516, ry:40 },
+
+  { n:"04", name:"作品", img:"assets/girl3.jpg", pos:"50% 16%", zoom:1.8, focus:"23%", title:"作品展示",
+    lead:"下面几个是准备放上去的项目——点开能看，内容还在填。",
+    chips:["占位中","陆续接入"],
+    links:[
+      { label:"work1", href:"homepage-prism.html", icon:"code", color:"#28A745" },
+      { label:"work2", href:"space-move.html",     icon:"code", color:"#007BFF" },
+      { label:"work3", href:"grid-demo.html",      icon:"code", color:"#6F42C1" },
+      { label:"GitHub", href:"https://github.com/", icon:"github", color:"#24292e", soon:true }
+    ],
+    x:1176, y:-650, z:-2336, ry:-50 },
+
+  { n:"05", name:"愿景", img:"assets/girl4.jpg", pos:"50% 24%", zoom:1.75, focus:"25%", title:"未来愿景",
+    lead:"好好生活，多学一点，多经历一点。不着急，但不停。",
+    chips:["2026","keep going"],
+    x:-1399, y:520, z:-3369, ry:45 },
+
+  { n:"06", name:"关于", img:"assets/girl5.jpg", pos:"50% 40%", zoom:1.12, focus:"42%", title:"关于 / 联系",
+    lead:"欢迎来信，直接说事，不用寒暄。",
+    chips:["QQ","电话","微信"],
+    links:[
+      { label:"QQ",     href:"mailto:3495925961@qq.com", icon:"qq", color:"#12B7F5" },
+      { label:"ring",   href:"tel:18975157072",          icon:"phone", color:"#28A745" },
+      { label:"wechat", href:"#",                        icon:"wechat", color:"#07C160",
+        copy:"dac1234ygking", toast:"微信号已复制：dac1234ygking" },
+      { label:"GitHub", href:"https://github.com/",      icon:"github", color:"#24292e" },
+      { label:"X",      href:"https://x.com/",           icon:"x", color:"#000" }
+    ],
+    x:36, y:-450, z:-4396, ry:-40 }
+];
+
+const D = 1300;
+const rad = d => d * Math.PI / 180;
+
+CARDS.forEach(c => {
+  c.cam = {
+    x: c.x + Math.sin(rad(c.ry)) * D,
+    y: c.y,
+    z: c.z + Math.cos(rad(c.ry)) * D,
+    ry: c.ry
+  };
+});
+
+const OVERVIEW = { x: 191, y: -107, z: 3818, ry: 0, overview: true };
+const STOPS = CARDS.map(c => c.cam).concat([OVERVIEW]);
+
+/* ==========================================================
+   碎片（4×3 = 12 块，顶点扰动，无缝）
+   ========================================================== */
+(function buildFrags(){
+  const COLS = 4, ROWS = 3;
+  const pts = [];
+  for (let r = 0; r <= ROWS; r++){
+    pts[r] = [];
+    for (let c = 0; c <= COLS; c++){
+      const edge = (r === 0 || r === ROWS || c === 0 || c === COLS);
+      const jx = edge ? 0 : (Math.random() - .5) * .22;
+      const jy = edge ? 0 : (Math.random() - .5) * .22;
+      pts[r][c] = { x: (c / COLS + jx) * 100, y: (r / ROWS + jy) * 100 };
+    }
+  }
+
+  const box = document.getElementById("frags");
+  const list = [];
+
+  for (let r = 0; r < ROWS; r++){
+    for (let c = 0; c < COLS; c++){
+      const p1 = pts[r][c], p2 = pts[r][c+1], p3 = pts[r+1][c+1], p4 = pts[r+1][c];
+      const el = document.createElement("div");
+      el.className = "frag";
+      el.style.clipPath = `polygon(${p1.x}% ${p1.y}%, ${p2.x}% ${p2.y}%, ${p3.x}% ${p3.y}%, ${p4.x}% ${p4.y}%)`;
+      box.appendChild(el);
+
+      // 从画面中心向外飞散的方向
+      const cx = (p1.x + p2.x + p3.x + p4.x) / 4 / 100;
+      const cy = (p1.y + p2.y + p3.y + p4.y) / 4 / 100;
+      const dx = cx - .5, dy = cy - .5;
+      const len = Math.hypot(dx, dy) || 1;
+      list.push({
+        el,
+        vx: (dx / len) * (260 + Math.random() * 220),
+        vy: (dy / len) * (260 + Math.random() * 220),
+        /* 关键：z 有正有负 —— 有的朝你飞出来，有的往屏幕里陷 */
+        vz: (Math.random() - .38) * 900,
+        /* 每块再歪一点，像真的被敲碎的玻璃 */
+        rx: (Math.random() - .5) * 46,
+        ry: (Math.random() - .5) * 46,
+        rot: (Math.random() - .5) * 70,
+        sc: .68 + Math.random() * .62,
+        delay: Math.random() * 110
+      });
+    }
+  }
+  window.__frags = list;
+})();
+
+/* ==========================================================
+   开场 → 破碎 → 第二幕
+   ========================================================== */
+const intro = document.getElementById("intro");
+const spaceEl = document.getElementById("space");
+let started = false;
+
+function breakAndEnter(){
+  if (started) return;
+  started = true;
+
+  intro.classList.add("breaking");
+
+  // 轻震
+  intro.classList.add("shake");
+  setTimeout(() => intro.classList.remove("shake"), 300);
+
+  // 让 hero 淡出，由碎片接管视觉
+  const hero = document.getElementById("hero");
+  hero.style.opacity = "0";
+
+  // 碎片飞散（碎片 = 幕布，卡片藏在后面）
+  window.__frags.forEach(f => {
+    setTimeout(() => {
+      f.el.style.transition = "transform 1.15s cubic-bezier(.16,.9,.24,1), opacity 1.15s ease";
+      f.el.style.transform =
+        `translate3d(${f.vx}px, ${f.vy}px, ${f.vz}px)` +
+        ` rotateX(${f.rx}deg) rotateY(${f.ry}deg) rotateZ(${f.rot}deg) scale(${f.sc})`;
+      f.el.style.opacity = "0";
+    }, f.delay);
+  });
+
+  // 碎片飞完 → 第二幕浮出（卡片先全藏起来）
+  setTimeout(() => {
+    intro.classList.add("gone");
+    intro.style.display = "none";
+
+    spaceEl.style.transition = "none";
+    spaceEl.classList.add("on");
+    document.getElementById("cursor").classList.add("show");
+    layout();
+
+    // 全部藏起来，等着一一浮现
+    els.forEach(el => {
+      el.style.transition = "none";
+      el.style.opacity = "0";
+      el.style.filter = "blur(16px) brightness(1.7)";
+    });
+
+    requestAnimationFrame(() => requestAnimationFrame(revealCards));
+  }, 1260);
+}
+
+/* 卡片一一浮现：第一张快、有冲击，其余错开陆续 */
+function revealCards(){
+  els.forEach((el, i) => {
+    const delay = i === 0 ? 60 : 260 + (i - 1) * 110;
+    const dur   = i === 0 ? .30 : .5;
+    el.style.transition =
+      `opacity ${dur}s cubic-bezier(.2,.7,.3,1) ${delay}ms,` +
+      `filter ${dur}s cubic-bezier(.2,.7,.3,1) ${delay}ms`;
+    el.style.opacity = "1";
+    el.style.filter = "none";
+  });
+
+  // 浮完之后把雾化交还给相机逻辑
+  setTimeout(() => {
+    els.forEach(el => { el.style.transition = ""; });
+    updateFog(STOPS[idx]);
+  }, 260 + 5 * 110 + 520);
+}
+
+/* 滚轮触发 */
+let lock = false;
+let wheelLock = false;
+
+/* 一个监听器管两件事：没进场时触发破碎，进场后翻页。
+   之前拆成两个监听器，同一次滚轮会同时命中两边 —— 于是一滑就停在了第 2 张。 */
+window.addEventListener("wheel", e => {
+  if (!started){
+    if (e.deltaY > 6 && !lock){
+      lock = true;
+      breakAndEnter();
+    }
+    return;
+  }
+  if (wheelLock || Math.abs(e.deltaY) < 10) return;
+  wheelLock = true;
+  e.deltaY > 0 ? go(idx + 1) : go(idx - 1);
+  setTimeout(() => { wheelLock = false; }, 750);
+}, {passive:true});
+
+/* 触摸触发 */
+let ty0 = null;
+window.addEventListener("touchstart", e => { ty0 = e.touches[0].clientY; }, {passive:true});
+window.addEventListener("touchend", e => {
+  if (!started && ty0 !== null && (ty0 - e.changedTouches[0].clientY) > 40) breakAndEnter();
+  ty0 = null;
+}, {passive:true});
+
+document.addEventListener("keydown", e => {
+  if (!started) {
+    if (["ArrowDown","Enter"," ","Escape"].includes(e.key)) { e.preventDefault(); breakAndEnter(); }
+    return;
+  }
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter"){ e.preventDefault(); go(idx + 1); }
+  if (e.key === "ArrowLeft"){ e.preventDefault(); go(idx - 1); }
+});
+
+/* ==========================================================
+   格子（白光）
+   ========================================================== */
+(function gridBg(){
+  const cvs = document.getElementById("grid");
+  const ctx = cvs.getContext("2d");
+  const G = 40;
+  let W = 0, H = 0, dpr = Math.min(devicePixelRatio || 1, 2);
+  let ox = 0, oy = 0;
+
+  function resize(){
+    W = innerWidth; H = innerHeight;
+    cvs.width = W * dpr; cvs.height = H * dpr;
+    cvs.style.width = W + "px"; cvs.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  const lit = new Map();
+  const LIFE = 90;
+
+  window.addEventListener("mousemove", e => {
+    const key = Math.floor((e.clientX - ox) / G) + "," + Math.floor((e.clientY - oy) / G);
+    if (!lit.has(key)){
+      lit.set(key, { t: performance.now() });
+    }
+  }, {passive:true});
+
+  function frame(now){
+    ox = (ox + 0.10) % G;
+    oy = (oy - 0.06 + G) % G;
+
+    ctx.clearRect(0, 0, W, H);
+
+    ctx.strokeStyle = "rgba(255,255,255,.075)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = ox - G; x <= W + G; x += G){ ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, H); }
+    for (let y = oy - G; y <= H + G; y += G){ ctx.moveTo(0, y + .5); ctx.lineTo(W, y + .5); }
+    ctx.stroke();
+
+    // 白光
+    for (const [key, v] of lit){
+      if (now - v.t > LIFE){ lit.delete(key); continue; }
+      const [cx, cy] = key.split(",").map(Number);
+      ctx.fillStyle = "rgba(255,255,255,.92)";
+      ctx.fillRect(cx * G + ox, cy * G + oy, G - 1, G - 1);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  requestAnimationFrame(frame);
+})();
+
+/* ==========================================================
+   卡片 + 相机
+   ========================================================== */
+const world = document.getElementById("world");
+const els = [];
+
+/* 图标（内联 SVG，离线可用） */
+const ICONS = {
+  github: '<path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.3 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/>',
+  x: '<path d="M18.9 2H22l-7.1 8.1L23 22h-6.6l-5.1-6.7L5.4 22H2.3l7.6-8.7L1.7 2h6.7l4.6 6.1L18.9 2zm-1.1 18h1.8L7.3 3.9H5.4L17.8 20z"/>',
+  mail: '<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 8.2L4.6 7H19.4L12 13.2zM4 8.9V17h16V8.9l-8 6.4-8-6.4z"/>',
+  phone: '<path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.2c1.2.4 2.4.6 3.6.6a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.2.2 2.4.6 3.6a1 1 0 0 1-.2 1z"/>',
+  /* QQ：圆标里嵌 QQ 两个字，比画企鹅可辨识 */
+  qq: '<circle cx="12" cy="12" r="9.1" fill="none" stroke="currentColor" stroke-width="1.7"/>' +
+      '<text x="12" y="12" text-anchor="middle" dominant-baseline="central" font-size="8.6" font-weight="700" fill="currentColor" font-family="Arial,Helvetica,sans-serif" letter-spacing=".3">QQ</text>',
+  /* 微信：双气泡 */
+  wechat: '<path d="M8.9 3.2C5 3.2 1.9 5.7 1.9 8.8c0 1.8 1 3.4 2.6 4.4l-.7 2.2 2.6-1.3c.7.2 1.5.3 2.3.3h.4a5.5 5.5 0 0 1-.2-1.5c0-3 3-5.5 6.7-5.5h.5C15.6 4.9 12.6 3.2 8.9 3.2zm-2.4 2.6a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zm4.7 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8z"/>' +
+         '<path d="M22.1 13.4c0-2.6-2.5-4.7-5.6-4.7s-5.6 2.1-5.6 4.7 2.5 4.7 5.6 4.7c.6 0 1.3-.1 1.9-.3l2.2 1.1-.6-2c1.3-.8 2.1-2 2.1-3.5zm-7.4-1.6a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6zm3.8 0a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6z"/>',
+  globe: '<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8zM12 4c.8 1.2 1.4 2.5 1.8 4h-3.6C10.6 6.5 11.2 5.2 12 4zM4.3 14A8 8 0 0 1 4 12c0-.7.1-1.4.3-2h3.3a17 17 0 0 0 0 4H4.3zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 0 1 5.1 16zm2.9-8H5.1a8 8 0 0 1 4.3-3.6A15.7 15.7 0 0 0 8 8zm4 12c-.8-1.2-1.4-2.5-1.8-4h3.6c-.4 1.5-1 2.8-1.8 4zm2.2-6H9.8a15 15 0 0 1 0-4h4.4a15 15 0 0 1 0 4zm.5 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6zM16.4 14a17 17 0 0 0 0-4h3.3c.2.6.3 1.3.3 2s-.1 1.4-.3 2h-3.3z"/>',
+  code: '<path d="M8.7 17.3 3.4 12l5.3-5.3 1.4 1.4L6.2 12l3.9 3.9-1.4 1.4zm6.6 0-1.4-1.4 3.9-3.9-3.9-3.9 1.4-1.4 5.3 5.3-5.3 5.3z"/>'
+};
+
+CARDS.forEach(c => {
+  const el = document.createElement("article");
+  el.className = "card";
+  el.style.transform = `translate3d(${c.x}px, ${c.y}px, ${c.z}px) rotateY(${c.ry}deg)`;
+  el.innerHTML = `
+    <div class="shot"><img src="${c.img}" alt=""
+      style="object-position:${c.pos || "50% 40%"};--zoom:${c.zoom || 1.7};--focus:${c.focus || "24%"}">
+      <span class="num">${c.n}</span></div>
+    <div class="body">
+      <p class="kicker">${c.n} — ${c.name}</p>
+      <h2>${c.title}</h2>
+      <p class="lead">${c.lead}</p>
+      <div class="chips">${c.chips.map(t => `<span class="chip">${t}</span>`).join("")}</div>
+      ${c.links && c.links.length
+        ? `<div class="links">${c.links.map(l =>
+            `<a class="lnk${l.soon ? " dim" : ""}" href="${l.href}"` +
+            ` style="--brand:${l.color || "#6C757D"}"` +
+            (l.copy ? ` data-copy="${l.copy}" data-toast="${l.toast || "已复制"}"` : "") +
+            ` target="_blank" rel="noopener noreferrer">` +
+            `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[l.icon] || ICONS.globe}</svg>` +
+            `<span>${l.label}</span></a>`
+          ).join("")}</div>`
+        : ""}
+    </div>`;
+  world.appendChild(el);
+  els.push(el);
+});
+
+let idx = 0, animating = false;
+
+function applyCamera(i, instant){
+  const cam = STOPS[i];
+  if (instant) world.style.transition = "none";
+  world.style.transform =
+    `rotateY(${-cam.ry}deg) translate3d(${-cam.x}px, ${-cam.y}px, ${-cam.z}px)`;
+  if (instant){ void world.offsetWidth; world.style.transition = ""; }
+
+  updateFog(cam);
+}
+
+function updateFog(cam){
+  const ry = cam.ry;
+  const vx = -Math.sin(rad(ry));
+  const vz = -Math.cos(rad(ry));
+
+  CARDS.forEach((c, i) => {
+    const rx = c.x - cam.x, ry2 = c.y - cam.y, rz = c.z - cam.z;
+    const dot = rx * vx + rz * vz;
+
+    const dist = Math.sqrt(rx*rx + ry2*ry2 + rz*rz);
+    const extra = Math.max(0, dist - D);
+    let t = Math.min(1, extra / 3400);
+    if (cam.overview) t *= 0.5;
+
+    let fade = 1;
+    if (dot < 700) fade = Math.max(0, dot / 700);
+
+    const op = (1 - t * 0.32) * fade;
+    els[i].style.filter = `blur(${(t*3).toFixed(2)}px) brightness(${(1 - t*0.5).toFixed(2)})`;
+    els[i].style.opacity = op.toFixed(3);
+    els[i].style.zIndex = String(100 - Math.round(t * 40));
+  });
+}
+
+function layout(){
+  applyCamera(idx, true);
+}
+
+function go(i){
+  if (!started || animating) return;
+  animating = true;
+  idx = ((i % STOPS.length) + STOPS.length) % STOPS.length;
+  applyCamera(idx, false);
+  setTimeout(() => { animating = false; }, 1250);
+}
+
+document.getElementById("next").addEventListener("click", () => go(idx + 1));
+document.getElementById("prev").addEventListener("click", () => go(idx - 1));
+
+/* （滚轮监听已合并到上面那一个，这里不再重复注册） */
+
+/* ==========================================================
+   一键复制（微信那类不能直接跳转的联系方式）
+   ========================================================== */
+(function copyLinks(){
+  let toastEl = null, toastTimer = null;
+
+  function showToast(text){
+    if (!toastEl){
+      toastEl = document.createElement("div");
+      toastEl.className = "toast";
+      document.body.appendChild(toastEl);
+    }
+    toastEl.textContent = text;
+    toastEl.classList.remove("on");
+    // 用 setTimeout 而不是 rAF：某些环境（后台标签/无头）rAF 不跑，提示就永远不出现
+    setTimeout(() => toastEl.classList.add("on"), 20);
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove("on"), 1900);
+  }
+
+  document.addEventListener("click", async e => {
+    const a = e.target.closest && e.target.closest(".lnk[data-copy]");
+    if (!a) return;
+    e.preventDefault();
+
+    const text = a.getAttribute("data-copy");
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch (_){
+      // file:// 或旧浏览器：退回 execCommand
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.cssText = "position:fixed;opacity:0;left:-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        ok = document.execCommand("copy");
+        ta.remove();
+      } catch (_e){}
+    }
+    showToast(ok ? (a.getAttribute("data-toast") || "已复制") : text);
+  });
+})();
+
+/* ==========================================================
+   光标：两个角，平时 40px（跟格子一样大）；
+   靠近 ← → 时吸附过去，放大到刚好框住那个按钮
+   ========================================================== */
+(function cursor(){
+  const el = document.getElementById("cursor");
+  let x = innerWidth/2, y = innerHeight/2;
+  let tx = x, ty = y;
+  let snapped = null;
+
+  window.addEventListener("mousemove", e => {
+    x = e.clientX; y = e.clientY;
+    el.classList.add("show");
+  }, {passive:true});
+
+  document.addEventListener("mouseleave", () => el.classList.remove("show"));
+  document.addEventListener("mouseenter", () => el.classList.add("show"));
+
+  /* 吸附到任意按钮（.btn 翻页键 / 卡片里的 .lnk 链接）——用委托，
+     因为卡片是 JS 生成的，链接按钮出现得比这里晚 */
+  function snapTo(btn){
+    snapped = btn;
+    const r = btn.getBoundingClientRect();
+    el.style.setProperty("--w", (r.width + 18) + "px");
+    el.style.setProperty("--h", (r.height + 18) + "px");
+    el.classList.add("snap");
+  }
+  function unsnap(){
+    snapped = null;
+    el.style.setProperty("--w", "40px");
+    el.style.setProperty("--h", "40px");
+    el.classList.remove("snap");
+  }
+
+  const isBtn = t => t && t.closest && t.closest(".lnk, .btn");
+
+  document.addEventListener("mouseover", e => {
+    const b = isBtn(e.target);
+    if (b) snapTo(b);
+  });
+
+  document.addEventListener("mouseout", e => {
+    const from = isBtn(e.target);
+    const to = isBtn(e.relatedTarget);
+    if (from && !to) unsnap();     // 从按钮移出到空白才缩回去
+  });
+
+  (function loop(){
+    if (snapped){
+      const r = snapped.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      tx += (cx - tx) * 0.28;
+      ty += (cy - ty) * 0.28;
+    } else {
+      tx += (x - tx) * 0.35;
+      ty += (y - ty) * 0.35;
+    }
+    el.style.left = tx + "px";
+    el.style.top = ty + "px";
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ==========================================================
+   音乐 + 底部频谱
+   ========================================================== */
+(function audio(){
+  const audioEl = document.getElementById("bgm");
+  const playBtn = document.getElementById("play");
+  const cvs = document.getElementById("spec");
+  const sctx = cvs.getContext("2d");
+
+  let actx = null, analyser = null, srcNode = null, bins = null;
+  /* mode: null=还没定 / "webaudio"=能分析（有真频谱） / "native"=原生播放（没有频谱）
+     file:// 下绝不能碰 createMediaElementSource —— 浏览器会把本地音频当成
+     跨域资源，接进 AudioContext 之后直接静音，表现就是「在播但没声音」。 */
+  let mode = null;
+
+  function initAudio(){
+    if (mode) return;
+
+    if (location.protocol === "file:"){
+      mode = "native";
+      return;
+    }
+
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      actx = new Ctx();
+      analyser = actx.createAnalyser();
+      analyser.fftSize = 512;
+      analyser.smoothingTimeConstant = .82;
+      srcNode = actx.createMediaElementSource(audioEl);
+      srcNode.connect(analyser);
+      analyser.connect(actx.destination);
+      bins = new Uint8Array(analyser.frequencyBinCount);
+      mode = "webaudio";
+      window.__actx = actx;
+    } catch (err){
+      mode = "native";
+    }
+  }
+
+  async function startPlayback(){
+    if (!mode) initAudio();
+    if (mode === "webaudio" && actx){
+      try { await actx.resume(); } catch (_) {}
+    }
+    if (audioEl.paused){
+      try {
+        await audioEl.play();
+        playBtn.textContent = "❚❚";
+      } catch (_) {}
+    }
+    audioEl.muted = false;
+    audioEl.volume = 1;
+  }
+
+  async function kickoff(){
+    await startPlayback();
+  }
+
+  playBtn.addEventListener("click", async e => {
+    e.stopPropagation();
+    if (!mode) initAudio();
+    if (mode === "webaudio" && actx){
+      try { await actx.resume(); } catch (_) {}
+    }
+
+    if (audioEl.paused){
+      try {
+        await audioEl.play();
+        playBtn.textContent = "❚❚";
+      } catch (_) {}
+    } else {
+      audioEl.pause();
+      playBtn.textContent = "▶";
+    }
+  });
+
+  /* 浏览器不允许无交互播放：只认真实点击，绝不提前建 AudioContext */
+  let armed = true;
+  document.addEventListener("click", () => {
+    if (!armed) return;
+    armed = false;
+    kickoff();
+  });
+
+  /* ---------- 频谱 ---------- */
+  const N = 72;
+
+  function fitCanvas(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    const w = cvs.clientWidth || 1;
+    const h = cvs.clientHeight || 54;
+    if (cvs.width !== Math.round(w * dpr) || cvs.height !== Math.round(h * dpr)){
+      cvs.width = Math.round(w * dpr);
+      cvs.height = Math.round(h * dpr);
+      sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+  }
+
+  function draw(){
+    requestAnimationFrame(draw);
+    fitCanvas();
+
+    const w = cvs.clientWidth || 1;
+    const h = cvs.clientHeight || 54;
+    sctx.clearRect(0, 0, w, h);
+
+    if (mode !== "webaudio" || !analyser){
+      // 没有分析能力（file:// 打开，或还没点播放）：画一条很淡的基线
+      sctx.fillStyle = "rgba(255,255,255,.12)";
+      sctx.fillRect(0, h - 1, w, 1);
+      return;
+    }
+    analyser.getByteFrequencyData(bins);
+
+    const gap = 2;
+    const bw = (w - gap * (N - 1)) / N;
+
+    for (let i = 0; i < N; i++){
+      // 非线性取样：低频更活跃、高频拉长
+      const idx = Math.floor(Math.pow(i / N, 1.55) * (bins.length * 0.72));
+      // 高频补一点增益，否则右边永远贴地
+      const boost = 1 + Math.pow(i / N, 1.1) * 2.4;
+      const v = Math.min(1, (bins[idx] / 255) * boost);
+      const bh = Math.max(1.5, v * h);
+      const x = i * (bw + gap);
+      sctx.fillStyle = `rgba(255,255,255,${(0.16 + v * 0.74).toFixed(3)})`;
+      sctx.fillRect(x, h - bh, bw, bh);
+    }
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ==========================================================
+   启动
+   ========================================================== */
+const _p = new URLSearchParams(location.search);
+if (_p.get("break")){
+  // 只为截图：延时触发碎裂，好抓到中间帧
+  setTimeout(breakAndEnter, 80);
+} else if (_p.get("skip")){
+  started = true;
+  intro.style.display = "none";
+  spaceEl.style.transition = "none";      // 直给，避免截图/深链时停在半透明
+  spaceEl.classList.add("on");
+  document.getElementById("cursor").classList.add("show");
+  layout();
+  if (_p.get("i")) { idx = Number(_p.get("i")) % STOPS.length; layout(); }
+} else {
+  layout();
+}
+</script>
+</body>
+</html>
