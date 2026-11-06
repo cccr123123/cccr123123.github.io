@@ -566,6 +566,11 @@ function breakAndEnter(){
 
   intro.classList.add("breaking");
 
+  // 顺着这次下滑试着放一下音乐。
+  // 多数浏览器会拒绝（滚轮不算用户手势），但 Chrome 的 MEI 达标后会放行；
+  // 失败就静默——后面第一次点击仍会补上。
+  try { if (typeof startAudioFromGesture === "function") startAudioFromGesture(); } catch (_) {}
+
   // 轻震
   intro.classList.add("shake");
   setTimeout(() => intro.classList.remove("shake"), 300);
@@ -988,6 +993,9 @@ document.getElementById("prev").addEventListener("click", () => go(idx - 1));
   async function kickoff(){
     await startPlayback();
   }
+
+  /* 暴露给外部（下滑进场时）调用：尽力尝试播放，失败静默 */
+  window.startAudioFromGesture = kickoff;
 
   playBtn.addEventListener("click", async e => {
     e.stopPropagation();
