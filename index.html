@@ -472,12 +472,15 @@ body.js-cursor-none{ cursor:none; }
     border:1px solid rgba(0,0,0,.12);
   }
 
-  /* 底部控制条 + 频谱 */
-  .hud{ bottom:74px; gap:10px; }
-  .btn{ width:52px; height:42px; font-size:16px; }
-  .audio-bar{ height:62px; padding:0 12px 10px; gap:8px; }
-  #spec{ height:34px; }
-  #play{ width:36px; height:36px; font-size:11px; }
+  /* 底部控制条 + 频谱：手机上五个按钮要挤在一行，得收窄 */
+  .hud{ bottom:70px; gap:6px; }
+  .hud-sep{ display:none; }
+  .btn{ width:44px; height:38px; font-size:14px; }
+  .btn svg{ width:15px; height:15px; }
+  .hud-sep{ height:20px; margin:0 1px; }
+  .audio-bar{ height:58px; padding:0 10px 8px; gap:7px; }
+  #spec{ height:30px; }
+  #play{ width:44px; height:38px; font-size:10px; margin-bottom:2px; }
 
   /* 手机上没有鼠标 */
   #cursor{ display:none !important; }
@@ -645,7 +648,7 @@ const CARDS = [
   { n:"07", name:"关于", img:"assets/girl5.jpg", pos:"50% 40%", zoom:1.05, focus:"42%", title:"关于 / 联系",
     lead:"欢迎来信，直接说事，不用寒暄。",
     chips:["QQ","电话","微信"],
-    links:[{ label:"QQ", href:"mailto:3495925961@qq.com", icon:"qq", color:"#12B7F5" },{ label:"ring", href:"#", icon:"phone", color:"#28A745", copy:"18975157072", toast:"电话已复制：18975157072" },{ label:"wechat", href:"#", icon:"wechat", color:"#07C160", copy:"dac1234ygking", toast:"微信号已复制：dac1234ygking" },{ label:"GitHub", href:"https://github.com/", icon:"github", color:"#24292e" },{ label:"X", href:"https://x.com/", icon:"x", color:"#000" }],
+    links:[{ label:"QQ", href:"mailto:3495925961@qq.com", icon:"qq", color:"#12B7F5" },{ label:"ring", href:"#", icon:"phone", color:"#0A84FF", copy:"18975157072", toast:"电话已复制：18975157072" },{ label:"wechat", href:"#", icon:"wechat", color:"#07C160", copy:"dac1234ygking", toast:"微信号已复制：dac1234ygking" },{ label:"GitHub", href:"https://github.com/", icon:"github", color:"#24292e" },{ label:"X", href:"https://x.com/", icon:"x", color:"#000" }],
     x:-1400, y:-950, z:-200, ry:-45 }
 ];
 
