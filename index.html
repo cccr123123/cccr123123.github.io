@@ -731,10 +731,15 @@ const STOPS = CARDS.map(c => c.cam).concat([OVERVIEW]);
 const intro = document.getElementById("intro");
 const spaceEl = document.getElementById("space");
 let started = false;
+/* 进场那一刻的时间戳：碎片还在飞、卡片还在浮的时候，不能让滚轮/滑动被算成翻页，
+   否则「下滑进场」这一下会顺手把镜头推到第二张卡。 */
+let enterAt = 0;
+const ENTER_GRACE = 1700;
 
 function breakAndEnter(){
   if (started) return;
   started = true;
+  enterAt = performance.now();
 
   intro.classList.add("breaking");
 
@@ -818,6 +823,8 @@ window.addEventListener("wheel", e => {
     }
     return;
   }
+  // 进场动画还没放完，这一下滚动不算翻页（不然一进去就是第二张）
+  if (performance.now() - enterAt < ENTER_GRACE) return;
   if (wheelLock || Math.abs(e.deltaY) < 10) return;
   wheelLock = true;
   e.deltaY > 0 ? go(idx + 1) : go(idx - 1);
@@ -834,8 +841,8 @@ window.addEventListener("touchend", e => {
   if (!started){
     if (dy > 40) breakAndEnter();
   } else if (Math.abs(dy) > 40 && !isAlbum()){
-    // 卡册模式交给 scroll-snap，不在这里翻页
-    go(dy > 0 ? idx + 1 : idx - 1);
+    // 进场动画期间的那一下上滑不算翻页
+    if (performance.now() - enterAt >= ENTER_GRACE) go(dy > 0 ? idx + 1 : idx - 1);
   }
   ty0 = null;
 }, {passive:true});
