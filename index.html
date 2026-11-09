@@ -461,7 +461,8 @@ body.js-cursor-none{ cursor:none; }
   .chip{ font-size:11px; padding:4px 9px; }
 
   .card .links{
-    grid-template-columns:repeat(2, minmax(0,1fr));
+    /* 卡片里的列数是行内样式给的（作品卡 4 列），手机上要压回去 */
+    grid-template-columns:repeat(2, minmax(0,1fr)) !important;
     padding-top:14px;
     gap:8px;
   }
@@ -486,10 +487,10 @@ body.js-cursor-none{ cursor:none; }
   #cursor{ display:none !important; }
 }
 
-/* 更窄的屏（小手机）再缩一档 */
+/* 更窄的屏（小手机）再缩一档：按钮保持两列，四五个作品也不会拉成一长条 */
 @media (max-width: 420px){
   .intro-name{ font-size:clamp(30px, 15vw, 54px); }
-  .card .links{ grid-template-columns:1fr; }
+  .card .links{ grid-template-columns:repeat(2, minmax(0,1fr)) !important; }
 }
 
 .btn{
@@ -630,9 +631,15 @@ const CARDS = [
     x:1550, y:0, z:-100, ry:-35 },
 
   { n:"04", name:"作品", img:"assets/girl3.jpg", pos:"50% 16%", zoom:1.35, focus:"23%", title:"作品展示",
-    lead:"下面几个是准备放上去的项目——点开能看，内容还在填。",
-    chips:["占位中","陆续接入"],
-    links:[{ label:"work1", href:"#", icon:"code", color:"#28A745", notice:"work1 还没上线，先占个位" },{ label:"work2", href:"#", icon:"code", color:"#007BFF", notice:"work2 还没上线，先占个位" },{ label:"work3", href:"#", icon:"code", color:"#6F42C1", notice:"work3 还没上线，先占个位" }],
+    lead:"四个已经上线的小东西：一个会自己跳秒的倒计时台、一间写字的博客、一间雨夜小店，还有一页天气。点按钮直接进，都能用。",
+    chips:["4 个都上线","点开即用"],
+    cols:4,
+    links:[
+      { label:"倒计时台", href:"https://cccr123123.github.io/countdown/", icon:"code", color:"#28A745", tip:"倒计时台 · 深海女仆工坊" },
+      { label:"cccr 博客", href:"https://cccr123123.github.io/blog/", icon:"globe", color:"#007BFF", tip:"cccr 博客 · 荒诞杂志风" },
+      { label:"雨夜小店", href:"https://cccr123123.github.io/rainy-store/", icon:"code", color:"#6F42C1", tip:"雨夜小店 · rainy-store" },
+      { label:"天气页", href:"https://cccr123123.github.io/vibe-portfolio/weather/index.html", icon:"globe", color:"#E8590C", tip:"天气页 · vibe-portfolio" }
+    ],
     x:1400, y:950, z:-200, ry:45 },
 
   { n:"05", name:"愿景", img:"assets/girl4.jpg", pos:"50% 24%", zoom:1.32, focus:"25%", title:"未来愿景",
@@ -946,11 +953,12 @@ CARDS.forEach(c => {
       <p class="lead">${c.lead}</p>
       <div class="chips">${c.chips.map(t => `<span class="chip">${t}</span>`).join("")}</div>
       ${c.links && c.links.length
-        ? `<div class="links">${c.links.map(l =>
+        ? `<div class="links" style="grid-template-columns:repeat(${c.cols || 3}, minmax(0, 1fr))">${c.links.map(l =>
             `<a class="lnk${l.soon ? " dim" : ""}" href="${l.href}"` +
             ` style="--brand:${l.color || "#6C757D"}"` +
             (l.copy ? ` data-copy="${l.copy}" data-toast="${l.toast || "已复制"}"` : "") +
             (l.notice ? ` data-notice="${l.notice}"` : "") +
+            (l.tip ? ` title="${l.tip}"` : "") +
             ` target="_blank" rel="noopener noreferrer">` +
             `<svg viewBox="0 0 24 24" aria-hidden="true">${ICONS[l.icon] || ICONS.globe}</svg>` +
             `<span>${l.label}</span></a>`
