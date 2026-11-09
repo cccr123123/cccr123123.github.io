@@ -1,0 +1,4003 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1a52c8" />
+<title>深海女仆工坊 · 倒计时台</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M4 12c0-2 2-3 4-2 3-6 15-6 18 1 2 0 4 1 4 3 0 3-3 4-6 4-2 6-14 6-17 0-2 1-3-1-3-3z' fill='%238fd0ff'/%3E%3C/svg%3E" />
+<style>
+  /* 站酷快乐体（SIL OFL 授权，已随页面放在 assets/ 里，不联网也能显示）：
+     中文的圆润卡通字形，配这套二次元配色正好。 */
+  @font-face{
+    font-family:"ZCOOL KuaiLe Local";
+    src:url("assets/zcool-kuaile.ttf") format("truetype");
+    font-weight:400;font-style:normal;font-display:swap;
+  }
+
+  /* ==========================================================================
+     深海女仆工坊 · 二次元配色
+     蓝：天空蓝 → 蔚蓝 → 深海蓝；点缀 樱花粉 / 浅葱青 / 奶油金
+     文字：粗圆体 + 深蓝描边 + 贴纸投影（卡通感）
+     ========================================================================== */
+  :root{
+    --sky:#7fc4ff;
+    --blue:#3f8dff;
+    --blue-2:#2f6fe0;
+    --blue-3:#1d4fa8;
+    --blue-4:#123a80;
+    --deep:#0b2a5e;
+    --abyss:#07204a;
+
+    --ink:#ffffff;
+    --ink-soft:#e7f3ff;
+    --dim:#bcd9ff;
+    --dim2:#9dc0ee;
+
+    --line:rgba(255,255,255,.28);
+    --line-strong:rgba(255,255,255,.55);
+    --glass:rgba(255,255,255,.16);
+    --glass2:rgba(255,255,255,.26);
+    --panel:rgba(12,58,132,.42);
+
+    --pink:#ffa6d5;
+    --pink-2:#ff7cc0;
+    --cyan:#8ff4ff;
+    --gold:#ffe9a8;
+
+    --stroke:#0d3a7d;
+    --stroke-2:#12448f;
+    --tab:tabular-nums;
+    --r:22px;
+
+    /* 站酷快乐体打头（中文卡通字形），后面挂本机圆体兜底：
+       数字/半角符号在快乐体里不好看，靠 .num 一类规则切回系统字体 */
+    --cute:"ZCOOL KuaiLe Local","ZCOOL KuaiLe","Microsoft YaHei UI","PingFang SC","Hiragino Sans GB",
+           "Yu Gothic UI","Meiryo UI","Segoe UI Variable Display","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+    --num:"Segoe UI Variable Display","Segoe UI","Microsoft YaHei UI","PingFang SC",system-ui,sans-serif;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{
+    margin:0;min-height:100svh;
+    background:var(--blue-3);
+    color:var(--ink);
+    font-family:var(--cute);
+    font-weight:500;
+    letter-spacing:.01em;
+    overflow-x:hidden;
+    padding:clamp(10px,1.6vh,20px) clamp(18px,3vw,52px) clamp(16px,3vh,34px);
+  }
+  button{font:inherit;color:inherit}
+  input{font:inherit}
+
+  /* ---------- 卡通描边文字工具类 ----------
+     注意：文字用了 background-clip:text（填充色透明）时就**不能**再用 text-shadow 画描边，
+     那样描边会盖在透明文字上、把字糊掉。这些地方一律用实色 + 八向描边。 */
+  .toon{
+    color:#fff;
+    text-shadow:
+      -3px 0 0 var(--stroke), 3px 0 0 var(--stroke), 0 -3px 0 var(--stroke), 0 3px 0 var(--stroke),
+      -2.4px -2.4px 0 var(--stroke), 2.4px -2.4px 0 var(--stroke), -2.4px 2.4px 0 var(--stroke), 2.4px 2.4px 0 var(--stroke),
+      0 6px 0 var(--stroke), 0 12px 18px rgba(4,22,54,.55);
+  }
+
+  /* ==========================================================================
+     背景：亮蓝海水 + 雾 + 雨丝 + 蝴蝶（对着 DSH 那张"雨窗蝴蝶"海报的调子做）
+     ========================================================================== */
+  .sky,.rays,.bubbles,.stars,.noise,.rain,.flutter{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+  .sky{
+    z-index:0;
+    background:
+      radial-gradient(58vmax 42vmax at 52% 3%, rgba(255,255,255,.70), rgba(226,242,255,.28) 32%, transparent 66%),
+      radial-gradient(40vmax 34vmax at 12% 6%, rgba(168,220,255,.44), transparent 60%),
+      radial-gradient(36vmax 32vmax at 88% 12%, rgba(120,255,240,.28), transparent 62%),
+      radial-gradient(46vmax 40vmax at 82% 88%, rgba(255,170,220,.30), transparent 64%),
+      radial-gradient(58vmax 46vmax at 16% 96%, rgba(90,200,255,.42), transparent 66%),
+      linear-gradient(170deg,#4f9df2 0%,#2f74dd 24%,#2557c0 52%,#1b47a0 78%,#123a80 100%);
+    animation:breathe 24s ease-in-out infinite;
+  }
+  .sky::after{ /* 上亮下暗：顶部留出"窗外天光"，底部压深保证白字可读 */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(244,251,255,.24),rgba(120,175,245,.08) 26%,rgba(8,32,80,.36) 100%);
+  }
+  @keyframes breathe{
+    0%,100%{filter:saturate(1.02) brightness(1)}
+    50%{filter:saturate(1.14) brightness(1.06)}
+  }
+
+  /* 胶片颗粒（用 SVG 湍流生成，不依赖任何图片文件） */
+  .noise{
+    z-index:1;opacity:.34;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+
+  /* 蝴蝶（翅膀用 data-URI 的 SVG 画，静态文件零依赖） */
+  .butterfly{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 52'%3E%3Cg fill='%23cfe6ff' fill-opacity='0.95' stroke='%23ffffff' stroke-width='3' stroke-linejoin='round'%3E%3Cpath d='M31 26C22 4 6 2 4 12c-2 9 9 17 20 18-8 2-14 9-9 16 5 7 15 1 17-9z'/%3E%3Cpath d='M33 26c9-22 25-24 27-14 2 9-9 17-20 18 8 2 14 9 9 16-5 7-15 1-17-9z'/%3E%3C/g%3E%3Cpath d='M32 12c2 8 2 22 0 30' stroke='%234a76b4' stroke-width='4.2' stroke-linecap='round'/%3E%3Cpath d='M30 11c-3-4-6-5-8-4M34 11c3-4 6-5 8-4' stroke='%234a76b4' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
+  }
+
+  /* 雨丝：跟着海报的"隔窗看海"，斜斜落下的细线 */
+  .rain{z-index:1;overflow:hidden;opacity:.75}
+  .rain i{
+    position:absolute;top:-16vh;width:2px;height:16vh;border-radius:2px;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.98),transparent);
+    animation:fall linear infinite;
+  }
+  @keyframes fall{
+    0%{transform:translate3d(0,-16vh,0);opacity:0}
+    12%{opacity:.9}
+    100%{transform:translate3d(-4vw,118vh,0);opacity:0}
+  }
+
+  /* 蝴蝶：海报里的主角，半透明地在雾里飘 */
+  .flutter{z-index:1;overflow:hidden}
+  .flutter i{
+    position:absolute;width:76px;height:62px;opacity:.62;
+    filter:drop-shadow(0 10px 16px rgba(6,26,66,.55)) drop-shadow(0 2px 0 rgba(255,255,255,.6)) drop-shadow(0 0 18px rgba(226,242,255,.7));
+    --br:0deg;
+    transform:rotate(var(--br));
+    animation:flit 26s ease-in-out infinite;
+    background-repeat:no-repeat;background-size:contain;
+  }
+  @keyframes flit{
+    0%{transform:translate3d(0,0,0) rotate(calc(var(--br) - 8deg))}
+    25%{transform:translate3d(2.4vw,-2vh,0) rotate(calc(var(--br) + 7deg)) scale(1.07)}
+    50%{transform:translate3d(5vw,1.4vh,0) rotate(calc(var(--br) - 5deg)) scale(.96)}
+    75%{transform:translate3d(2.2vw,3vh,0) rotate(calc(var(--br) + 6deg)) scale(1.04)}
+    100%{transform:translate3d(0,0,0) rotate(calc(var(--br) - 8deg))}
+  }
+
+  /* 雾气：海报里那层"隔窗"的白雾，底部再压一条深水带 */
+  .mist{position:fixed;inset:0;width:100%;height:100%;z-index:1;overflow:hidden;pointer-events:none}
+  .mist i{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, rgba(255,255,255,.42), rgba(226,242,255,.16) 52%, transparent 72%);
+    filter:blur(26px);
+    animation:drift2 28s ease-in-out infinite;
+  }
+  @keyframes drift2{
+    0%,100%{transform:translate3d(0,0,0) scale(1)}
+    50%{transform:translate3d(5vw,-2vh,0) scale(1.14)}
+  }
+  .swell{
+    position:fixed;left:-10vw;right:-10vw;bottom:-6vh;height:30vh;z-index:1;pointer-events:none;
+    background:radial-gradient(50% 70% at 50% 100%, rgba(190,235,255,.34), rgba(120,190,255,.12) 55%, transparent 78%);
+    filter:blur(4px);
+  }
+
+  /* 水下光柱 */
+  .rays{z-index:1;overflow:hidden;opacity:.62;mix-blend-mode:screen}
+  .rays i{
+    position:absolute;top:-30vh;height:150vh;width:17vw;
+    background:linear-gradient(180deg, rgba(255,255,255,.55), rgba(180,240,255,.20) 42%, transparent 76%);
+    filter:blur(24px);transform-origin:top center;
+    animation:sway 14s ease-in-out infinite;
+  }
+  .rays i:nth-child(1){left:5%;transform:rotate(11deg)}
+  .rays i:nth-child(2){left:31%;width:10vw;animation-duration:18s;animation-delay:-3s;transform:rotate(-7deg)}
+  .rays i:nth-child(3){left:59%;width:13vw;animation-duration:16s;animation-delay:-6s;transform:rotate(6deg)}
+  .rays i:nth-child(4){left:83%;width:9vw;animation-duration:20s;animation-delay:-9s;transform:rotate(-12deg)}
+  @keyframes sway{
+    0%,100%{opacity:.5;transform:translateX(0) rotate(8deg) scaleY(1)}
+    50%{opacity:.95;transform:translateX(2vw) rotate(3deg) scaleY(1.06)}
+  }
+
+  /* 背景小鲸鱼花纹：一层平铺的浅色鲸鱼剪影，慢慢上下浮动 */
+  .whales{
+    position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
+    opacity:.30;mix-blend-mode:soft-light;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='330' height='270' viewBox='0 0 110 90'%3E%3Cg fill='%23ffffff'%3E%3Cg transform='translate(6,6) scale(1.45)'%3E%3Cpath d='M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z'/%3E%3Ccircle cx='14' cy='14.6' r='1.5' fill='%231d4fa8' fill-opacity='.5'/%3E%3C/g%3E%3Cg transform='translate(58,44) scale(.95)'%3E%3Cpath d='M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z'/%3E%3Ccircle cx='14' cy='14.6' r='1.5' fill='%231d4fa8' fill-opacity='.5'/%3E%3C/g%3E%3Cg transform='translate(16,58) scale(.72)' fill-opacity='.8'%3E%3Cpath d='M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size:330px 270px;
+    animation:whaleDrift 26s ease-in-out infinite;
+  }
+  @keyframes whaleDrift{
+    0%,100%{background-position:0 0}
+    50%{background-position:16px -14px}
+  }
+  /* 水里再飘几只小鲸鱼（跟花纹错开，有点纵深） */
+  .doodles .little-whale{opacity:.5;animation-duration:22s}
+  /* 上浮气泡 */
+  .bubbles{z-index:1;overflow:hidden}
+  .bubbles i{
+    position:absolute;bottom:-12vh;border-radius:50%;
+    background:radial-gradient(circle at 32% 28%, #fff, rgba(226,246,255,.62) 42%, rgba(150,215,255,.18) 68%, transparent 72%);
+    box-shadow:0 0 12px rgba(255,255,255,.5), inset 0 0 10px rgba(255,255,255,.6);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translate3d(0,0,0) scale(.7);opacity:0}
+    12%{opacity:.95}
+    50%{transform:translate3d(3vw,-52vh,0) scale(1)}
+    88%{opacity:.8}
+    100%{transform:translate3d(-2vw,-104vh,0) scale(1.12);opacity:0}
+  }
+
+  /* 光斑 + 细格（测绘图纸） */
+  .stars{
+    z-index:1;
+    background-image:
+      radial-gradient(circle, rgba(255,255,255,.85) 0 1.4px, transparent 2px),
+      linear-gradient(to right,rgba(255,255,255,.10) 1px,transparent 1px),
+      linear-gradient(to bottom,rgba(255,255,255,.10) 1px,transparent 1px);
+    background-size:180px 180px, 76px 76px, 76px 76px;
+    mask-image:radial-gradient(82% 72% at 50% 32%,#000 14%,transparent 78%);
+    -webkit-mask-image:radial-gradient(82% 72% at 50% 32%,#000 14%,transparent 78%);
+    opacity:.62;
+  }
+
+  /* 深海里飘的小东西（鲸鱼、气泡、星星） */
+  .doodles{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .doodles > *{position:absolute;opacity:.5;animation:drift 16s ease-in-out infinite}
+  .doodles svg{display:block;filter:drop-shadow(0 3px 0 rgba(10,42,96,.35))}
+  @keyframes drift{
+    0%,100%{transform:translate(0,0) rotate(-4deg)}
+    50%{transform:translate(1.6vw,-2.4vh) rotate(5deg)}
+  }
+
+  /* ==========================================================================
+     页头（窗口顶端那一块"窗外"，所以留一点内边距给挂饰）
+     ========================================================================== */
+  .wrap{position:relative;z-index:2;width:100%;max-width:1440px;margin:0 auto;padding-top:clamp(12px,2vh,22px)}
+  .topbar + .widget-row{height:0}
+
+  /* 左上角挂饰：模仿 DSH 的 dshwhalewidget，一根线吊着"鲸鲸在值班"的小工牌。
+     自成一行放在页头下面，不压住工坊标题曲线也更像真的挂在界面上。 */
+  .widget{
+    position:relative;z-index:5;width:max-content;
+    margin:8px 0 -6px 2px;
+    display:flex;flex-direction:column;align-items:flex-start;
+    transform-origin:top center;
+    animation:swing 6.5s ease-in-out infinite;
+    filter:drop-shadow(0 12px 18px rgba(6,26,66,.45));
+    pointer-events:none;
+  }
+  @keyframes swing{
+    0%,100%{transform:rotate(-2.6deg)}
+    50%{transform:rotate(2.6deg)}
+  }
+  .widget .rope{margin-left:34px;display:block;width:3px;height:clamp(16px,2.6vh,26px);border-radius:2px;
+    background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,.85));
+    box-shadow:0 0 8px rgba(255,255,255,.5)}
+  .widget .cord{
+    display:flex;align-items:center;gap:9px;
+    padding:7px 15px 7px 9px;border-radius:999px;
+    border:3px solid #fff;
+    background:linear-gradient(160deg,rgba(255,255,255,.92),rgba(214,236,255,.86));
+    box-shadow:0 6px 0 rgba(10,42,96,.3), inset 0 2px 0 #fff;
+  }
+  .widget .whale{
+    width:34px;height:34px;flex:0 0 34px;border-radius:12px;
+    background:linear-gradient(160deg,#9ad9ff,#4f9bff 62%,#2f6fe0);
+    border:2.5px solid #fff;display:grid;place-items:center;
+    box-shadow:0 3px 0 rgba(10,42,96,.3);
+  }
+  .widget .whale svg{width:22px;height:22px;display:block}
+  .widget .txt{line-height:1.15}
+  .widget .txt b{display:block;font-size:13px;color:#0d3a7d;letter-spacing:.02em;font-weight:800}
+  .widget .txt span{display:block;font-size:9.5px;color:#5b7ba8;font-weight:800;letter-spacing:.14em}
+  .widget .txt i{
+    display:block;margin-top:3px;padding:1px 8px;border-radius:999px;font-style:normal;
+    font-size:10px;font-weight:800;color:#fff;background:linear-gradient(160deg,#ff9ed4,#ff6fb8);
+    width:max-content;
+  }
+  .widget .whale svg .tail{animation:tailWag 2.4s ease-in-out infinite;transform-origin:center}
+  @keyframes tailWag{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+
+  .topbar{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    padding:clamp(7px,.9vh,10px) 14px;border-radius:999px;
+    border:3px solid rgba(255,255,255,.85);
+    background:linear-gradient(180deg,rgba(255,255,255,.36),rgba(255,255,255,.14));
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 8px 0 rgba(10,42,96,.28), 0 18px 40px rgba(8,32,80,.30), inset 0 2px 0 rgba(255,255,255,.6);
+  }
+  .brand{display:flex;align-items:center;gap:11px;min-width:0}
+  .brand .badge{
+    width:44px;height:44px;flex:0 0 44px;border-radius:16px;
+    background:linear-gradient(160deg,#9ad9ff,#4f9bff 60%,#2f6fe0);
+    border:3px solid #fff;
+    display:grid;place-items:center;
+    box-shadow:0 4px 0 rgba(10,42,96,.35), 0 0 18px rgba(160,220,255,.65);
+    transform:rotate(-6deg);
+    animation:wobble 5s ease-in-out infinite;
+  }
+  @keyframes wobble{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(4deg) translateY(-2px)}}
+  .brand .badge svg{width:28px;height:28px;flex:0 0 auto;display:block}
+  .brand .names{min-width:0}
+  .brand .names b{
+    display:block;font-size:17.5px;line-height:1.3;font-weight:800;letter-spacing:.02em;
+    color:#fff;
+    text-shadow:-1.5px 0 0 var(--stroke),1.5px 0 0 var(--stroke),0 -1.5px 0 var(--stroke),0 1.5px 0 var(--stroke),
+      -1.5px -1.5px 0 var(--stroke),1.5px -1.5px 0 var(--stroke),-1.5px 1.5px 0 var(--stroke),1.5px 1.5px 0 var(--stroke),
+      0 3px 0 var(--stroke);
+  }
+  .brand .names span{display:block;line-height:1.2;font-size:10px;letter-spacing:.26em;color:#eaf6ff;text-transform:uppercase;margin-top:2px;font-weight:700;text-shadow:0 1px 3px rgba(8,32,80,.6)}
+  .topbar .spacer{flex:1 1 auto}
+  .live{
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:#f2faff;
+    letter-spacing:.06em;padding:7px 13px;border-radius:999px;
+    border:2.5px solid rgba(255,255,255,.75);background:rgba(9,44,104,.35);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .live b{color:#fff;font-family:var(--num);font-variant-numeric:var(--tab);font-weight:800}
+  .pulse-dot{width:9px;height:9px;border-radius:50%;background:var(--cyan);border:2px solid #fff;box-shadow:0 0 12px 3px rgba(143,244,255,.8);animation:blink 2s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.82)}}
+
+  /* ---------- 卡通按钮 ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 17px;border-radius:999px;cursor:pointer;
+    border:2.5px solid #fff;background:rgba(255,255,255,.20);color:#fff;
+    font-size:14px;font-weight:800;letter-spacing:.02em;white-space:nowrap;
+    text-shadow:0 2px 0 rgba(10,42,96,.35);
+    box-shadow:0 5px 0 rgba(10,42,96,.35), 0 10px 22px rgba(8,32,80,.24), inset 0 2px 0 rgba(255,255,255,.45);
+    transition:transform .14s cubic-bezier(.2,.9,.3,1.4), box-shadow .14s, background .2s, filter .2s;
+  }
+  .btn:hover{transform:translateY(-2px) rotate(-1deg);background:rgba(255,255,255,.32);box-shadow:0 7px 0 rgba(10,42,96,.35), 0 14px 26px rgba(8,32,80,.26), inset 0 2px 0 rgba(255,255,255,.5)}
+  .btn:active{transform:translateY(3px) scale(.98);box-shadow:0 2px 0 rgba(10,42,96,.35), inset 0 2px 0 rgba(255,255,255,.4)}
+  .btn:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+  .btn.primary{
+    border-color:#fff;color:#fff;
+    background:linear-gradient(160deg,#ffb3dd,#ff7cc0 48%,#ff5fb0);
+    text-shadow:0 2px 0 rgba(150,20,90,.45);
+    box-shadow:0 5px 0 #b73d84, 0 12px 26px rgba(255,110,190,.45), inset 0 2px 0 rgba(255,255,255,.55);
+  }
+  .btn.primary:hover{filter:saturate(1.08) brightness(1.04);box-shadow:0 7px 0 #b73d84, 0 16px 30px rgba(255,110,190,.5), inset 0 2px 0 rgba(255,255,255,.6)}
+  .btn.primary:active{box-shadow:0 2px 0 #b73d84, inset 0 2px 0 rgba(255,255,255,.5)}
+  .btn.ghost{background:rgba(255,255,255,.10)}
+  .btn.icon{padding:10px 12px}
+  .btn svg{width:16px;height:16px;display:block;filter:drop-shadow(0 1px 0 rgba(10,42,96,.4))}
+
+  /* ==========================================================================
+     主视觉
+     ========================================================================== */
+  .hero{
+    position:relative;margin-top:clamp(8px,1.2vh,16px);
+    display:grid;grid-template-columns:minmax(0,1.2fr) minmax(190px,.55fr);
+    gap:clamp(12px,1.8vw,22px);align-items:center;
+    padding:clamp(12px,1.6vh,22px) clamp(14px,1.6vw,24px);
+    border-radius:30px;overflow:hidden;
+    border:3px solid rgba(255,255,255,.85);
+    background:
+      radial-gradient(120% 100% at 88% 6%, rgba(255,190,235,.34), transparent 56%),
+      radial-gradient(120% 110% at 6% 100%, rgba(140,245,255,.26), transparent 58%),
+      linear-gradient(150deg, rgba(24,74,158,.62), rgba(11,44,104,.68)),
+      linear-gradient(150deg, rgba(255,255,255,.30), rgba(255,255,255,.10));
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    box-shadow:0 10px 0 rgba(10,42,96,.26), 0 30px 70px rgba(6,26,66,.35), inset 0 2px 0 rgba(255,255,255,.6);
+    opacity:0;transform:translateY(12px);animation:rise .9s cubic-bezier(.2,.8,.3,1.2) .06s forwards;
+  }
+  /* 女仆头饰的蕾丝扇贝边 */
+  .hero::after{
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:18px;z-index:3;
+    background:radial-gradient(circle at 9px -3px, transparent 9px, rgba(255,255,255,.95) 9px, rgba(255,255,255,.95) 10.6px, transparent 10.8px) 0 0/18px 18px repeat-x;
+    opacity:.9;pointer-events:none;
+  }
+  /* 角落的小星星 */
+  .hero .spark{position:absolute;z-index:2;pointer-events:none;animation:twinkle 3.2s ease-in-out infinite}
+  .hero .spark svg{display:block}
+  @keyframes twinkle{0%,100%{transform:scale(.75) rotate(0);opacity:.5}50%{transform:scale(1.15) rotate(18deg);opacity:1}}
+  @keyframes rise{to{opacity:1;transform:none}}
+
+  .hero-copy{min-width:0;position:relative;z-index:2}
+  .nameplate{
+    display:inline-flex;align-items:center;gap:9px;margin-bottom:10px;
+    padding:7px 16px;border-radius:999px;
+    border:2.5px solid #fff;background:linear-gradient(160deg,#fff8fc,#ffd9ee);
+    color:#a8306f;font-size:12px;font-weight:800;letter-spacing:.14em;
+    box-shadow:0 5px 0 rgba(10,42,96,.22), 0 10px 20px rgba(8,32,80,.22);
+    transform:rotate(-1.5deg);
+  }
+  .nameplate b{color:#c9337f;letter-spacing:.06em}
+  h1{
+    margin:0 0 clamp(6px,.9vh,10px);font-size:clamp(24px,3.2vw,42px);line-height:1.26;font-weight:800;letter-spacing:.01em;
+  }
+  h1 .hl{color:#ffd9ef;white-space:nowrap}
+  .quote{
+    margin:0;max-width:52ch;color:#fff;font-size:clamp(13px,1.35vw,15.5px);line-height:1.8;font-weight:700;
+    text-shadow:0 2px 0 rgba(13,58,125,.75), 0 4px 10px rgba(6,26,66,.5);
+  }
+  .quote .qm{color:var(--cyan);font-weight:800}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:clamp(9px,1.3vh,14px)}
+  .stat{
+    padding:9px 14px;border-radius:18px;min-width:min(96px,30vw);
+    border:2.5px solid rgba(255,255,255,.9);
+    background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,.14));
+    box-shadow:0 5px 0 rgba(10,42,96,.24), inset 0 2px 0 rgba(255,255,255,.5);
+  }
+  .stat:nth-child(2){transform:rotate(1.2deg)}
+  .stat:nth-child(3){transform:rotate(-1.2deg)}
+  .stat b{
+    display:block;font-family:var(--num);font-size:clamp(19px,2.5vw,28px);font-weight:800;font-variant-numeric:var(--tab);color:#fff;
+    text-shadow:-1.5px 0 0 var(--stroke),1.5px 0 0 var(--stroke),0 -1.5px 0 var(--stroke),0 1.5px 0 var(--stroke),0 4px 0 var(--stroke);
+  }
+  .stat span{display:block;font-size:10.5px;letter-spacing:.14em;color:#eaf7ff;margin-top:4px;font-weight:800;text-shadow:0 1px 3px rgba(6,26,66,.7)}
+
+  /* 立绘：白底图用 multiply 融进发光画框 */
+  .portrait{position:relative;display:grid;place-items:center;min-width:0;z-index:2}
+  .portrait .frame-wrap{position:relative;width:100%;max-width:min(350px,35vh)}
+  .portrait .frame{
+    position:relative;width:100%;aspect-ratio:1;border-radius:26px;
+    border:4px solid #fff;
+    background:radial-gradient(80% 70% at 50% 42%, #ffffff, #f0f8ff 50%, #cfe6ff 80%, #a9cdf5 100%);
+    box-shadow:0 10px 0 rgba(10,42,96,.26), 0 26px 55px rgba(6,26,66,.4), 0 0 0 9px rgba(255,255,255,.18);
+    overflow:hidden;isolation:isolate;
+    transform:rotate(-1.6deg);
+  }
+  .portrait .frame::after{
+    content:"";position:absolute;inset:0;z-index:2;
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.45) 0 2px, transparent 2px 11px),
+      radial-gradient(86% 74% at 50% 34%, transparent 52%, rgba(22,58,116,.20) 100%);
+    mix-blend-mode:soft-light;opacity:.75;animation:shimmer 9s ease-in-out infinite;
+  }
+  @keyframes shimmer{0%,100%{transform:translate3d(-3%,-2%,0)}50%{transform:translate3d(3%,2%,0)}}
+  .portrait img{
+    position:relative;z-index:1;width:100%;height:100%;display:block;object-fit:contain;
+    mix-blend-mode:multiply;animation:bob 6.5s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translateY(-1.6%)}50%{transform:translateY(1.6%)}}
+  .portrait .tag{
+    position:absolute;z-index:4;bottom:10px;left:50%;transform:translateX(-50%) rotate(-1deg);
+    padding:7px 15px;border-radius:999px;font-size:12px;letter-spacing:.1em;white-space:nowrap;
+    color:#fff;font-weight:800;
+    background:linear-gradient(160deg,#6fb4ff,#3f8dff 60%,#2f6fe0);
+    border:2.5px solid #fff;
+    text-shadow:0 2px 0 rgba(10,42,96,.45);
+    box-shadow:0 4px 0 rgba(10,42,96,.3), 0 10px 20px rgba(6,26,66,.35);
+  }
+  /* 卡通对话框气泡：带小尾巴；放大了一号，并且压在画框内侧，不再顶出卡片 */
+  .portrait .bubble{
+    position:absolute;top:-14px;right:0;z-index:4;
+    max-width:min(19ch,90%);
+    padding:12px 20px;border-radius:24px;
+    font-size:clamp(13.5px,1.5vw,16px);line-height:1.4;font-weight:800;color:#0d3a7d;letter-spacing:.01em;
+    background:linear-gradient(160deg,#ffffff,#e8f4ff);
+    border:3.5px solid #fff;
+    box-shadow:0 6px 0 rgba(10,42,96,.26), 0 16px 30px rgba(6,26,66,.34);
+    animation:pop 4.5s ease-in-out infinite;
+  }
+  .portrait .bubble::after{
+    content:"";position:absolute;left:22px;bottom:-11px;width:20px;height:13px;
+    background:#f2f9ff;
+    clip-path:polygon(0 0,100% 0,14% 100%);
+  }
+  @keyframes pop{0%,100%{transform:translateY(0) rotate(2deg)}50%{transform:translateY(-7px) rotate(-2deg)}}
+
+  /* ==========================================================================
+     工具条
+     ========================================================================== */
+  .tools{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:clamp(8px,1.4vh,18px) 0 clamp(7px,1vh,12px)}
+  .section-title{
+    display:inline-flex;align-items:center;gap:9px;
+    font-size:14.5px;font-weight:800;letter-spacing:.1em;color:#fff;
+    text-shadow:0 2px 0 rgba(13,58,125,.8), 0 4px 10px rgba(6,26,66,.5);
+  }
+  .section-title i{display:block;width:26px;height:3px;border-radius:2px;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.7)}
+  .tools .spacer{flex:1 1 auto}
+  .seg{
+    display:inline-flex;padding:4px;gap:4px;border-radius:999px;
+    border:2.5px solid #fff;background:rgba(255,255,255,.16);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .seg button{
+    border:0;background:transparent;color:#eaf7ff;cursor:pointer;
+    padding:7px 15px;border-radius:999px;font-size:13px;font-weight:800;letter-spacing:.04em;
+    text-shadow:0 1px 3px rgba(6,26,66,.6);
+    transition:transform .14s cubic-bezier(.2,.9,.3,1.5), background .2s, color .2s;
+  }
+  .seg button:hover{color:#fff;transform:translateY(-1px)}
+  .seg button[aria-pressed="true"]{
+    background:linear-gradient(160deg,#fff,#ffe3f2);color:#b9317a;text-shadow:none;
+    box-shadow:0 3px 0 rgba(10,42,96,.28), inset 0 1px 0 #fff;
+  }
+
+  /* ==========================================================================
+     卡片
+     ========================================================================== */
+  .grid{display:grid;gap:clamp(12px,1.5vw,18px);grid-template-columns:repeat(auto-fill,minmax(min(100%,318px),1fr))}
+  .card{
+    position:relative;overflow:hidden;
+    padding:clamp(12px,1.4vh,18px) clamp(14px,1.3vw,20px) clamp(10px,1.2vh,15px);border-radius:24px;
+    border:3px solid rgba(255,255,255,.85);
+    background:
+      radial-gradient(120% 90% at 100% 0%, rgba(255,190,235,.26), transparent 56%),
+      radial-gradient(120% 100% at 0% 100%, rgba(143,244,255,.22), transparent 58%),
+      linear-gradient(160deg, rgba(20,66,146,.60), rgba(10,40,96,.66));
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 9px 0 rgba(10,42,96,.24), 0 20px 46px rgba(6,26,66,.32), inset 0 2px 0 rgba(255,255,255,.55);
+    transition:transform .26s cubic-bezier(.2,.8,.3,1.3), box-shadow .26s, border-color .26s;
+    opacity:0;animation:cardIn .72s cubic-bezier(.2,.85,.3,1.35) forwards;
+  }
+  @keyframes cardIn{
+    0%{opacity:0;transform:translateY(18px) scale(.94) rotate(-1.5deg)}
+    60%{opacity:1;transform:translateY(-3px) scale(1.01) rotate(.5deg)}
+    100%{opacity:1;transform:none}
+  }
+  .card:hover{
+    transform:translateY(-5px) rotate(-.7deg) scale(1.015);
+    border-color:#fff;
+    box-shadow:0 14px 0 rgba(10,42,96,.22), 0 28px 60px rgba(6,26,66,.4), inset 0 2px 0 rgba(255,255,255,.6);
+  }
+  .card::before{
+    content:"";position:absolute;left:16px;right:16px;top:0;height:3px;border-radius:0 0 4px 4px;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.95),transparent);
+  }
+  /* 临近：金黄 */
+  .card.soon{
+    border-color:rgba(255,236,170,.95);
+    box-shadow:0 9px 0 rgba(140,86,10,.34), 0 22px 48px rgba(6,26,66,.34), inset 0 2px 0 rgba(255,247,214,.6);
+  }
+  .card.soon::before{background:linear-gradient(90deg,transparent,rgba(255,231,150,1),transparent)}
+  /* 今天：青绿发光 */
+  .card.today{
+    border-color:#b9fbff;
+    animation:cardIn .72s cubic-bezier(.2,.85,.3,1.35) forwards, todayGlow 2.6s ease-in-out infinite;
+  }
+  @keyframes todayGlow{
+    0%,100%{box-shadow:0 9px 0 rgba(10,42,96,.24), 0 22px 50px rgba(6,26,66,.34), 0 0 0 0 rgba(143,244,255,.5)}
+    50%{box-shadow:0 9px 0 rgba(10,42,96,.24), 0 22px 50px rgba(6,26,66,.34), 0 0 34px 8px rgba(143,244,255,.42)}
+  }
+  .card.today::before{background:linear-gradient(90deg,transparent,#b9fbff,transparent)}
+  .card.past{opacity:.92}
+  .card.past .day-num,.card.past .mini b{filter:saturate(.5) brightness(.92)}
+
+  .card-head{display:flex;align-items:flex-start;gap:10px}
+  .card-head h2{
+    margin:0;font-size:clamp(15.5px,1.55vw,18px);font-weight:800;line-height:1.35;letter-spacing:.02em;
+    min-width:0;overflow-wrap:anywhere;color:#fff;
+    text-shadow:-1.5px 0 0 var(--stroke),1.5px 0 0 var(--stroke),0 -1.5px 0 var(--stroke),0 1.5px 0 var(--stroke),
+      -1.5px -1.5px 0 var(--stroke),1.5px -1.5px 0 var(--stroke),-1.5px 1.5px 0 var(--stroke),1.5px 1.5px 0 var(--stroke),0 3px 0 var(--stroke);
+  }
+  .card-head .spacer{flex:1 1 auto}
+  .tag{
+    flex:0 0 auto;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.1em;
+    border:2.5px solid rgba(255,255,255,.85);background:rgba(255,255,255,.20);color:#fff;white-space:nowrap;
+    text-shadow:0 1px 3px rgba(6,26,66,.6);
+    box-shadow:0 3px 0 rgba(10,42,96,.22);
+  }
+  .tag.ok{color:#0a3d2a;background:linear-gradient(160deg,#d8ffe9,#8ff0b8);text-shadow:none;border-color:#fff}
+  .tag.soon{color:#6a3c05;background:linear-gradient(160deg,#fff4cf,#ffd98a);text-shadow:none;border-color:#fff}
+  .tag.today{color:#07404d;background:linear-gradient(160deg,#e2feff,#8ff4ff);text-shadow:none;border-color:#fff}
+  .tag.past{color:#eaf2ff;background:rgba(255,255,255,.14);text-shadow:0 1px 3px rgba(6,26,66,.6)}
+
+  .card-date{
+    margin:9px 0 0;font-family:var(--num);font-size:12.5px;font-weight:700;color:#eaf7ff;letter-spacing:.03em;font-variant-numeric:var(--tab);
+    text-shadow:0 2px 4px rgba(6,26,66,.6);
+  }
+
+  .day-row{display:flex;align-items:flex-end;gap:10px;margin:clamp(6px,.9vh,10px) 0 2px}
+  /* 大数字：实色 + 厚描边 + 立体投影（卡通贴纸感）。
+     之前用渐变填充 + background-clip:text 会让 text-shadow 的描边糊在透明字上，
+     数字看着发虚，这里换成实色。 */
+  .day-num{
+    font-family:var(--num);
+    font-size:clamp(46px,5.2vw,84px);line-height:.9;font-weight:800;letter-spacing:-.01em;
+    font-variant-numeric:var(--tab);
+    color:#f2f9ff;
+    text-shadow:
+      -3px 0 0 var(--stroke), 3px 0 0 var(--stroke), 0 -3px 0 var(--stroke), 0 3px 0 var(--stroke),
+      -2.4px -2.4px 0 var(--stroke), 2.4px -2.4px 0 var(--stroke), -2.4px 2.4px 0 var(--stroke), 2.4px 2.4px 0 var(--stroke),
+      0 8px 0 rgba(11,46,104,.9), 0 14px 22px rgba(4,22,54,.5);
+  }
+  .card.soon .day-num{color:#fff3d6;text-shadow:-3px 0 0 #7a4a08,3px 0 0 #7a4a08,0 -3px 0 #7a4a08,0 3px 0 #7a4a08,-2.4px -2.4px 0 #7a4a08,2.4px -2.4px 0 #7a4a08,-2.4px 2.4px 0 #7a4a08,2.4px 2.4px 0 #7a4a08,0 8px 0 #6b4207,0 14px 22px rgba(4,22,54,.45)}
+  .card.today .day-num{color:#f0ffff;text-shadow:-3px 0 0 #08414f,3px 0 0 #08414f,0 -3px 0 #08414f,0 3px 0 #08414f,-2.4px -2.4px 0 #08414f,2.4px -2.4px 0 #08414f,-2.4px 2.4px 0 #08414f,2.4px 2.4px 0 #08414f,0 8px 0 #063641,0 14px 22px rgba(4,22,54,.45)}
+  .card.past .day-num{color:#e9f1ff;text-shadow:-3px 0 0 rgba(11,46,104,.85),3px 0 0 rgba(11,46,104,.85),0 -3px 0 rgba(11,46,104,.85),0 3px 0 rgba(11,46,104,.85),0 8px 0 rgba(11,46,104,.7)}
+  .day-num.pulse{animation:numPulse .6s cubic-bezier(.2,.9,.3,1.6)}
+  @keyframes numPulse{0%{transform:scale(.9) rotate(-2deg);opacity:.5}60%{transform:scale(1.05) rotate(1deg)}100%{transform:none;opacity:1}}
+  .day-unit{padding-bottom:11px;font-size:13.5px;font-weight:800;letter-spacing:.14em;color:#eaf7ff;text-shadow:0 2px 0 rgba(13,58,125,.7)}
+  .day-note{margin-left:auto;padding-bottom:12px;font-size:12px;font-weight:700;color:#e2f2ff;text-align:right;line-height:1.55;text-shadow:0 2px 4px rgba(6,26,66,.7)}
+
+  .mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:clamp(9px,1.2vh,14px)}
+  .mini div{
+    padding:7px 4px 6px;border-radius:15px;text-align:center;
+    border:2.5px solid rgba(255,255,255,.8);
+    background:linear-gradient(180deg,rgba(255,255,255,.24),rgba(255,255,255,.08));
+    box-shadow:0 4px 0 rgba(10,42,96,.22), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .mini div:nth-child(1){transform:rotate(-1.2deg)}
+  .mini div:nth-child(3){transform:rotate(1.2deg)}
+  .mini b{
+    display:block;font-family:var(--num);font-size:clamp(16px,1.9vw,21px);font-weight:800;font-variant-numeric:var(--tab);color:#fff;letter-spacing:.02em;
+    text-shadow:-1.2px 0 0 var(--stroke),1.2px 0 0 var(--stroke),0 -1.2px 0 var(--stroke),0 1.2px 0 var(--stroke),0 3px 0 var(--stroke);
+  }
+  .mini span{display:block;margin-top:2px;font-size:9px;letter-spacing:.16em;color:#dcefff;font-weight:800;text-shadow:0 1px 3px rgba(6,26,66,.7)}
+
+  .prog{margin-top:clamp(8px,1.2vh,14px)}
+  .prog .track{
+    height:10px;border-radius:999px;overflow:hidden;
+    background:rgba(7,32,74,.42);border:2.5px solid rgba(255,255,255,.8);
+    box-shadow:inset 0 2px 5px rgba(4,22,54,.5);
+  }
+  .prog .track > i{
+    display:block;height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,#8ff4ff,#7fb8ff 46%,#c8a8ff);
+    box-shadow:0 0 14px rgba(190,235,255,.8);
+    transition:width .6s cubic-bezier(.2,.8,.3,1.2);
+  }
+  .card.soon .prog .track > i{background:linear-gradient(90deg,#ffe9a8,#ffc46b 60%,#ff9ed0)}
+  .card.today .prog .track > i{background:linear-gradient(90deg,#d8feff,#8ff4ff)}
+  .prog .foot{display:flex;justify-content:space-between;gap:10px;margin-top:6px;font-family:var(--num);font-size:11px;font-weight:700;color:#e2f2ff;letter-spacing:.03em;text-shadow:0 2px 4px rgba(6,26,66,.7)}
+
+  .card-actions{display:flex;gap:8px;margin-top:clamp(8px,1.1vh,14px);opacity:.82;transition:opacity .2s}
+  .card:hover .card-actions,.card:focus-within .card-actions{opacity:1}
+  .card-actions .btn{padding:8px 13px;font-size:12.5px}
+
+  /* 空状态 */
+  .empty{
+    grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:22px;align-items:center;
+    padding:26px;border-radius:28px;
+    border:3px dashed rgba(255,255,255,.75);
+    background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:0 8px 0 rgba(10,42,96,.2), inset 0 2px 0 rgba(255,255,255,.4);
+  }
+  .empty h3{
+    margin:0 0 10px;font-size:22px;font-weight:800;color:#fff;
+    text-shadow:-1.5px 0 0 var(--stroke),1.5px 0 0 var(--stroke),0 -1.5px 0 var(--stroke),0 1.5px 0 var(--stroke),0 4px 0 var(--stroke);
+  }
+  .empty p{margin:0;color:#eef8ff;font-size:14px;font-weight:700;line-height:1.9;text-shadow:0 2px 5px rgba(6,26,66,.6)}
+  .empty .art{
+    position:relative;border-radius:24px;overflow:hidden;border:4px solid #fff;
+    background:radial-gradient(72% 62% at 50% 26%, #ffffff, #eaf5ff 46%, #bfdaff 78%, #93bdf0);
+    box-shadow:0 8px 0 rgba(10,42,96,.24), 0 18px 34px rgba(6,26,66,.3);
+    transform:rotate(1.6deg);
+  }
+  .empty .art img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply}
+
+  /* ==========================================================================
+     弹窗
+     ========================================================================== */
+  dialog{border:0;padding:0;background:transparent;color:var(--ink);width:min(560px,calc(100vw - 20px))}
+  dialog::backdrop{background:rgba(6,26,66,.6);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  .sheet{
+    position:relative;border-radius:30px;padding:clamp(18px,3vw,28px);
+    border:4px solid #fff;
+    background:
+      radial-gradient(110% 80% at 100% 0%, rgba(255,190,235,.28), transparent 58%),
+      radial-gradient(120% 90% at 0% 100%, rgba(143,244,255,.22), transparent 60%),
+      linear-gradient(160deg,#2a66cf,#1c4aa6 62%,#143a86);
+    box-shadow:0 14px 0 rgba(6,26,66,.4), 0 40px 90px rgba(3,14,40,.6), inset 0 2px 0 rgba(255,255,255,.35);
+    animation:sheetIn .38s cubic-bezier(.2,.85,.3,1.45);
+  }
+  @keyframes sheetIn{from{opacity:0;transform:translateY(18px) scale(.94) rotate(-1deg)}to{opacity:1;transform:none}}
+  .sheet::after{ /* 蕾丝边 */
+    content:"";position:absolute;left:0;right:0;bottom:-2px;height:16px;border-radius:0 0 26px 26px;
+    background:radial-gradient(circle at 8px -2px, transparent 8px, rgba(255,255,255,.85) 8px, rgba(255,255,255,.85) 9.4px, transparent 9.6px) 0 0/16px 16px repeat-x;
+    pointer-events:none;opacity:.85;
+  }
+  .sheet h2{
+    margin:0 0 6px;font-size:22px;font-weight:800;color:#fff;
+    text-shadow:-1.5px 0 0 var(--stroke),1.5px 0 0 var(--stroke),0 -1.5px 0 var(--stroke),0 1.5px 0 var(--stroke),0 4px 0 var(--stroke);
+  }
+  .sheet .hint{margin:0 0 18px;font-size:13px;font-weight:700;color:#dcecff;line-height:1.75;text-shadow:0 2px 4px rgba(6,26,66,.6)}
+  .field{margin-bottom:14px}
+  .field label{display:block;margin-bottom:7px;font-size:12px;letter-spacing:.12em;font-weight:800;color:#e8f4ff;text-transform:uppercase;text-shadow:0 1px 3px rgba(6,26,66,.7)}
+  .field input[type=text],.field input[type=date],.field input[type=time],.field input[type=datetime-local]{
+    width:100%;padding:12px 14px;border-radius:16px;color:#0d3a7d;font-weight:800;
+    border:3px solid #fff;background:linear-gradient(180deg,#ffffff,#eaf4ff);
+    box-shadow:inset 0 3px 6px rgba(9,44,104,.18);
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .field input:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 4px rgba(255,233,168,.45), inset 0 3px 6px rgba(9,44,104,.16);transform:translateY(-1px)}
+  .field input::placeholder{color:#7f9dc4}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    padding:8px 14px;border-radius:999px;cursor:pointer;font-size:12.5px;font-weight:800;color:#fff;
+    border:2.5px solid #fff;background:rgba(255,255,255,.18);
+    text-shadow:0 2px 0 rgba(10,42,96,.4);
+    box-shadow:0 4px 0 rgba(6,26,66,.3);
+    transition:transform .14s cubic-bezier(.2,.9,.3,1.5), background .2s;
+  }
+  .chip:hover{transform:translateY(-2px) rotate(-1.5deg);background:linear-gradient(160deg,#fff,#ffe3f2);color:#b9317a;text-shadow:none}
+  .chip:active{transform:translateY(2px)}
+  .sheet-actions{display:flex;gap:10px;align-items:center;margin-top:22px}
+  .sheet-actions .spacer{flex:1 1 auto}
+  .err{min-height:20px;margin-top:10px;font-size:13px;font-weight:800;color:#ffe3a8;letter-spacing:.02em;text-shadow:0 2px 4px rgba(6,26,66,.7)}
+
+  .toast{
+    position:fixed;left:50%;bottom:26px;z-index:20;transform:translate(-50%,24px) scale(.96);
+    padding:13px 22px;border-radius:999px;font-size:14px;font-weight:800;color:#fff;
+    border:3px solid #fff;background:linear-gradient(160deg,#3f8dff,#2a5fc9);
+    text-shadow:0 2px 0 rgba(10,42,96,.45);
+    box-shadow:0 7px 0 rgba(6,26,66,.4), 0 20px 44px rgba(3,14,40,.5);
+    opacity:0;pointer-events:none;transition:opacity .3s, transform .3s cubic-bezier(.2,.9,.3,1.5);
+  }
+  .toast.on{opacity:1;transform:translate(-50%,0) scale(1)}
+
+  #confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:15}
+
+  footer{
+    position:relative;z-index:3;width:100%;max-width:1440px;margin:14px auto 0;
+    display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+    color:#eaf7ff;font-size:12px;font-weight:700;letter-spacing:.06em;line-height:1.8;
+    text-shadow:0 2px 5px rgba(6,26,66,.7);
+  }
+  footer > span{background:rgba(10,44,104,.34);border-radius:999px;padding:3px 12px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  footer .whale{display:inline-flex;align-items:center;gap:8px}
+  footer svg{width:18px;height:18px;filter:drop-shadow(0 2px 0 rgba(10,42,96,.5))}
+
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr}
+    .portrait{order:-1;justify-items:start}
+    .portrait .frame-wrap{max-width:224px}
+    .empty{grid-template-columns:1fr}
+    .empty .art{max-width:220px}
+  }
+  @media (max-width:560px){
+    body{padding:14px 12px 92px}
+    .grid{grid-template-columns:minmax(0,1fr)}
+    .topbar{border-radius:24px;padding:10px 12px;gap:8px}
+    .live{display:none}
+    .day-num{font-size:58px}
+    .row2{grid-template-columns:1fr}
+    .tools{gap:8px}
+    .seg{overflow-x:auto;max-width:100%;scrollbar-width:none}
+    .seg::-webkit-scrollbar{display:none}
+    .tools .btn{padding:9px 13px;font-size:12.5px}
+    h1{font-size:28px}
+  }
+  /* 背景远景人物：把新图里的鲸鲸放在右下角，用白底 + multiply 融进雾里；
+     她只是气氛，压在卡片后面，不抢内容 */
+  .megumi{position:fixed;right:-1vw;bottom:5vh;z-index:1;pointer-events:none;
+    width:clamp(240px,32vw,620px);height:min(62vh,760px);overflow:hidden;isolation:isolate;opacity:.96}
+  .megumi::before{
+    content:"";position:absolute;inset:-8%;
+    background:radial-gradient(58% 56% at 56% 46%, #ffffff 30%, rgba(240,249,255,.82) 58%, rgba(206,232,255,.35) 80%, transparent 96%);
+  }
+  .megumi img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:right bottom;
+    mix-blend-mode:multiply;
+    filter:saturate(1.32) contrast(1.06) brightness(1.1);
+    -webkit-mask-image:radial-gradient(62% 60% at 56% 48%, #000 34%, rgba(0,0,0,.55) 62%, transparent 88%);
+    mask-image:radial-gradient(62% 60% at 56% 48%, #000 34%, rgba(0,0,0,.55) 62%, transparent 88%);
+  }
+  .megumi::after{ /* 压一层水色，跟背景的蓝调统一 */
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(60% 58% at 56% 48%, rgba(120,190,255,.08), rgba(30,90,180,.22) 78%, rgba(12,50,116,.45));
+    mix-blend-mode:multiply;opacity:.26;
+  }
+
+  /* 矮屏（笔记本 768~900 高）：整体再收一档，保证一屏看完不用滚 */
+  @media (max-height:960px){
+    .brand .names span{display:none}
+    .widget{margin:4px 0 -10px 2px}
+    .widget .rope{height:14px}
+    .widget .cord{padding:5px 12px 5px 7px}
+    .widget .whale{width:28px;height:28px;flex-basis:28px}
+    .widget .whale svg{width:18px;height:18px}
+    .widget .txt span{display:none}
+    .widget .txt i{margin-top:1px}
+    .hero{padding:10px 14px;border-radius:26px}
+    .portrait .frame-wrap{max-width:min(300px,31vh)}
+    .nameplate{margin-bottom:8px;padding:5px 13px;font-size:11px}
+    h1{font-size:clamp(22px,2.6vw,34px)}
+    .quote{font-size:12.5px;line-height:1.7}
+    .stat{padding:7px 12px;min-width:min(88px,26vw)}
+    .stat b{font-size:clamp(16px,1.9vw,22px)}
+    .stat span{font-size:9.5px}
+    .card{padding:12px 14px 11px;border-radius:22px}
+    .day-num{font-size:clamp(40px,4.4vw,68px)}
+    .mini div{padding:7px 3px 6px}
+    .mini b{font-size:clamp(15px,1.7vw,20px)}
+    .prog .track{height:8px}
+    .prog .foot{font-size:10.5px;margin-top:6px}
+    .card-actions .btn{padding:6px 11px;font-size:12px}
+    .day-note{font-size:11px}
+    footer{font-size:11px;margin-top:12px}
+  }
+  @media (max-height:800px){
+    .widget{display:none}
+    .hero{padding:8px 12px}
+    .portrait .frame-wrap{max-width:min(248px,27vh)}
+    .quote{display:none}
+    .day-num{font-size:clamp(34px,3.8vw,56px)}
+    .card{padding:10px 13px 9px}
+    .mini{margin-top:8px;gap:7px}
+    .prog{margin-top:7px}
+    .card-actions{margin-top:7px}
+    .day-row{margin:4px 0 1px}
+    .card-date{margin-top:6px;font-size:11.5px}
+  }
+  @media (max-width:560px),(max-height:700px){
+    .megumi{width:52vw;height:30vh;opacity:.5;right:-4vw;bottom:2vh}
+  }
+
+  /* ==========================================================================
+     dshpet 桌宠：把 dsh-pet 插件的 webm 动作搬进页面
+     带 alpha 的 640×360 视频；用 object-fit:cover 只框住人物（居中偏下），
+     待机循环 + 点按反应 + 可拖动，位置记在 localStorage
+     ========================================================================== */
+  .pet{
+    position:fixed;left:clamp(4px,1.1vw,20px);bottom:-30px;z-index:6;
+    width:clamp(190px,17.5vw,272px);height:auto;aspect-ratio:.82;
+    pointer-events:none;                     /* 矩形外框不接事件，免得挡住卡片按钮 */
+    touch-action:none;-webkit-user-select:none;user-select:none;
+    filter:drop-shadow(0 14px 18px rgba(6,26,66,.5));
+    --tilt:0deg; --lift:0px; --press:1;
+    transform:rotate(var(--tilt)) translateY(var(--lift)) scale(var(--press));
+    transition:transform .22s cubic-bezier(.2,.9,.3,1.4);
+  }
+  .pet.dragging,.pet.flying{transition:none}
+  /* 命中层：默认整块都能点（点哪都有反应）；
+     脚本会按"卡片按钮占的那一条"把这块裁掉一个缺口（--hitp），
+     这样既不挡按钮，她身上也不会有点不动的死区。 */
+  .pet-hit{
+    position:absolute;left:0;top:0;width:100%;height:100%;
+    pointer-events:auto;cursor:grab;
+    clip-path:var(--hitp,none);
+  }
+  .pet.dragging .pet-hit{cursor:grabbing}
+  .pet:hover{--lift:-4px}
+  .pet.pressing{--press:.93;transition:transform .09s ease-out}
+  .pet video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:center bottom;
+    pointer-events:none;transition:opacity .16s linear;
+  }
+  .pet video.act{opacity:0}
+  .pet.acting video.act{opacity:1}
+  .pet.acting video.idle{opacity:0}
+  .pet-say{
+    position:absolute;left:50%;bottom:calc(100% - 30px);transform:translate(-50%,8px);
+    padding:8px 14px;border-radius:16px;white-space:nowrap;
+    background:linear-gradient(160deg,#ffffff,#e8f4ff);
+    border:2.5px solid #fff;color:#0d3a7d;font-weight:800;font-size:12.5px;
+    box-shadow:0 5px 0 rgba(10,42,96,.24), 0 12px 24px rgba(6,26,66,.34);
+    opacity:0;transition:opacity .22s, transform .22s;pointer-events:none;
+  }
+  .pet-say.on{opacity:1;transform:translate(-50%,0)}
+  .pet-say::after{
+    content:"";position:absolute;left:50%;bottom:-9px;margin-left:-8px;width:16px;height:11px;
+    background:#f2f9ff;clip-path:polygon(0 0,100% 0,50% 100%);
+  }
+  .pet-tip{
+    position:absolute;left:0;bottom:calc(100% + 8px);
+    padding:6px 12px;border-radius:999px;white-space:nowrap;
+    background:rgba(10,44,104,.62);color:#eaf7ff;font-size:11px;font-weight:700;
+    border:2px solid rgba(255,255,255,.55);backdrop-filter:blur(4px);
+    opacity:0;transition:opacity .3s;pointer-events:none;
+  }
+  .pet-tip.on{opacity:1}
+  /* 悬停提示用的小气泡（跟 pet-say 同一个位置，互斥使用） */
+  .pet-hint{
+    position:absolute;left:50%;bottom:calc(100% - 34px);transform:translate(-50%,8px);
+    padding:7px 13px;border-radius:14px;white-space:nowrap;
+    background:rgba(9,40,96,.86);color:#eaf7ff;font-weight:800;font-size:12px;
+    border:2px solid rgba(255,255,255,.6);backdrop-filter:blur(4px);
+    box-shadow:0 6px 16px rgba(6,26,66,.4);
+    opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;
+  }
+  .pet-hint.on{opacity:1;transform:translate(-50%,0)}
+  @media (max-height:800px){
+    .pet{width:clamp(158px,13vw,212px);bottom:-22px}
+
+    .pet-say{font-size:12px;padding:7px 12px}
+    .pet-hint{font-size:11.5px}
+  }
+  @media (max-width:560px){
+    .pet{width:156px;bottom:-6px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .pet,.pet:hover{transition:none;transform:none}
+  }
+
+  /* ==========================================================================
+     V2 · 视觉精修层
+     --------------------------------------------------------------------------
+     原则：不动深海可爱风的语言（描边、贴纸、玻璃、圆角），只做四件事——
+       1) 把散落的间距 / 字阶收敛成 token，让每一屏的呼吸一致
+       2) 顶部工具条从"一排文字按钮"改成"图标条 + 一个主按钮"，密度降下来
+       3) 卡片里的信息按重要性排一遍：天数 > 时分秒 > 进度 > 操作
+       4) 背景装饰层统一由 --deco 控制强度，手机上自动减半
+     新增的主题变量（--surface-* / --sh-*）让换配色只改几个值，不重写规则。
+     ========================================================================== */
+  :root{
+    /* 间距刻度（4 的倍数，跟卡片 padding 对齐） */
+    --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px; --sp-6:32px;
+    --ease-out:cubic-bezier(.2,.8,.3,1);
+    --ease-pop:cubic-bezier(.2,.9,.3,1.45);
+
+    /* 字阶：只保留五档，页面里不再出现拍脑袋的 12.5 / 13.5 / 14.5 */
+    --fs-display:clamp(27px,3.4vw,46px);
+    --fs-day:clamp(48px,5.4vw,86px);
+    --fs-mini:clamp(16px,1.85vw,21px);
+    --fs-body:clamp(13px,1.3vw,15px);
+    --fs-meta:12.5px;
+    --fs-micro:10.5px;
+
+    /* 表面：换主题时只改这几个，规则本身不重复写 */
+    --surface-bar:linear-gradient(180deg,rgba(255,255,255,.36),rgba(255,255,255,.14));
+    --surface-hero:
+      radial-gradient(120% 100% at 88% 6%, rgba(255,190,235,.30), transparent 56%),
+      radial-gradient(120% 110% at 6% 100%, rgba(140,245,255,.22), transparent 58%),
+      linear-gradient(150deg, rgba(24,74,158,.87), rgba(11,44,104,.91)),
+      linear-gradient(150deg, rgba(255,255,255,.24), rgba(255,255,255,.08));
+    --surface-card:
+      radial-gradient(120% 90% at 100% 0%, rgba(255,190,235,.22), transparent 56%),
+      radial-gradient(120% 100% at 0% 100%, rgba(143,244,255,.18), transparent 58%),
+      linear-gradient(160deg, rgba(20,66,146,.85), rgba(10,40,96,.9));
+    --sh-bar:0 8px 0 rgba(10,42,96,.28), 0 18px 40px rgba(8,32,80,.30), inset 0 2px 0 rgba(255,255,255,.6);
+    --sh-hero:0 10px 0 rgba(10,42,96,.26), 0 30px 70px rgba(6,26,66,.35), inset 0 2px 0 rgba(255,255,255,.6);
+    --sh-card:0 9px 0 rgba(10,42,96,.24), 0 20px 46px rgba(6,26,66,.32), inset 0 2px 0 rgba(255,255,255,.55);
+
+    /* 装饰层强度：静谧模式把它压到 .18，手机断点压到 .6 */
+    --deco:1;
+  }
+  .topbar{background:var(--surface-bar);box-shadow:var(--sh-bar)}
+  .hero{background:var(--surface-hero);box-shadow:var(--sh-hero);grid-template-columns:minmax(0,1.32fr) minmax(200px,.5fr)}
+  .card{background:var(--surface-card);box-shadow:var(--sh-card)}
+
+  /* ---------- 装饰降噪：12 层背景按重要性分三档 ---------- */
+  .rays,.stars,.whales,.swell{opacity:calc(.62 * var(--deco))}
+  .flutter,.doodles{opacity:calc(.85 * var(--deco))}
+  .rain{opacity:calc(.55 * var(--deco))}
+  .bubbles{opacity:calc(.7 * var(--deco))}
+
+  /* ---------- 顶部工具条：图标条 + 主按钮 ---------- */
+  /* hero 有 rise 动画，会自己形成层叠上下文；把 topbar 抬到它上面，
+     否则「更多」菜单展开时会被 hero 盖住 */
+  .topbar{position:relative;z-index:25;gap:var(--sp-3)}
+  .iconbar{
+    display:inline-flex;align-items:center;gap:2px;padding:3px;border-radius:999px;
+    border:2.5px solid rgba(255,255,255,.55);background:rgba(9,44,104,.22);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
+  }
+  .iconbar .btn{
+    border:0;background:transparent;box-shadow:none;padding:9px;border-radius:999px;
+    text-shadow:none;gap:0;
+  }
+  .iconbar .btn:hover{
+    background:rgba(255,255,255,.24);transform:translateY(-1px);
+    box-shadow:0 0 0 1px rgba(255,255,255,.28) inset;
+  }
+  .iconbar .btn:active{transform:translateY(1px) scale(.97);box-shadow:none}
+  .iconbar .btn[aria-pressed="true"]{
+    background:linear-gradient(160deg,#fff,#d9f1ff);color:#12448f;text-shadow:none;
+    box-shadow:0 0 14px rgba(190,235,255,.7);
+  }
+  .iconbar .btn svg{width:17px;height:17px;filter:none}
+  .iconbar .btn .lbl{
+    position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;
+  }
+  .iconbar .sep{width:1px;height:20px;background:rgba(255,255,255,.28);margin:0 2px}
+
+  /* 本地时间：当"时钟"用，所以给足字号和等宽数字 */
+  .live{font-size:11px;letter-spacing:.14em;padding:6px 12px;gap:6px;text-transform:uppercase}
+  .live b{font-size:15px;letter-spacing:.06em;margin-left:2px}
+
+  /* ---------- hero：层次重排 ---------- */
+  h1{font-size:var(--fs-display);line-height:1.24;letter-spacing:.004em;text-wrap:pretty;margin-bottom:clamp(7px,1vh,12px)}
+  .quote{font-size:var(--fs-body);line-height:1.75;max-width:48ch}
+  .stats{gap:var(--sp-2);margin-top:clamp(10px,1.4vh,16px)}
+  .stat{min-width:min(104px,31vw);padding:8px 14px}
+  .stat b{line-height:1.05}
+  .stat span{font-size:var(--fs-micro);letter-spacing:.12em;margin-top:5px}
+
+  /* 今日一行：日期 · 周几 · 农历 · 节气（新增，落在 hero 里） */
+  .todayline{
+    display:flex;flex-wrap:wrap;align-items:center;gap:5px 9px;
+    margin:0 0 11px;font-size:var(--fs-meta);font-weight:700;
+    color:#eaf7ff;letter-spacing:.01em;text-shadow:0 2px 0 rgba(13,58,125,.7);
+  }
+  .todayline .dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.55);flex:0 0 auto}
+  .todayline b{color:#fff;font-weight:800;font-family:var(--num);font-variant-numeric:var(--tab)}
+  .todayline .lunar{color:#ffe9a8}
+  .todayline .term{
+    padding:1px 8px;border-radius:999px;border:1.5px solid rgba(255,255,255,.5);
+    background:rgba(255,255,255,.16);color:#fff;font-size:11px;
+  }
+
+  /* ---------- 卡片：信息层级 ---------- */
+  .card{padding:clamp(13px,1.5vh,19px) clamp(14px,1.3vw,20px) clamp(11px,1.3vh,16px)}
+  .card:hover{transform:translateY(-3px) rotate(-.4deg);box-shadow:0 12px 0 rgba(10,42,96,.2), 0 26px 54px rgba(6,26,66,.36), inset 0 2px 0 rgba(255,255,255,.6)}
+  .card-head h2{font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.4}
+  .card-date{font-size:var(--fs-meta);margin-top:8px}
+  .day-num{font-size:var(--fs-day)}
+  .day-unit{padding-bottom:10px;font-size:12.5px;letter-spacing:.12em;opacity:.9}
+  .day-note{padding-bottom:11px;font-size:11.5px;opacity:.9}
+
+  /* 时分秒三格：弱一档，别和天数抢 */
+  .mini{margin-top:clamp(9px,1.2vh,13px);gap:8px}
+  .mini div{
+    padding:6px 3px 5px;border-radius:13px;
+    background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06));
+    box-shadow:0 3px 0 rgba(10,42,96,.2), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .mini b{font-size:var(--fs-mini);letter-spacing:.01em}
+  .mini span{font-size:9px;letter-spacing:.14em;opacity:.85}
+
+  /* 进度：条子细一点，下面一行两端对齐 */
+  .prog{margin-top:clamp(9px,1.2vh,13px)}
+  .prog .track{height:8px;border-width:2px}
+  .prog .foot{margin-top:5px;font-size:var(--fs-micro);letter-spacing:.04em;opacity:.88;display:flex;justify-content:space-between;gap:8px}
+
+  /* 操作区：文字按钮 → 图标按钮（保留 title + aria-label，可发现性不丢） */
+  .card-actions{display:flex;align-items:center;gap:6px;margin-top:clamp(9px,1.2vh,13px)}
+  .card-actions .spacer{flex:1 1 auto}
+  .card-actions .btn{
+    width:32px;height:32px;padding:0;border-radius:11px;
+    justify-content:center;gap:0;box-shadow:0 3px 0 rgba(10,42,96,.3), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .card-actions .btn svg{width:15px;height:15px;filter:none}
+  .card-actions .btn:hover{transform:translateY(-1px) rotate(0);background:rgba(255,255,255,.3)}
+  .card-actions .btn.danger:hover{background:linear-gradient(160deg,#ff8fbc,#ff5fa5);border-color:#fff}
+  .card-actions .btn.save{background:rgba(143,244,255,.16);border-color:rgba(190,250,255,.85)}
+  .card-actions .btn.save:hover{background:linear-gradient(160deg,#b9fbff,#6fe4f5);color:#063a48}
+
+  /* ---------- 搜索框 ---------- */
+  .search{
+    position:relative;display:inline-flex;align-items:center;
+    min-width:min(240px,40vw);flex:0 1 250px;
+  }
+  .search svg{
+    position:absolute;left:13px;width:15px;height:15px;pointer-events:none;
+    color:#eaf7ff;opacity:.8;
+  }
+  .search input{
+    width:100%;padding:8px 34px 8px 36px;border-radius:999px;
+    border:2.5px solid rgba(255,255,255,.72);background:rgba(9,44,104,.3);
+    color:#fff;font-size:13px;font-weight:700;letter-spacing:.02em;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.3);
+    transition:border-color .2s, background .2s, box-shadow .2s;
+  }
+  .search input::placeholder{color:rgba(234,247,255,.72);font-weight:700}
+  .search input:focus{
+    outline:none;border-color:#fff;background:rgba(9,44,104,.44);
+    box-shadow:0 0 0 4px rgba(255,255,255,.22), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .search .clear{
+    position:absolute;right:6px;width:24px;height:24px;border-radius:50%;
+    border:0;background:rgba(255,255,255,.2);color:#fff;cursor:pointer;
+    display:none;place-items:center;padding:0;line-height:1;
+  }
+  .search .clear svg{position:static;width:12px;height:12px;opacity:.95}
+  .search.has .clear{display:grid}
+  .search .clear:hover{background:rgba(255,255,255,.34)}
+
+  /* 搜不到时的空状态 */
+  .no-hit{
+    grid-column:1/-1;display:grid;place-items:center;gap:6px;
+    padding:clamp(24px,5vh,56px) 16px;text-align:center;
+    border-radius:24px;border:3px dashed rgba(255,255,255,.42);
+    color:#eaf7ff;font-weight:700;font-size:14px;
+    background:rgba(9,44,104,.18);
+  }
+  .no-hit b{font-size:16px;color:#fff}
+
+  /* ==========================================================================
+     四套配色：深海（默认）/ 晴海 / 深海夜 / 樱花粉
+     都是"深底白字"体系，所以只换表面与背景，不碰文字色
+     ========================================================================== */
+  /* 晴海：更亮更通透的蓝，白字靠加重投影撑住 */
+  html[data-theme="dawn"]{--blue-3:#3f8ee0}
+  html[data-theme="dawn"] body{background:#3f8ee0}
+  html[data-theme="dawn"] .sky{
+    background:
+      radial-gradient(58vmax 42vmax at 52% 3%, rgba(255,255,255,.86), rgba(226,242,255,.42) 34%, transparent 66%),
+      radial-gradient(40vmax 34vmax at 12% 6%, rgba(180,230,255,.6), transparent 60%),
+      radial-gradient(36vmax 32vmax at 88% 12%, rgba(140,255,245,.42), transparent 62%),
+      radial-gradient(46vmax 40vmax at 82% 88%, rgba(255,190,235,.4), transparent 64%),
+      radial-gradient(58vmax 46vmax at 16% 96%, rgba(120,215,255,.5), transparent 66%),
+      linear-gradient(170deg,#6fb6f5 0%,#4f97ea 26%,#3d80dd 54%,#2f6bc9 80%,#2a60bb 100%);
+  }
+  html[data-theme="dawn"] .sky::after{background:linear-gradient(180deg,rgba(255,255,255,.3),rgba(140,200,255,.1) 28%,rgba(20,60,130,.3) 100%)}
+  html[data-theme="dawn"] .topbar,
+  html[data-theme="dawn"] .hero,
+  html[data-theme="dawn"] .card{border-color:rgba(255,255,255,.92)}
+  html[data-theme="dawn"] .card-head h2,
+  html[data-theme="dawn"] .day-num{filter:drop-shadow(0 2px 6px rgba(4,26,64,.35))}
+
+  /* 深海夜：压暗、荧光更强、星星更亮 */
+  html[data-theme="dusk"]{
+    --blue-3:#04142e; --deep:#02102a; --abyss:#010a1c;
+    --stroke:#061a3c; --stroke-2:#0a2450;
+    --surface-bar:linear-gradient(180deg,rgba(120,180,255,.16),rgba(30,70,140,.12));
+    --surface-hero:
+      radial-gradient(120% 100% at 88% 6%, rgba(150,120,240,.26), transparent 56%),
+      radial-gradient(120% 110% at 6% 100%, rgba(60,220,220,.16), transparent 58%),
+      linear-gradient(150deg, rgba(10,32,76,.93), rgba(5,18,44,.96)),
+      linear-gradient(150deg, rgba(120,180,255,.08), rgba(120,180,255,.02));
+    --surface-card:
+      radial-gradient(120% 90% at 100% 0%, rgba(150,120,240,.2), transparent 56%),
+      radial-gradient(120% 100% at 0% 100%, rgba(60,220,220,.14), transparent 58%),
+      linear-gradient(160deg, rgba(10,34,80,.93), rgba(4,16,40,.96));
+    --sh-bar:0 8px 0 rgba(1,8,22,.55), 0 18px 40px rgba(0,0,0,.45), inset 0 2px 0 rgba(150,200,255,.24);
+    --sh-hero:0 10px 0 rgba(1,8,22,.55), 0 30px 70px rgba(0,0,0,.5), inset 0 2px 0 rgba(150,200,255,.26);
+    --sh-card:0 9px 0 rgba(1,8,22,.5), 0 20px 46px rgba(0,0,0,.45), inset 0 2px 0 rgba(150,200,255,.22);
+  }
+  html[data-theme="dusk"] body{background:#04142e}
+  html[data-theme="dusk"] .sky{
+    background:
+      radial-gradient(58vmax 42vmax at 52% 3%, rgba(120,190,255,.26), transparent 62%),
+      radial-gradient(40vmax 34vmax at 12% 6%, rgba(80,150,255,.22), transparent 60%),
+      radial-gradient(36vmax 32vmax at 88% 12%, rgba(60,240,230,.16), transparent 62%),
+      radial-gradient(46vmax 40vmax at 82% 88%, rgba(190,110,220,.2), transparent 64%),
+      radial-gradient(58vmax 46vmax at 16% 96%, rgba(40,140,255,.24), transparent 66%),
+      linear-gradient(170deg,#0b2149 0%,#081a3c 30%,#061433 60%,#04102a 100%);
+  }
+  html[data-theme="dusk"] .sky::after{background:linear-gradient(180deg,rgba(10,30,70,.24),rgba(4,14,36,.45) 40%,rgba(1,6,18,.72))}
+  html[data-theme="dusk"] .topbar,
+  html[data-theme="dusk"] .hero,
+  html[data-theme="dusk"] .card{border-color:rgba(160,210,255,.46)}
+  html[data-theme="dusk"] .stars{opacity:calc(1 * var(--deco));filter:brightness(1.5)}
+
+  /* 樱花粉：粉紫替换蓝，保留糖果感 */
+  html[data-theme="sakura"]{
+    --blue-3:#6b4b8f; --deep:#3d2660; --abyss:#2a1846;
+    --stroke:#5a2d63; --stroke-2:#6b3a75;
+    --cyan:#ffd1ee; --gold:#fff0c2;
+    --surface-bar:linear-gradient(180deg,rgba(255,220,240,.4),rgba(255,190,230,.16));
+    --surface-hero:
+      radial-gradient(120% 100% at 88% 6%, rgba(255,210,235,.36), transparent 56%),
+      radial-gradient(120% 110% at 6% 100%, rgba(200,190,255,.26), transparent 58%),
+      linear-gradient(150deg, rgba(96,50,120,.88), rgba(52,26,74,.93)),
+      linear-gradient(150deg, rgba(255,220,245,.22), rgba(255,220,245,.07));
+    --surface-card:
+      radial-gradient(120% 90% at 100% 0%, rgba(255,200,230,.26), transparent 56%),
+      radial-gradient(120% 100% at 0% 100%, rgba(200,190,255,.2), transparent 58%),
+      linear-gradient(160deg, rgba(92,48,116,.86), rgba(48,24,70,.92));
+    --sh-bar:0 8px 0 rgba(46,16,64,.34), 0 18px 40px rgba(30,8,44,.34), inset 0 2px 0 rgba(255,230,250,.55);
+    --sh-hero:0 10px 0 rgba(46,16,64,.32), 0 30px 70px rgba(30,8,44,.4), inset 0 2px 0 rgba(255,230,250,.55);
+    --sh-card:0 9px 0 rgba(46,16,64,.3), 0 20px 46px rgba(30,8,44,.36), inset 0 2px 0 rgba(255,230,250,.5);
+  }
+  html[data-theme="sakura"] body{background:#6b4b8f}
+  html[data-theme="sakura"] .sky{
+    background:
+      radial-gradient(58vmax 42vmax at 52% 3%, rgba(255,235,248,.62), rgba(255,220,240,.3) 34%, transparent 66%),
+      radial-gradient(40vmax 34vmax at 12% 6%, rgba(240,190,255,.4), transparent 60%),
+      radial-gradient(36vmax 32vmax at 88% 12%, rgba(255,200,225,.34), transparent 62%),
+      radial-gradient(46vmax 40vmax at 82% 88%, rgba(200,170,255,.36), transparent 64%),
+      radial-gradient(58vmax 46vmax at 16% 96%, rgba(255,180,220,.4), transparent 66%),
+      linear-gradient(170deg,#a678c4 0%,#8b5eae 26%,#7348a0 54%,#5c3688 80%,#4a2a72 100%);
+  }
+  html[data-theme="sakura"] .sky::after{background:linear-gradient(180deg,rgba(255,240,250,.22),rgba(180,130,220,.1) 26%,rgba(40,12,64,.36))}
+  html[data-theme="sakura"] .topbar,
+  html[data-theme="sakura"] .hero,
+  html[data-theme="sakura"] .card{border-color:rgba(255,235,250,.9)}
+  html[data-theme="sakura"] .btn.primary{background:linear-gradient(160deg,#ffc8e6,#ff8fc2 48%,#ff6aae)}
+  html[data-theme="sakura"] .card.today{border-color:#ffd6f2}
+  html[data-theme="sakura"] .prog .track > i{background:linear-gradient(90deg,#ffd1ee,#ffa6d5 46%,#fff0c2)}
+  /* 立绘的画框原本是白底（配合蓝色海水），粉主题下换成浅粉，免得白块突兀 */
+  html[data-theme="sakura"] .portrait .frame{
+    background:radial-gradient(80% 70% at 50% 42%, #fffafd, #f8ecff 50%, #e6d6f6 80%, #cfb4e8 100%);
+  }
+  html[data-theme="sakura"] .portrait .bubble{
+    background:linear-gradient(160deg,#fff8fd,#ffe4f4);color:#a8306f;
+  }
+  html[data-theme="sakura"] .nameplate{background:linear-gradient(160deg,#fffaff,#ffe0f2)}
+  /* 粉底上白字对比弱一档，卡片再压深一点 */
+  html[data-theme="sakura"] .card,
+  html[data-theme="sakura"] .hero{backdrop-filter:blur(16px) saturate(1.1);-webkit-backdrop-filter:blur(16px) saturate(1.1)}
+
+  /* 静谧模式：一键把背景装饰压到很低，给内容让路 */
+  body.quiet{--deco:.18}
+
+  /* ==========================================================================
+     V2 · 新组件
+     ========================================================================== */
+
+  /* ---------- 「更多」菜单：把导出 / 导入 / 清理 / 设置收进去 ---------- */
+  .menu-wrap{position:relative}
+  .menu{
+    position:absolute;right:0;top:calc(100% + 12px);z-index:30;
+    min-width:228px;padding:8px;border-radius:18px;
+    border:3px solid #fff;background:rgba(12,52,116,.95);
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 8px 0 rgba(6,26,66,.34), 0 24px 50px rgba(3,14,40,.5);
+    display:grid;gap:2px;
+    opacity:0;transform:translateY(-6px) scale(.97);pointer-events:none;
+    transition:opacity .18s, transform .18s cubic-bezier(.2,.9,.3,1.4);
+  }
+  .menu.on{opacity:1;transform:none;pointer-events:auto}
+  .menu button{
+    display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+    padding:10px 12px;border-radius:12px;border:0;background:transparent;
+    color:#eaf7ff;font-size:13.5px;font-weight:800;cursor:pointer;
+    transition:background .16s, color .16s;
+  }
+  .menu button:hover{background:rgba(255,255,255,.18);color:#fff}
+  .menu button.sel{
+    background:rgba(143,244,255,.18);
+    box-shadow:inset 0 0 0 1.5px rgba(143,244,255,.55), 0 0 14px rgba(143,244,255,.18);
+  }
+  .menu button svg{width:16px;height:16px;flex:0 0 16px;opacity:.9}
+  .menu .kbd{
+    margin-left:auto;padding:1px 6px;border-radius:6px;font-size:10.5px;font-weight:800;
+    background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.28);letter-spacing:.04em;
+  }
+  .menu .menu-head{padding:6px 12px 8px;font-size:10.5px;letter-spacing:.16em;color:#a8c8f0;font-weight:800;text-transform:uppercase}
+  .menu .sep{height:1px;background:rgba(255,255,255,.16);margin:6px 8px}
+  .menu .row{display:flex;align-items:center;gap:10px;padding:8px 12px;font-size:12.5px;font-weight:800;color:#dceeff}
+  .menu input[type="range"]{flex:1 1 auto;accent-color:#8ff4ff;height:4px}
+  .menu .theme-row{display:flex;gap:6px;padding:4px 10px 8px}
+  .menu .swatch{
+    width:26px;height:26px;border-radius:9px;border:2.5px solid rgba(255,255,255,.5);cursor:pointer;padding:0;
+    transition:transform .16s var(--ease-pop), border-color .2s;
+  }
+  .menu .swatch:hover{transform:translateY(-2px) scale(1.08)}
+  .menu .swatch[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.28)}
+
+  /* ---------- 沉浸全屏时钟 ---------- */
+  .immersive{
+    position:fixed;inset:0;z-index:40;display:none;
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(80,170,255,.34), transparent 60%),
+      radial-gradient(90% 70% at 50% 110%, rgba(255,150,220,.22), transparent 62%),
+      linear-gradient(180deg,#0a2b60,#051733 46%,#020b1e);
+    color:#fff;overflow:hidden;
+  }
+  .immersive.on{display:grid;place-items:center;animation:immIn .5s var(--ease-out)}
+  @keyframes immIn{from{opacity:0}to{opacity:1}}
+  .immersive .glow{
+    position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(46% 34% at 50% 44%, rgba(140,220,255,.14), transparent 70%);
+    animation:immGlow 7s ease-in-out infinite;
+  }
+  /* 星点：两层不同疏密的点阵错开，避免机械感 */
+  .immersive::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+    background-image:
+      radial-gradient(circle, rgba(226,244,255,.9) 1.1px, transparent 1.6px),
+      radial-gradient(circle, rgba(150,205,255,.72) .9px, transparent 1.4px);
+    background-size:150px 150px, 92px 92px;
+    background-position:0 0, 44px 62px;
+    -webkit-mask-image:radial-gradient(120% 92% at 50% 40%, #000 26%, transparent 80%);
+    mask-image:radial-gradient(120% 92% at 50% 40%, #000 26%, transparent 80%);
+  }
+  @keyframes immGlow{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+  .immersive .center{position:relative;z-index:2;display:grid;justify-items:center;gap:clamp(10px,2vh,22px);padding:24px;text-align:center}
+  .immersive .meta{
+    display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:8px 14px;
+    font-size:clamp(13px,1.7vw,18px);font-weight:800;letter-spacing:.16em;
+    color:#d8ecff;text-transform:uppercase;
+  }
+  .immersive .meta .sep{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4)}
+  .immersive .big{
+    font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:clamp(58px,14vw,190px);line-height:.92;font-weight:800;letter-spacing:-.02em;
+    color:#fff;
+    text-shadow:0 0 60px rgba(140,220,255,.55), 0 0 140px rgba(120,180,255,.35), 0 10px 0 rgba(2,12,32,.5);
+  }
+  .immersive .big .sec{color:#8ff4ff;font-size:.62em}
+  .immersive .lunarline{font-size:clamp(13px,1.7vw,18px);font-weight:800;color:#ffe9a8;letter-spacing:.08em}
+  .immersive .next{
+    display:inline-flex;align-items:center;gap:12px;margin-top:clamp(6px,1.6vh,18px);
+    padding:11px 22px;border-radius:999px;
+    border:2.5px solid rgba(255,255,255,.5);background:rgba(10,40,96,.5);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    font-size:clamp(13px,1.5vw,16px);font-weight:800;color:#eaf7ff;
+    box-shadow:0 6px 0 rgba(2,12,32,.4);
+  }
+  .immersive .next b{color:#fff;font-family:var(--num);font-variant-numeric:var(--tab);font-size:1.35em}
+  .immersive .hint{
+    position:absolute;left:50%;bottom:clamp(18px,4vh,40px);transform:translateX(-50%);
+    font-size:13px;font-weight:800;letter-spacing:.2em;color:rgba(228,244,255,.9);
+    z-index:3;white-space:nowrap;
+    padding:7px 16px;border-radius:999px;
+    background:rgba(8,28,66,.4);border:1.5px solid rgba(255,255,255,.22);
+  }
+  .immersive .quit{
+    position:absolute;right:clamp(14px,2vw,28px);top:clamp(14px,2vw,28px);z-index:4;
+    width:44px;height:44px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+    border:2.5px solid rgba(255,255,255,.6);background:rgba(10,40,96,.5);color:#fff;
+  }
+  .immersive .quit:hover{background:rgba(255,255,255,.22)}
+  .immersive .quit svg{width:18px;height:18px}
+  .immersive .swim{
+    position:absolute;bottom:10%;left:-16vw;width:clamp(90px,13vw,180px);opacity:.55;
+    animation:swimBy 38s linear infinite;
+  }
+  .immersive .swim svg{width:100%;height:auto;display:block}
+  @keyframes swimBy{
+    0%{transform:translate3d(0,0,0) rotate(-2deg)}
+    50%{transform:translate3d(60vw,-4vh,0) rotate(2deg)}
+    100%{transform:translate3d(130vw,0,0) rotate(-2deg)}
+  }
+
+  /* ---------- 桌宠：心情值 + 喂小鱼干 ---------- */
+  .pet-mood{
+    position:absolute;left:50%;top:2px;transform:translate(-50%,-100%) scale(.92);
+    display:none;align-items:center;gap:7px;padding:5px 12px 5px 9px;border-radius:999px;
+    background:linear-gradient(160deg,#ffffff,#e8f4ff);border:2.5px solid #fff;
+    box-shadow:0 5px 0 rgba(10,42,96,.24), 0 12px 24px rgba(6,26,66,.34);
+    white-space:nowrap;font-size:11.5px;font-weight:800;color:#0d3a7d;letter-spacing:.04em;
+    opacity:0;transition:opacity .2s, transform .2s;pointer-events:none;z-index:4;
+  }
+  .pet-mood.on{display:flex;opacity:1;transform:translate(-50%,-100%) scale(1)}
+  .pet-mood .bar{width:46px;height:7px;border-radius:999px;background:rgba(13,58,125,.16);overflow:hidden}
+  .pet-mood .bar i{display:block;height:100%;width:50%;border-radius:999px;background:linear-gradient(90deg,#5fc8ff,#3f8dff);transition:width .4s}
+  .pet-mood.low{background:linear-gradient(160deg,#fff6e6,#ffe6c9)}
+  .pet-mood.low .bar i{background:linear-gradient(90deg,#ffb84d,#ff8f6b)}
+  .pet-mood.low{color:#7a4a08}
+  .pet-feed{
+    position:absolute;right:-4px;bottom:26%;z-index:3;
+    width:40px;height:40px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+    border:2.5px solid #fff;background:linear-gradient(160deg,#fff6d8,#ffd98a);
+    box-shadow:0 4px 0 rgba(10,42,96,.3), 0 8px 18px rgba(6,26,66,.3);
+    font-size:19px;line-height:1;padding:0;
+    transition:transform .16s var(--ease-pop), filter .2s;
+    pointer-events:auto;
+  }
+  .pet-feed:hover{transform:translateY(-2px) scale(1.08)}
+  .pet-feed:active{transform:translateY(2px) scale(.94)}
+  .pet-feed.cool{filter:grayscale(.7) brightness(.9);cursor:default}
+  .pet.low-mood video{filter:saturate(.72) brightness(.94)}
+  @keyframes petHappy{
+    0%{transform:rotate(var(--tilt)) translateY(var(--lift)) scale(var(--press))}
+    30%{transform:rotate(calc(var(--tilt) - 4deg)) translateY(-12px) scale(calc(var(--press) * 1.05))}
+    60%{transform:rotate(calc(var(--tilt) + 4deg)) translateY(-6px) scale(var(--press))}
+    100%{transform:rotate(var(--tilt)) translateY(var(--lift)) scale(var(--press))}
+  }
+  .pet.happy{animation:petHappy .9s var(--ease-out)}
+
+  /* ---------- 手机底部悬浮「新增」 ---------- */
+  .fab{
+    position:fixed;right:16px;bottom:20px;z-index:9;
+    width:56px;height:56px;border-radius:50%;display:none;place-items:center;cursor:pointer;
+    border:3px solid #fff;background:linear-gradient(160deg,#ffb3dd,#ff6fae);
+    box-shadow:0 6px 0 #b73d84, 0 14px 30px rgba(255,110,190,.44);
+    color:#fff;padding:0;
+  }
+  .fab svg{width:22px;height:22px}
+  .fab:active{transform:translateY(3px)}
+
+  /* ---------- 响应式：中和重排 ---------- */
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;gap:clamp(10px,1.6vh,18px)}
+    .portrait{order:-1;justify-items:center}
+    .portrait .frame-wrap{max-width:200px}
+    .todayline{justify-content:center;text-align:center}
+    .hero-copy{text-align:center}
+    .stats{justify-content:center}
+    .quote{margin-inline:auto}
+    .nameplate{margin-inline:auto}
+    .search{min-width:0;flex:1 1 100%;order:10}
+    .iconbar{margin-left:auto}
+  }
+  @media (max-width:560px){
+    body{padding:10px 12px 104px}
+    .topbar{border-radius:22px;padding:8px 10px;gap:6px;flex-wrap:nowrap}
+    .live{display:none}
+    .brand{flex:1 1 auto;min-width:0;gap:9px}
+    .brand .badge{width:36px;height:36px;flex-basis:36px;border-radius:13px}
+    .brand .badge svg{width:22px;height:22px}
+    .brand .names b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    /* 新增交给右下角 FAB，顶栏这枚只留一个「+」 */
+    .topbar .btn.primary{padding:10px 11px}
+    .topbar .btn.primary .txt{display:none}
+    .iconbar .btn{padding:8px}
+    .hero{padding:14px 13px 16px;border-radius:24px}
+    .portrait .frame-wrap{max-width:170px}
+    .portrait .bubble{display:none} /* 立绘图里已经写着同一句，别叠两层 */
+    h1{font-size:clamp(23px,7vw,30px);line-height:1.3}
+    .quote{font-size:12.5px;line-height:1.7}
+    .stat{flex:1 1 0;min-width:0;padding:7px 8px;text-align:center}
+    .stat b{font-size:19px}
+    .stat span{font-size:9.5px;letter-spacing:.08em}
+    .tools{gap:8px;margin:12px 0 10px}
+    .tools .search{order:-1;flex:1 1 100%}
+    .section-title{display:none}   /* 手机上页面就一个列表，标题占地方 */
+    .seg{flex:0 0 auto;overflow-x:auto;max-width:100%;scrollbar-width:none}
+    .seg::-webkit-scrollbar{display:none}
+    .tools .btn{padding:8px 12px;font-size:12.5px}
+    .tools #btn-add{display:none}     /* 手机上由 FAB 接管 */
+    #btn-clear-past{display:none}
+    .card{border-radius:20px}
+    .day-num{font-size:clamp(44px,13vw,60px)}
+    .day-note{display:none}
+    .mini div{padding:6px 2px 5px}
+    .mini b{font-size:17px}
+    .card-actions .btn{width:34px;height:34px}
+    .fab{display:grid}
+    .pet{width:124px;bottom:-20px;left:-2px;opacity:.94}
+    .pet-say{font-size:11.5px;padding:6px 10px;bottom:calc(100% - 22px)}
+    .pet-feed{width:34px;height:34px;font-size:16px;right:-2px;bottom:30%}
+    .pet-mood{font-size:10px;padding:4px 9px 4px 7px}
+    .pet-mood .bar{width:34px}
+    .toast{bottom:88px;font-size:13px;padding:11px 18px;max-width:calc(100vw - 40px);text-align:center}
+    footer{flex-direction:column;align-items:flex-start;gap:6px;font-size:11px;padding-bottom:8px}
+    footer > span{padding:2px 10px}
+    .no-hit{padding:32px 14px}
+    .menu{min-width:200px}
+  }
+  @media (max-width:380px){
+    .brand .names span{display:none}
+    .topbar .btn.primary .txt{display:none}
+    .topbar .btn.primary{padding:9px 11px}
+  }
+  /* 手机 / 窄屏：装饰再降一档，省电也清爽 */
+  @media (max-width:760px){
+    :root{--deco:.6}
+  }
+
+  /* ==========================================================================
+     V3 · 助手化：把时间推到前面，把装饰收到后面
+     --------------------------------------------------------------------------
+     1) hero 内加一条"助手条"：现在几点 / 下一个还有多久 / 在册合计
+     2) 背景装饰 12 层 → 5 层，闪烁类动画全部放慢或停掉
+     3) 卡片和 hero 去掉 backdrop-filter（糊在背景上会显得乱），改为更实的半透明
+     ========================================================================== */
+
+  /* ---------- 助手条 ---------- */
+  .hero{
+    grid-template-columns:minmax(0,1.22fr) minmax(190px,.5fr);
+    grid-template-areas:"copy portrait" "console console";
+    align-items:center;
+    row-gap:clamp(10px,1.4vh,16px);
+  }
+  .hero-copy{grid-area:copy}
+  .portrait{grid-area:portrait}
+  .console{grid-area:console}
+
+  .console{
+    display:grid;grid-template-columns:auto minmax(0,1fr) auto;
+    align-items:center;gap:clamp(14px,2vw,26px);
+    padding:clamp(10px,1.3vh,14px) clamp(13px,1.5vw,20px);
+    border-radius:18px;
+    border:2.5px solid rgba(255,255,255,.5);
+    background:linear-gradient(180deg,rgba(5,26,66,.5),rgba(3,16,44,.58));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.18), 0 4px 14px rgba(2,12,34,.28);
+  }
+  .console .k{
+    display:block;font-size:9.5px;letter-spacing:.24em;font-weight:800;
+    color:rgba(186,222,255,.82);text-transform:uppercase;margin-bottom:3px;
+  }
+
+  /* 左：现在几点 */
+  .cf{min-width:0}
+  .cf .cf-time{
+    display:block;font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:clamp(27px,3.2vw,40px);line-height:1;font-weight:800;color:#fff;
+    letter-spacing:.005em;
+    text-shadow:0 2px 0 var(--stroke), 0 6px 16px rgba(3,16,44,.55), 0 0 28px rgba(140,220,255,.28);
+  }
+  .cf .cf-sub{
+    display:block;margin-top:4px;font-size:11px;font-weight:700;
+    color:rgba(214,238,255,.82);letter-spacing:.04em;white-space:nowrap;
+  }
+
+  /* 中：下一个 */
+  .nu{min-width:0;display:grid;gap:2px}
+  .nu-head{display:flex;align-items:baseline;gap:8px;min-width:0}
+  .nu-head .k{margin-bottom:0;flex:0 0 auto}
+  .nu-title{
+    font-size:14.5px;font-weight:800;color:#fff;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    text-shadow:0 1.5px 0 rgba(13,58,125,.8);
+  }
+  .nu-date{
+    margin-left:auto;flex:0 0 auto;font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:11px;font-weight:700;color:rgba(198,226,255,.76);white-space:nowrap;
+  }
+  .nu-main{display:flex;align-items:baseline;gap:5px;min-width:0}
+  .nu-days{
+    font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:clamp(26px,2.9vw,36px);line-height:1;font-weight:800;color:#fff;
+    text-shadow:0 2px 0 var(--stroke), 0 5px 12px rgba(3,16,44,.5);
+  }
+  .nu-unit{font-size:12px;font-weight:800;color:rgba(214,238,255,.9)}
+  .nu-left{
+    margin-left:auto;font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:clamp(12.5px,1.35vw,15px);font-weight:800;color:#b9fbff;letter-spacing:.02em;
+    text-shadow:0 0 16px rgba(143,244,255,.45);
+  }
+  .nu-bar{
+    margin-top:4px;height:4px;border-radius:999px;overflow:hidden;
+    background:rgba(3,16,44,.62);box-shadow:inset 0 1px 2px rgba(0,0,0,.45);
+  }
+  .nu-bar i{
+    display:block;height:100%;width:0;border-radius:999px;
+    background:linear-gradient(90deg,#8ff4ff,#7fb8ff 50%,#c8a8ff);
+    transition:width .7s var(--ease-out);
+  }
+
+  /* 右：两个小统计 */
+  .ms{display:flex;gap:clamp(12px,1.6vw,20px);text-align:center}
+  .ms > div{min-width:40px}
+  .ms b{
+    display:block;font-family:var(--num);font-variant-numeric:var(--tab);
+    font-size:16px;font-weight:800;color:#fff;text-shadow:0 2px 0 var(--stroke);
+  }
+  .ms span{
+    display:block;margin-top:1px;font-size:9px;letter-spacing:.14em;font-weight:800;
+    color:rgba(186,222,255,.78);
+  }
+
+  /* ---------- 装饰：12 层 → 5 层 ----------
+     留下 sky（底） / noise（颗粒） / mist（雾） / bubbles（泡泡） / megumi（右下远景）
+     其余的射线、雨丝、星点、鲸鱼剪影、蝴蝶、涂鸦、涌浪全部退场 */
+  .rays,.rain,.stars,.whales,.flutter,.doodles,.swell{display:none}
+
+  /* ---------- 动画降噪 ----------
+     全屏 filter 动画最费也最容易"脉跳"，直接停掉；
+     其余循环动画把周期拉长，闪的频率降下来 */
+  .sky{animation:none}
+  .pulse-dot{animation-duration:4.5s}
+  .portrait img{animation-duration:12s}
+  .card.today{animation:cardIn .72s cubic-bezier(.2,.85,.3,1.35) forwards, todayGlow 6s ease-in-out infinite}
+  .widget .whale svg .tail{animation-duration:4s}
+  .hero .spark{display:none}
+
+  /* ---------- 去糊：hero 和卡片不再模糊背后的画面 ---------- */
+  .hero,.card{backdrop-filter:none;-webkit-backdrop-filter:none}
+
+  /* ---------- 下一个：给一点光，但不抢戏 ---------- */
+  .card.next:not(.today){
+    border-color:rgba(185,251,255,.92);
+    box-shadow:0 9px 0 rgba(10,42,96,.26), 0 24px 50px rgba(6,26,66,.36),
+               0 0 0 3px rgba(143,244,255,.16), 0 0 30px rgba(143,244,255,.26);
+  }
+  .card.next:not(.today) .tag{
+    border-color:#fff;background:linear-gradient(160deg,#e2feff,#8ff4ff);color:#07404d;text-shadow:none;
+  }
+
+  /* ---------- 快捷键面板 ---------- */
+  .keys{
+    position:fixed;inset:0;z-index:45;display:none;place-items:center;
+    background:rgba(3,16,44,.62);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  }
+  .keys.on{display:grid}
+  .keys .panel{
+    width:min(520px,calc(100vw - 32px));
+    padding:clamp(18px,3vh,28px) clamp(18px,3vw,28px);
+    border-radius:22px;border:3px solid #fff;
+    background:linear-gradient(160deg,rgba(16,58,124,.98),rgba(7,28,68,.98));
+    box-shadow:0 12px 0 rgba(3,14,40,.4), 0 30px 70px rgba(2,10,30,.55);
+    color:#eaf7ff;
+  }
+  .keys h3{
+    margin:0 0 4px;font-size:19px;font-weight:800;color:#fff;letter-spacing:.04em;
+    text-shadow:0 2px 0 rgba(13,58,125,.8);
+  }
+  .keys p{margin:0 0 16px;font-size:12.5px;font-weight:700;color:rgba(206,232,255,.82)}
+  .keys dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 16px;margin:0;align-items:center}
+  .keys dt{display:flex;gap:5px}
+  .keys kbd{
+    display:inline-block;min-width:26px;padding:3px 7px;border-radius:7px;text-align:center;
+    font-family:var(--num);font-size:12px;font-weight:800;color:#0b2a5e;
+    background:linear-gradient(180deg,#fff,#d9ecff);border:2px solid #fff;
+    box-shadow:0 3px 0 rgba(3,16,44,.4);
+  }
+  .keys dd{margin:0;font-size:14px;font-weight:800;color:#eaf7ff;letter-spacing:.01em}
+  .keys .close{
+    margin-top:18px;width:100%;padding:10px;border-radius:12px;cursor:pointer;
+    border:2.5px solid rgba(255,255,255,.6);background:rgba(255,255,255,.12);
+    color:#fff;font-weight:800;font-size:13px;
+  }
+  .keys .close:hover{background:rgba(255,255,255,.22)}
+
+  /* ---------- 助手条：收密度，保证一屏放得下 ---------- */
+  .console{padding:9px clamp(12px,1.4vw,18px)}
+  .console .cf-time{font-size:clamp(24px,2.9vw,36px)}
+  .console .cf-sub{margin-top:2px}
+  .console .nu{max-width:560px;width:100%;justify-self:center}
+  .console .nu-bar{margin-top:3px}
+
+  /* 首屏压缩：标题降一档、间距收一点、卡片矮一点——797 高的屏也能一屏看完 */
+  h1{font-size:clamp(26px,3.1vw,42px);margin-bottom:clamp(6px,.8vh,9px)}
+  .nameplate{margin-bottom:9px}
+  .todayline{margin-bottom:9px}
+  .hero{padding:clamp(11px,1.4vh,18px) clamp(13px,1.5vw,22px)}
+  .tools{margin:10px 0 9px}
+  .card{padding:clamp(11px,1.3vh,16px) clamp(13px,1.2vw,18px) clamp(9px,1.1vh,13px)}
+  .day-num{font-size:clamp(44px,4.9vw,78px)}
+  .mini{margin-top:8px}
+  .mini div{padding:5px 3px 4px}
+  .prog{margin-top:8px}
+  .card-actions{margin-top:8px}
+  footer{margin-top:9px}
+
+  /* 矮屏（笔记本 768~860 高）再收一档立绘，把助手条的空间让出来 */
+  @media (max-height:860px){
+    .portrait .frame-wrap{max-width:min(220px,24vh)}
+    .console{padding:8px clamp(12px,1.4vw,18px)}
+    .hero{row-gap:9px}
+  }
+
+  /* ---------- 去重：顶栏的小时钟和助手条重复了，只留一个 ---------- */
+  .topbar .live{display:none}
+
+  /* ---------- 桌宠：缩小一点，鼠标进列表时自动退到后面 ---------- */
+  .pet{width:clamp(140px,11.5vw,196px);left:-8px;bottom:-30px;opacity:.94}
+  .pet.ghost{opacity:.26}
+  .pet.ghost:hover,.pet.ghost.dragging{opacity:.94}
+  @media (max-height:860px){
+    .pet{width:clamp(132px,10vw,168px);bottom:-26px}
+  }
+  @media (max-width:560px){
+    .pet{width:118px;bottom:-18px;left:-4px}
+  }
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr;grid-template-areas:"portrait" "copy" "console"}
+    .console{grid-template-columns:auto minmax(0,1fr);row-gap:10px}
+    .nu{grid-column:1/-1;grid-row:2}
+    .ms{grid-column:2;grid-row:1;justify-self:end}
+  }
+  @media (max-width:560px){
+    .console{gap:8px 12px;padding:11px 12px}
+    .cf .cf-time{font-size:30px}
+    .cf .cf-sub{display:none}
+    .nu-title{font-size:13.5px}
+    .nu-date{display:none}
+    .nu-days{font-size:28px}
+    .keys .panel{padding:18px 16px}
+    .keys dl{gap:8px 12px}
+    .keys dd{font-size:12.5px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .sky,.rays i,.bubbles i,.portrait img,.portrait .frame::after,.portrait .bubble,.pulse-dot,
+    .brand .badge,.hero .spark,.doodles > *,.card.today{animation:none!important}
+    .card,.hero,.sheet{animation:none!important;opacity:1!important;transform:none!important}
+    .prog .track > i{transition:none}
+  }
+</style>
+</head>
+<body>
+  <div class="sky"></div>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="rays" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="rain" id="rain" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="whales" aria-hidden="true"></div>
+  <div class="mist" id="mist" aria-hidden="true"></div>
+  <div class="flutter" id="flutter" aria-hidden="true"></div>
+  <div class="swell" aria-hidden="true"></div>
+  <div class="bubbles" id="bubbles" aria-hidden="true"></div>
+  <div class="doodles" aria-hidden="true">
+    <svg style="left:4%;top:16%;width:74px;animation-duration:19s" viewBox="0 0 64 40" fill="none">
+      <path d="M3 18c0-5 5-8 10-6C19 2 44 1 50 15c5 .3 9 3 9 7 0 7-7 9-13 9-5 14-32 14-38 0-4 2-7-1-6-5 .2-2 .5-4 1-8Z" fill="#dff2ff" opacity=".9"/>
+      <circle cx="23" cy="19" r="3" fill="#1d4fa8"/><circle cx="24.4" cy="18" r="1" fill="#fff"/>
+      <path d="M38 28c3 5 8 6 12 3 3-2 3-5 0-6-2-.5-3.6.4-4.6 2-1-1.4-2.8-2-4.4-1.6-1.7.5-2.9 1.6-3 3.6Z" fill="#bfe3ff"/>
+    </svg>
+    <svg style="right:6%;top:44%;width:56px;animation-duration:15s;animation-delay:-4s" viewBox="0 0 64 40" fill="none">
+      <path d="M3 18c0-5 5-8 10-6C19 2 44 1 50 15c5 .3 9 3 9 7 0 7-7 9-13 9-5 14-32 14-38 0-4 2-7-1-6-5 .2-2 .5-4 1-8Z" fill="#ffe9f7" opacity=".85"/>
+      <circle cx="23" cy="19" r="3" fill="#c9337f"/><circle cx="24.4" cy="18" r="1" fill="#fff"/>
+    </svg>
+    <svg class="little-whale" style="left:38%;top:22%;width:52px;animation-duration:24s;animation-delay:-6s" viewBox="0 0 64 40" fill="none">
+      <path d="M3 18c0-5 5-8 10-6C19 2 44 1 50 15c5 .3 9 3 9 7 0 7-7 9-13 9-5 14-32 14-38 0-4 2-7-1-6-5 .2-2 .5-4 1-8Z" fill="#e6f4ff" opacity=".95"/>
+      <circle cx="23" cy="19" r="3" fill="#1d4fa8"/><circle cx="24.4" cy="18" r="1" fill="#fff"/>
+      <path d="M38 28c3 5 8 6 12 3 3-2 3-5 0-6-2-.5-3.6.4-4.6 2-1-1.4-2.8-2-4.4-1.6-1.7.5-2.9 1.6-3 3.6Z" fill="#bfe3ff"/>
+    </svg>
+    <svg class="little-whale" style="right:22%;top:64%;width:40px;animation-duration:28s;animation-delay:-14s" viewBox="0 0 64 40" fill="none">
+      <path d="M3 18c0-5 5-8 10-6C19 2 44 1 50 15c5 .3 9 3 9 7 0 7-7 9-13 9-5 14-32 14-38 0-4 2-7-1-6-5 .2-2 .5-4 1-8Z" fill="#dff2ff" opacity=".9"/>
+      <circle cx="23" cy="19" r="3" fill="#2f6fe0"/><circle cx="24.4" cy="18" r="1" fill="#fff"/>
+    </svg>
+    <svg style="left:12%;bottom:8%;width:40px;animation-duration:13s;animation-delay:-7s" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2.6l2.3 6.3 6.5.4-5.1 4.2 1.7 6.4L12 16.2 6.6 19.9l1.7-6.4L3.2 9.3l6.5-.4L12 2.6Z" fill="#fff3c4"/>
+    </svg>
+    <svg style="right:16%;bottom:16%;width:34px;animation-duration:17s;animation-delay:-2s" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2.6l2.3 6.3 6.5.4-5.1 4.2 1.7 6.4L12 16.2 6.6 19.9l1.7-6.4L3.2 9.3l6.5-.4L12 2.6Z" fill="#d8fbff"/>
+    </svg>
+  </div>
+  <!-- 角落远景人物：只用人物本身，融进背景（不是整张换背景） -->
+  <div class="megumi" aria-hidden="true">
+    <img src="assets/mascot-rice.jpg" alt="" />
+  </div>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <!-- dshpet 桌宠（来自 dsh-pet 插件）：点一下有反应，按住可以拖走，双击回到原位 -->
+  <div class="pet" id="pet" role="img" aria-label="会动的桌宠：蓝毛小女仆">
+    <span class="pet-hit" id="petHit"></span>
+    <video class="idle" id="petIdle" muted playsinline loop preload="auto"></video>
+    <video class="act" id="petAct" muted playsinline preload="none"></video>
+    <span class="pet-mood" id="petMood">
+      <span class="bar"><i id="petMoodBar"></i></span>
+      <span id="petMoodTxt">心情 60</span>
+    </span>
+    <button class="pet-feed" id="petFeed" type="button" title="喂一条小鱼干（心情 +8）" aria-label="喂小鱼干">🐟</button>
+    <span class="pet-say" id="petSay"></span>
+    <span class="pet-hint" id="petHint"></span>
+    <span class="pet-tip" id="petTip">点我一下～ 按住能拖走，甩出去还会弹</span>
+  </div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="brand">
+        <span class="badge" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z" fill="url(#g1)"/>
+            <circle cx="13.4" cy="14.6" r="1.6" fill="#0d3a7d"/>
+            <circle cx="13.9" cy="14.1" r=".6" fill="#fff"/>
+            <path d="M21 19.6c1.6.7 2.6.4 3.4-.6" stroke="#0d3a7d" stroke-width="1.3" stroke-linecap="round"/>
+            <path d="M16 25.6c1.6 2.6 4.2 3 6 1.6 1.4-1.1 1.4-2.6 0-2.9-1-.2-1.8.2-2.4 1-.5-.7-1.4-1.1-2.3-.9-.9.2-1.4.7-1.3 1.2Z" fill="#eaf7ff"/>
+            <defs><linearGradient id="g1" x1="4" y1="6" x2="30" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff"/><stop offset=".5" stop-color="#c9e9ff"/><stop offset="1" stop-color="#7fc4ff"/>
+            </linearGradient></defs>
+          </svg>
+        </span>
+        <span class="names">
+          <b>深海女仆工坊</b>
+          <span>Dshwhale Atelier · Countdown</span>
+        </span>
+      </div>
+      <span class="spacer"></span>
+      <span class="live"><span class="pulse-dot"></span>本地时间 <b id="clock">--:--:--</b></span>
+      <span class="iconbar">
+        <button class="btn" id="btn-sound" type="button" aria-pressed="false" title="背景音：关">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7.6 3.1 4.4 5.5H2.2v5h2.2l3.2 2.4V3.1Z"/><path d="M10.3 5.9c.9.9.9 3.3 0 4.2"/><path d="M12.2 4.1c1.9 1.9 1.9 5.9 0 7.8"/></svg>
+          <span class="lbl">背景音</span>
+        </button>
+        <button class="btn" id="btn-immersive" type="button" title="沉浸时钟（F）">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6V2.5H6M10 2.5h3.5V6M13.5 10v3.5H10M6 13.5H2.5V10"/></svg>
+          <span class="lbl">沉浸时钟</span>
+        </button>
+        <span class="menu-wrap">
+          <button class="btn" id="btn-more" type="button" aria-haspopup="true" aria-expanded="false" title="更多设置">
+            <svg viewBox="0 0 16 16" fill="currentColor"><circle cx="3.2" cy="8" r="1.35"/><circle cx="8" cy="8" r="1.35"/><circle cx="12.8" cy="8" r="1.35"/></svg>
+            <span class="lbl">更多</span>
+          </button>
+          <div class="menu" id="menu" role="menu">
+            <div class="menu-head">配色</div>
+            <div class="theme-row" id="theme-row">
+              <button class="swatch" type="button" data-theme="deep" aria-pressed="true" title="深海（默认）" style="background:linear-gradient(160deg,#6fb6f5,#123a80)"></button>
+              <button class="swatch" type="button" data-theme="dawn" aria-pressed="false" title="晴海" style="background:linear-gradient(160deg,#9ad4ff,#2a60bb)"></button>
+              <button class="swatch" type="button" data-theme="dusk" aria-pressed="false" title="深海夜" style="background:linear-gradient(160deg,#24508f,#020b1e)"></button>
+              <button class="swatch" type="button" data-theme="sakura" aria-pressed="false" title="樱花粉" style="background:linear-gradient(160deg,#ffc8e6,#6b4b8f)"></button>
+            </div>
+            <div class="sep"></div>
+            <div class="menu-head">背景音</div>
+            <div class="row">
+              <span>音量</span>
+              <input type="range" id="vol" min="0" max="100" step="1" value="45" aria-label="背景音音量" />
+            </div>
+            <button type="button" data-sound="off">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M3 13 13 3"/></svg>静音
+            </button>
+            <button type="button" data-sound="ocean">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1.5 9.5c1.6-2 3.2-2 4.8 0s3.2 2 4.8 0 2.4-1.4 3.4-.6"/><path d="M1.5 13c1.6-2 3.2-2 4.8 0s3.2 2 4.8 0 2.4-1.4 3.4-.6"/><path d="M1.5 6c1.6-2 3.2-2 4.8 0s3.2 2 4.8 0 2.4-1.4 3.4-.6"/></svg>海浪
+            </button>
+            <button type="button" data-sound="rain">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 2.5 3 6M8 2.5 7 6M12 2.5 11 6"/><path d="M3.9 9.2 3 13M7.9 9.2 7 13M11.9 9.2 11 13"/></svg>雨声
+            </button>
+            <div class="sep"></div>
+            <button type="button" id="menu-quiet">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 9.5A5.5 5.5 0 0 1 6.5 3a5.5 5.5 0 1 0 6.5 6.5Z"/></svg>静谧模式<span class="kbd">Q</span>
+            </button>
+            <div class="sep"></div>
+            <button type="button" id="btn-export">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2v8m0 0 3-3m-3 3L5 7M3 13h10" stroke-linecap="round" stroke-linejoin="round"/></svg>导出 JSON
+            </button>
+            <button type="button" id="btn-import">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 13V5m0 0 3 3M8 5 5 8M3 3h10" stroke-linecap="round" stroke-linejoin="round"/></svg>导入 JSON
+            </button>
+            <button type="button" id="menu-clear">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 4.5h11M6 4.5V3h4v1.5M4 4.5l.7 9h6.6l.7-9"/></svg>清理已过期
+            </button>
+          </div>
+        </span>
+      </span>
+      <button class="btn primary" id="btn-add-top" type="button">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M8 3.5v9M3.5 8h9" stroke-linecap="round"/></svg><span class="txt">新增日期</span>
+      </button>
+    </header>
+
+    <!-- 左上角挂饰：照着 DSH 的 dshwhalewidget 做的"吊牌"，一根线挂着轻轻摇 -->
+    <div class="widget" aria-hidden="true">
+      <span class="rope"></span>
+      <div class="cord">
+        <span class="whale">
+          <svg viewBox="0 0 32 32" fill="none">
+            <path d="M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z" fill="url(#wg1)"/>
+            <circle cx="13.4" cy="14.6" r="1.7" fill="#0d3a7d"/>
+            <circle cx="13.9" cy="14.1" r=".65" fill="#fff"/>
+            <path d="M21 19.4c1.6.7 2.6.4 3.4-.6" stroke="#0d3a7d" stroke-width="1.3" stroke-linecap="round"/>
+            <path class="tail" d="M16 25.4c1.6 2.6 4.2 3 6 1.6 1.4-1.1 1.4-2.6 0-2.9-1-.2-1.8.2-2.4 1-.5-.7-1.4-1.1-2.3-.9-.9.2-1.4.7-1.3 1.2Z" fill="#eaf7ff"/>
+            <defs><linearGradient id="wg1" x1="4" y1="6" x2="30" y2="26" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff"/><stop offset=".5" stop-color="#c9e9ff"/><stop offset="1" stop-color="#7fc4ff"/>
+            </linearGradient></defs>
+          </svg>
+        </span>
+        <span class="txt">
+          <b>鲸鲸在值班</b>
+          <span>WHALE WIDGET</span>
+          <i>token 已托管</i>
+        </span>
+      </div>
+    </div>
+
+
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="nameplate">🐳 女仆长 <b>值班中</b></span>
+        <h1 class="toon">把重要的日子，<br /><span class="hl">交给深海保管</span></h1>
+        <div class="todayline">
+          <span>今天 <b id="today-date">----</b></span>
+          <span class="dot"></span>
+          <span id="today-week">--</span>
+          <span class="dot"></span>
+          <span class="lunar" id="today-lunar">农历 --</span>
+          <span class="term" id="today-term">--</span>
+        </div>
+        <p class="quote"><span class="qm">「</span><span id="quote">正在打捞今天的海底电波……</span><span class="qm">」</span></p>
+      </div>
+
+      <!-- 助手条：现在几点（左） + 下一个还有多久（中） + 在册合计（右） -->
+      <div class="console" role="group" aria-label="助手面板">
+        <div class="cf">
+          <span class="k">现在</span>
+          <b class="cf-time" id="bigClock">--:--:--</b>
+          <span class="cf-sub" id="bigClockDay">--</span>
+        </div>
+
+        <div class="nu" id="nextUp">
+          <div class="nu-head">
+            <span class="k">下一个</span>
+            <b class="nu-title" id="nuTitle">还没有在册的日子</b>
+            <span class="nu-date" id="nuDate"></span>
+          </div>
+          <div class="nu-main">
+            <b class="nu-days" id="nuDays">--</b>
+            <span class="nu-unit">天</span>
+            <span class="nu-left" id="nuLeft">--</span>
+          </div>
+          <div class="nu-bar"><i id="nuFill"></i></div>
+        </div>
+
+        <div class="ms">
+          <div><b id="stat-count">0</b><span>在册</span></div>
+          <div><b id="stat-sum">--</b><span>合计天</span></div>
+        </div>
+      </div>
+
+      <div class="portrait">
+        <div class="frame-wrap">
+          <div class="frame">
+            <img src="assets/mascot-token.jpg" alt="深海女仆工坊吉祥物：蓝发鲸鱼女仆伸手讨要 token" width="800" height="800" />
+          </div>
+          <span class="bubble">token 给妈妈保管！</span>
+          <span class="tag">女仆长 · 鲸鲸</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="tools">
+      <span class="section-title"><i></i>倒计时台</span>
+      <label class="search" id="search-wrap">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"/><path d="m10.6 10.6 3 3"/></svg>
+        <input id="q" type="text" placeholder="搜标题或日期…" title="按 / 快速聚焦" autocomplete="off" spellcheck="false" aria-label="搜索倒计时" />
+        <button class="clear" id="q-clear" type="button" aria-label="清空搜索">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+        </button>
+      </label>
+      <span class="seg" id="filter" role="group" aria-label="筛选">
+        <button type="button" data-f="all" aria-pressed="true">全部</button>
+        <button type="button" data-f="future" aria-pressed="false">未来</button>
+        <button type="button" data-f="past" aria-pressed="false">已过</button>
+      </span>
+      <span class="spacer"></span>
+      <button class="btn ghost" id="btn-clear-past" type="button">清理已过期</button>
+      <button class="btn" id="btn-add" type="button">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.1"><path d="M8 3.5v9M3.5 8h9" stroke-linecap="round"/></svg>添加新日期
+      </button>
+    </div>
+
+    <main class="grid" id="grid" aria-live="polite"></main>
+
+    <footer>
+      <span class="whale">
+        <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4.5 13.2c0-2.3 2.2-3.6 4.4-2.6C11.6 4.9 23.4 4.6 26.2 11.7c2 .1 3.8 1.2 3.8 3.2 0 3-3.1 4.2-6 4.2-2.2 6.2-14.2 6.2-17 0-1.8 1-3.2-.6-3-2.1.1-.9.3-1.9.5-3.8Z" fill="#ffffff" opacity=".9"/></svg>
+        深海女仆工坊 · 倒计时台
+      </span>
+      <span>数据只在这台设备 · 换设备用「导出 / 导入」</span>
+      <span id="tzline">--</span>
+    </footer>
+  </div>
+
+  <!-- 沉浸全屏时钟：藏起所有界面，只剩时间、农历和最近的那个日子（F 键 / 双击 / Esc 退出） -->
+  <div class="immersive" id="immersive" role="dialog" aria-modal="true" aria-label="沉浸时钟" aria-hidden="true">
+    <div class="glow"></div>
+    <div class="swim" aria-hidden="true">
+      <svg viewBox="0 0 64 40" fill="none">
+        <path d="M3 18c0-5 5-8 10-6C19 2 44 1 50 15c5 .3 9 3 9 7 0 7-7 9-13 9-5 14-32 14-38 0-4 2-7-1-6-5 .2-2 .5-4 1-8Z" fill="#bfe3ff" opacity=".9"/>
+        <circle cx="23" cy="19" r="3" fill="#0b2a5e"/><circle cx="24.4" cy="18" r="1" fill="#fff"/>
+      </svg>
+    </div>
+    <button class="quit" id="imm-quit" type="button" title="退出（Esc）" aria-label="退出沉浸时钟">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+    </button>
+    <div class="center">
+      <div class="meta" id="imm-meta"><span>--</span></div>
+      <div class="big" id="imm-clock">--:--:--</div>
+      <div class="lunarline" id="imm-lunar">农历 --</div>
+      <div class="next" id="imm-next"></div>
+    </div>
+    <div class="hint">双击 或 Esc 退出</div>
+  </div>
+
+  <!-- 手机上的悬浮新增（顶栏那枚在滚动后看不见） -->
+  <button class="fab" id="fab" type="button" aria-label="添加新日期">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 3.5v9M3.5 8h9"/></svg>
+  </button>
+
+  <!-- 快捷键面板（按 ? 打开） -->
+  <div class="keys" id="keys" role="dialog" aria-modal="true" aria-label="快捷键" aria-hidden="true">
+    <div class="panel">
+      <h3>快捷键</h3>
+      <p>按 ? 随时打开，Esc 关掉。</p>
+      <dl>
+        <dt><kbd>F</kbd></dt><dd>沉浸时钟</dd>
+        <dt><kbd>Q</kbd></dt><dd>静谧模式（背景装饰降到最低）</dd>
+        <dt><kbd>/</kbd></dt><dd>搜索日期</dd>
+        <dt><kbd>N</kbd></dt><dd>新增日期</dd>
+        <dt><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></dt><dd>全部 / 未来 / 已过</dd>
+        <dt><kbd>T</kbd></dt><dd>换配色</dd>
+        <dt><kbd>M</kbd></dt><dd>背景音开关</dd>
+        <dt><kbd>E</kbd></dt><dd>导出 JSON</dd>
+        <dt><kbd>Esc</kbd></dt><dd>退出沉浸 / 关面板</dd>
+      </dl>
+      <button class="close" id="keys-close" type="button">知道了</button>
+    </div>
+  </div>
+
+  <dialog id="dlg">
+    <form class="sheet" id="form" method="dialog" novalidate>
+      <h2 id="dlg-title">新增倒计时</h2>
+      <p class="hint">写下要等的那一天～时间到了女仆长会在这里放一场海底烟花。</p>
+
+      <div class="field">
+        <label for="f-title">标题</label>
+        <input id="f-title" type="text" maxlength="40" placeholder="例如：年会 / 出发去海边 / 项目上线" autocomplete="off" />
+      </div>
+
+      <div class="row2">
+        <div class="field">
+          <label for="f-date">目标日期</label>
+          <input id="f-date" type="date" />
+        </div>
+        <div class="field">
+          <label for="f-time">目标时刻（可选）</label>
+          <input id="f-time" type="time" step="60" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="f-start">起算日（可选，用于进度条）</label>
+        <input id="f-start" type="date" />
+      </div>
+
+      <div class="field">
+        <label>快捷设定</label>
+        <div class="chips" id="chips">
+          <span class="chip" data-days="7">一周后</span>
+          <span class="chip" data-days="30">一个月后</span>
+          <span class="chip" data-days="100">100 天后</span>
+          <span class="chip" data-days="365">一年后</span>
+          <span class="chip" data-days="0">今天</span>
+        </div>
+      </div>
+
+      <div class="err" id="err" role="alert"></div>
+
+      <div class="sheet-actions">
+        <button class="btn primary" id="btn-save" type="submit">保存</button>
+        <button class="btn" id="btn-cancel" type="button">取消</button>
+        <span class="spacer"></span>
+        <button class="btn ghost" id="btn-delete" type="button" hidden>删除这个日期</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status"></div>
+  <input type="file" id="file" accept="application/json,.json" hidden />
+
+<script>
+(() => {
+  "use strict";
+
+  /* ============================================================
+     深海女仆工坊 · 倒计时台
+     - 数据：localStorage（key: dshwhale.countdowns.v1）
+     - 时间：全部按访问者本机时区解释，换电脑看到的是同一个"当地那一刻"
+     - 实时：requestAnimationFrame 只在秒变化时重绘，后台标签页降频由 visibilitychange 校准
+     ============================================================ */
+
+  const KEY = "dshwhale.countdowns.v1";
+  const $  = (id) => document.getElementById(id);
+  const pad = (n, w = 2) => String(n).padStart(w, "0");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- 日期工具 ---------------- */
+  const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate(), 0, 0, 0, 0);
+
+  /** 天数口径：按自然日算。今天 = 0，明天 = 1。 */
+  const calendarDays = (target, now) =>
+    Math.round((startOfDay(target).getTime() - startOfDay(now).getTime()) / 86400000);
+
+  const toISO = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+  /** 解析 "YYYY-MM-DD" + "HH:MM" 为本机时间；小时留空表示当天 00:00 */
+  const parseTarget = (dateStr, timeStr) => {
+    const [y, m, d] = String(dateStr).split("-").map(Number);
+    if (!y || !m || !d) return null;
+    let hh = 0, mm = 0;
+    if (timeStr) {
+      const [h, mi] = String(timeStr).split(":").map(Number);
+      hh = Number.isFinite(h) ? h : 0;
+      mm = Number.isFinite(mi) ? mi : 0;
+    }
+    const t = new Date(y, m - 1, d, hh, mm, 0, 0);
+    return Number.isNaN(t.getTime()) ? null : t;
+  };
+
+  const WD = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  const fmtDate = (t) => `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`;
+  const fmtFull = (t) => {
+    const base = `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())} ${WD[t.getDay()]}`;
+    return (t.getHours() || t.getMinutes()) ? `${base} ${pad(t.getHours())}:${pad(t.getMinutes())}` : base;
+  };
+  const fmtClock = (t) => `${pad(t.getHours())}:${pad(t.getMinutes())}:${pad(t.getSeconds())}`;
+
+  /* ---------------- 存储 ---------------- */
+  let items = [];
+
+  const uid = () => "c" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+
+  const normalize = (raw) => {
+    const out = [];
+    for (const it of Array.isArray(raw) ? raw : []) {
+      if (!it || typeof it !== "object") continue;
+      const date = String(it.date ?? "").slice(0, 10);
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) continue;
+      const time = /^\d{2}:\d{2}/.test(String(it.time ?? "")) ? String(it.time).slice(0, 5) : "";
+      const start = /^\d{4}-\d{2}-\d{2}$/.test(String(it.start ?? "")) ? String(it.start).slice(0, 10) : "";
+      out.push({
+        id: typeof it.id === "string" && it.id ? it.id : uid(),
+        title: String(it.title ?? "未命名").slice(0, 40),
+        date,
+        time,
+        start,
+        createdAt: Number.isFinite(+it.createdAt) ? +it.createdAt : Date.now(),
+      });
+    }
+    return out;
+  };
+
+  const seed = () => {
+    const now = new Date();
+    const plus = (n) => { const d = new Date(now); d.setDate(d.getDate() + n); return d; };
+    return normalize([
+      { title: "深海女仆的生日", date: toISO(plus(30)),  time: "00:00", start: toISO(now), createdAt: Date.now() },
+      { title: "项目上线",       date: toISO(plus(7)),   time: "20:00", start: toISO(now), createdAt: Date.now() },
+      { title: "下一次看海",     date: toISO(plus(100)), time: "",      start: toISO(now), createdAt: Date.now() },
+    ]);
+  };
+
+  const load = () => {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw === null) { items = seed(); save(); return; }
+      const parsed = JSON.parse(raw);
+      // 兼容两种落盘格式：裸数组，或导出用的 { app, version, items:[...] }
+      items = normalize(Array.isArray(parsed) ? parsed : parsed && parsed.items);
+    } catch (e) {
+      items = seed();
+      toast("本机存储不可用，本次改动不会被保存");
+    }
+  };
+
+  const save = () => {
+    try { localStorage.setItem(KEY, JSON.stringify({ app: "dshwhale-countdown", version: 1, items })); }
+    catch (e) { toast("保存失败：浏览器存储被禁用或已满"); }
+  };
+
+  /* ---------------- 提示条 ---------------- */
+  let toastTimer = 0;
+  const toast = (msg) => {
+    const el = $("toast");
+    el.textContent = msg;
+    el.classList.add("on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove("on"), 2600);
+  };
+
+  /* ---------------- 背景气泡 ---------------- */
+  (() => {
+    if (reduce) return;
+    const box = $("bubbles");
+    const n = window.innerWidth < 620 ? 16 : 30;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < n; i++) {
+      const b = document.createElement("i");
+      const size = 4 + Math.random() * 17;
+      b.style.width = size.toFixed(1) + "px";
+      b.style.height = size.toFixed(1) + "px";
+      b.style.left = (Math.random() * 100).toFixed(2) + "vw";
+      b.style.animationDuration = (13 + Math.random() * 15).toFixed(1) + "s";
+      b.style.animationDelay = (-Math.random() * 20).toFixed(1) + "s";
+      b.style.opacity = (0.3 + Math.random() * 0.55).toFixed(2);
+      frag.appendChild(b);
+    }
+    box.appendChild(frag);
+  })();
+
+  /* ---------------- 背景：雨丝 + 蝴蝶（对应那张"雨窗蝴蝶"的海报） ---------------- */
+  (() => {
+    if (reduce) return;
+
+    const rain = $("rain");
+    const frag = document.createDocumentFragment();
+    const drops = window.innerWidth < 620 ? 26 : 52;
+    for (let i = 0; i < drops; i++) {
+      const d = document.createElement("i");
+      d.style.left = (Math.random() * 108).toFixed(2) + "vw";
+      d.style.height = (9 + Math.random() * 12).toFixed(1) + "vh";
+      d.style.opacity = (0.3 + Math.random() * 0.6).toFixed(2);
+      d.style.animationDuration = (0.9 + Math.random() * 1.5).toFixed(2) + "s";
+      d.style.animationDelay = (-Math.random() * 3).toFixed(2) + "s";
+      frag.appendChild(d);
+    }
+    rain.appendChild(frag);
+
+    const mist = $("mist");
+    for (let i = 0; i < 6; i++) {
+      const m = document.createElement("i");
+      const size = 34 + Math.random() * 46;
+      m.style.width = size + "vw";
+      m.style.height = (size * 0.5).toFixed(1) + "vw";
+      m.style.left = (-14 + Math.random() * 88).toFixed(1) + "%";
+      m.style.top = (-8 + Math.random() * 84).toFixed(1) + "%";
+      m.style.opacity = (0.35 + Math.random() * 0.45).toFixed(2);
+      m.style.animationDuration = (22 + Math.random() * 18).toFixed(1) + "s";
+      m.style.animationDelay = (-Math.random() * 20).toFixed(1) + "s";
+      mist.appendChild(m);
+    }
+
+    // 全部安排在画面下方那条"深海走廊"里（bottom 为负 = 往上数），
+    // 不管卡片多高，蝴蝶都落在空白处，不会飘到文字上。
+    const flut = $("flutter");
+    const spots = [
+      { l: 7,  b: 2,  w: 62, dur: 27, delay: 0,   r: -10 },
+      { l: 26, b: -1, w: 46, dur: 22, delay: -5,  r: 8 },
+      { l: 44, b: 3,  w: 56, dur: 31, delay: -12, r: -4 },
+      { l: 63, b: 0,  w: 44, dur: 19, delay: -8,  r: 12 },
+      { l: 82, b: 3,  w: 66, dur: 25, delay: -16, r: -8 },
+      { l: 35, b: 5,  w: 38, dur: 17, delay: -11, r: -14 },
+    ];
+    for (const s of spots) {
+      const b = document.createElement("i");
+      b.className = "butterfly";
+      b.style.left = s.l + "%";
+      b.style.bottom = s.b + "vh";
+      b.style.width = s.w + "px";
+      b.style.height = Math.round(s.w * 0.82) + "px";
+      b.style.animationDuration = s.dur + "s";
+      b.style.animationDelay = s.delay + "s";
+      b.style.setProperty("--br", s.r + "deg");
+      b.style.opacity = String(0.72 + Math.random() * 0.25);
+      flut.appendChild(b);
+    }
+  })();
+
+  /* ---------------- dshpet 桌宠：待机循环 + 点按反应 + 拖动 ---------------- */
+  const petApi = (() => {
+    const box = $("pet");
+    if (!box) return { react: () => {}, speak: () => {} };
+    const idle = $("petIdle"), act = $("petAct"), say = $("petSay"), tip = $("petTip");
+
+    const CLIPS = {
+      wave:  "assets/pet/wave.webm",
+      hop:   "assets/pet/hop.webm",
+      party: "assets/pet/party.webm",
+    };
+    const LINES = {
+      wave:  "嗨～今天也要好好倒数哦！",
+      hop:   "嘿嘿，鲸鲸最棒啦！",
+      party: "时间到啦！撒花～",
+    };
+    const POS_KEY = "dshwhale.pet.pos.v1";
+    const ORDER = ["wave", "hop"];   // 点按/自己玩耍用这两段；party 留给"倒计时归零"
+    let queue = [];
+    let busy = false;
+    let lastAct = 0;
+
+    /* 待机视频：默认就在左下角自己呼吸。
+       系统开了「减少动态效果」时不自动播放（尊重设置）；
+       用户主动点她一样会有反应——那属于用户触发的动作，不算自动动画。 */
+    idle.src = "assets/pet/idle.webm";
+    if (!reduce) {
+      const p = idle.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+
+    const speak = (text, ms) => {
+      say.textContent = text;
+      say.classList.add("on");
+      clearTimeout(speak.t);
+      speak.t = setTimeout(() => say.classList.remove("on"), ms || 3200);
+    };
+
+    const nextKey = () => {
+      if (!queue.length) queue = [...ORDER].sort(() => Math.random() - 0.5);
+      return queue.pop();
+    };
+
+    /** 放一段动作，放完回到待机 */
+    const react = (key, line) => {
+      const now = Date.now();
+      if (busy && now - lastAct < 250) return;       // 只挡手抖重复点击，不挡连续互动
+      key = key || nextKey();
+      const src = CLIPS[key];
+      if (!src) return;
+      busy = true;
+      lastAct = now;
+      if (act.dataset.src !== src) { act.dataset.src = src; act.src = src; }
+      try { act.currentTime = 0; } catch (e) {}
+      act.playbackRate = reduce ? 1 : 1.6;           // 原片 10 秒，快放一点更像即时反应
+      box.classList.add("acting");
+      const p = act.play();
+      if (p && p.catch) p.catch(() => {});
+      if (line !== "") speak(line || LINES[key] || "");
+
+      let done = false;
+      const finish = () => {
+        if (done) return;
+        done = true;
+        act.onended = null;
+        box.classList.remove("acting");
+        busy = false;
+      };
+      act.onended = finish;
+      setTimeout(finish, 5200);                      // 兜底：最多占 5.2 秒
+    };
+
+    /* ---------------- 拖动 / 惯性甩出 / 点按 / 长按 / 悬停 ---------------- */
+    const hint = $("petHint");
+    let drag = null;
+    let flyRaf = 0;
+    let hovering = false;
+    let lastHint = -1e9;      // 首次悬停就该出提示（0 会让差值判断永远不通过）
+    let hintTimer = 0;
+
+    const clamp = (v, a, b) => Math.min(Math.max(v, a), b);
+
+    /* 命中区自适应：整块都能点，只把"卡片按钮 / 工具条按钮"占的那一条裁掉一个缺口。
+       读的是按钮的实际位置，所以矮屏、换行、增删卡片都不会失效。 */
+    const hit = $("petHit");
+    let hitTick = 0;
+    const syncHit = () => {
+      if (!hit) return;
+      const pr = box.getBoundingClientRect();
+      if (pr.width < 24 || pr.height < 24) return;
+      let top = Infinity, bottom = -Infinity, left = 100;
+      document.querySelectorAll("article.card button, .tools button, .topbar button, .seg button").forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        if (r.right < pr.left || r.left > pr.right || r.bottom < pr.top || r.top > pr.bottom) return;
+        top = Math.min(top, (r.top - pr.top) / pr.height * 100);
+        bottom = Math.max(bottom, (r.bottom - pr.top) / pr.height * 100);
+        left = Math.min(left, (r.left - pr.left) / pr.width * 100);
+      });
+      if (!isFinite(top)) { hit.style.removeProperty("--hitp"); return; }
+      const t = clamp(top - 2, 0, 94).toFixed(1);
+      const b = clamp(bottom + 2, 0, 100).toFixed(1);
+      const x0 = clamp(left - 1, 0, 99).toFixed(1);   // 缺口从这一列往右开始，左边那条仍然可点
+      hit.style.setProperty("--hitp",
+        `polygon(0 0, 100% 0, 100% ${t}%, ${x0}% ${t}%, ${x0}% ${b}%, 100% ${b}%, 100% 100%, 0 100%)`);
+    };
+    const syncHitSoon = () => {       // 渲染循环每秒调很多次，节流一下
+      const now = Date.now();
+      if (now - hitTick < 400) return;
+      hitTick = now;
+      syncHit();
+    };
+
+    /* 动作片预取：点下去要立刻有反应，不能等网络。
+       先用 fetch 拿成 Blob（本地打开时 fetch 会被 CORS 挡，静默回退到原路径）。 */
+    (() => {
+      if (location.protocol === "file:") return;
+      setTimeout(() => {
+        Object.keys(CLIPS).forEach((k) => {
+          const src = CLIPS[k];
+          if (!src || src.startsWith("blob:") || src.startsWith("data:")) return;
+          fetch(src).then((r) => (r.ok ? r.blob() : null)).then((b) => {
+            if (b) CLIPS[k] = URL.createObjectURL(b);
+          }).catch(() => {});
+        });
+      }, 1200);
+    })();
+
+    /** 保存当前位置 */
+    const savePos = () => {
+      try { localStorage.setItem(POS_KEY, JSON.stringify({ x: box.style.left, y: box.style.top })); } catch (e) {}
+    };
+
+    /** 松手后按抛物线飞出去，撞墙/落地衰减，最后停在底部 */
+    const throwTo = (vx, vy) => {
+      cancelAnimationFrame(flyRaf);
+      const w = box.offsetWidth, h = box.offsetHeight;
+      let x = parseFloat(box.style.left) || box.getBoundingClientRect().left;
+      let y = parseFloat(box.style.top) || box.getBoundingClientRect().top;
+      let vX = clamp(vx, -1600, 1600), vY = clamp(vy, -1800, 1400);
+      const G = 2600;                       // 重力 px/s²
+      let last = performance.now();
+      let hitFloor = false;
+      const t0 = last;
+      box.classList.remove("dragging");
+      box.classList.add("flying");
+      box.style.left = x + "px";
+      box.style.top = y + "px";
+      box.style.bottom = "auto";
+
+      const step = (now) => {
+        // dt 兜底：某些环境下 rAF 时间戳可能不前进，dt=0 会让物理卡死
+        const dt = Math.min(0.033, Math.max(0.008, (now - last) / 1000));
+        last = now;
+        vY += G * dt;
+        x += vX * dt;
+        y += vY * dt;
+        const maxX = window.innerWidth - w - 4, maxY = window.innerHeight - h - 4;
+        if (x < 4) { x = 4; vX = Math.abs(vX) * 0.62; }
+        if (x > maxX) { x = maxX; vX = -Math.abs(vX) * 0.62; }
+        if (y < 4) { y = 4; vY = Math.abs(vY) * 0.5; }
+        if (y > maxY) {
+          y = maxY;
+          if (!hitFloor && Math.abs(vY) > 500) { hitFloor = true; react("hop", "哇——接住我！"); }
+          vY = -vY * 0.46;
+          vX *= 0.88;
+          if (Math.abs(vY) < 110) vY = 0;
+        }
+        box.style.left = x + "px";
+        box.style.top = y + "px";
+        box.style.setProperty("--tilt", clamp(vX / 55, -16, 16).toFixed(1) + "deg");
+
+        const settled = (vY === 0 && Math.abs(vX) < 14) || y >= maxY - 0.5 && Math.abs(vY) < 1 && Math.abs(vX) < 20;
+        if (!settled && now - t0 < 4000) { flyRaf = requestAnimationFrame(step); return; }
+        box.style.setProperty("--tilt", "0deg");
+        box.classList.remove("flying");
+        savePos();
+      };
+      flyRaf = requestAnimationFrame(step);
+    };
+
+    const onMove = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      if (!drag.moved && Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0) < 6) return;
+      drag.moved = true;
+      box.classList.add("dragging");
+      const w = box.offsetWidth, h = box.offsetHeight;
+      const x = clamp(e.clientX - drag.ox, 4, window.innerWidth - w - 4);
+      const y = clamp(e.clientY - drag.oy, 4, window.innerHeight - h - 4);
+      box.style.left = x + "px";
+      box.style.top = y + "px";
+      box.style.bottom = "auto";
+      box.style.setProperty("--tilt", clamp((e.clientX - drag.px) * 1.2, -14, 14).toFixed(1) + "deg");
+      drag.px = e.clientX;
+      drag.samples.push({ t: performance.now(), x: e.clientX, y: e.clientY });
+      if (drag.samples.length > 6) drag.samples.shift();
+    };
+
+    const onUp = (e) => {
+      if (!drag || (e && e.pointerId !== undefined && e.pointerId !== drag.id)) return;
+      const d = drag;
+      drag = null;
+      box.classList.remove("pressing");
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+      window.removeEventListener("pointercancel", onUp);
+
+      if (d.moved) {
+        // 最近 140ms 的位移换算成速度，甩出去
+        const now = performance.now();
+        const recent = d.samples.filter((s) => now - s.t < 140);
+        let vx = 0, vy = 0;
+        if (recent.length >= 2) {
+          const a = recent[0], b = recent[recent.length - 1];
+          const dt = Math.max(0.016, (b.t - a.t) / 1000);
+          vx = (b.x - a.x) / dt;
+          vy = (b.y - a.y) / dt;
+        }
+        if (Math.abs(vx) > 120 || Math.abs(vy) > 120) throwTo(vx, vy);
+        else {
+          box.classList.remove("dragging");
+          box.style.setProperty("--tilt", "0deg");
+          savePos();
+        }
+      } else if (performance.now() - d.t0 > 900) {
+        react("hop", "痒痒的～别一直按着啦！");            // 长按 = 挠痒痒
+      }
+      // 短按的回应已经在 pointerdown 里放出去了，这里不再重复
+    };
+
+    /* 连点计数：戳太多次她会抗议 */
+    let taps = 0, tapTimer = 0;
+    const countTap = () => {
+      taps++;
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { taps = 0; }, 2600);
+      return taps;
+    };
+
+    box.addEventListener("pointerdown", (e) => {
+      if (e.button !== undefined && e.button !== 0) return;
+      cancelAnimationFrame(flyRaf);
+      box.classList.remove("flying");
+      try { box.setPointerCapture(e.pointerId); } catch (err) {}
+      const r = box.getBoundingClientRect();
+      drag = {
+        id: e.pointerId, ox: e.clientX - r.left, oy: e.clientY - r.top,
+        moved: false, x0: e.clientX, y0: e.clientY, px: e.clientX,
+        t0: performance.now(), samples: [{ t: performance.now(), x: e.clientX, y: e.clientY }],
+      };
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+      window.addEventListener("pointercancel", onUp);
+
+      /* 按下就有反应（不等松手），手感才跟手 */
+      box.classList.add("pressing");
+      const n = countTap();
+      if (n >= 5) speak("别戳啦～再戳我要生气了！", 2200);
+      else react(undefined, n === 1 ? undefined : "");
+    });
+
+    /* 双击：回左下角原位 */
+    box.addEventListener("dblclick", () => {
+      cancelAnimationFrame(flyRaf);
+      box.classList.remove("flying");
+      box.style.left = "";
+      box.style.top = "";
+      box.style.bottom = "";
+      box.style.setProperty("--tilt", "0deg");
+      try { localStorage.removeItem(POS_KEY); } catch (e) {}
+      speak("回到老位置啦～");
+    });
+
+    /* 悬停：身体朝鼠标方向轻轻歪一下；停 0.6 秒报一次最近的日程 */
+    box.addEventListener("pointerenter", () => { hovering = true; });
+    box.addEventListener("pointerleave", () => {
+      hovering = false;
+      if (!drag) box.style.setProperty("--tilt", "0deg");
+      hint.classList.remove("on");
+      clearTimeout(hintTimer);
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!hovering || drag) return;
+      const r = box.getBoundingClientRect();
+      const dx = (e.clientX - (r.left + r.width / 2)) / Math.max(1, r.width);
+      box.style.setProperty("--tilt", clamp(dx * 9, -9, 9).toFixed(1) + "deg");
+    }, { passive: true });
+    box.addEventListener("pointerenter", () => {
+      clearTimeout(hintTimer);
+      hintTimer = setTimeout(() => {
+        if (hovering && !drag && performance.now() - lastHint > 12000) {
+          lastHint = performance.now();
+          const line = nearestLine();
+          if (line) {
+            hint.textContent = line;
+            hint.classList.add("on");
+            setTimeout(() => hint.classList.remove("on"), 3400);
+          }
+        }
+      }, 620);
+    });
+
+    /** 悬停提示的内容：报最近的日程 / 没有日程时提醒添加 */
+    const nearestLine = () => {
+      const now = Date.now();
+      const up = items.map((it) => ({ it, t: targetOf(it) }))
+        .filter((x) => x.t && x.t.getTime() > now)
+        .sort((a, b) => a.t - b.t);
+      if (!up.length) return "还没有在册的日子，点右上角加一个？";
+      const top = up[0];
+      const d = calendarDays(top.t, new Date());
+      return `${top.it.title}：${d === 0 ? "就是今天！" : "还有 " + d + " 天"}`;
+    };
+
+    /* 记住上次拖到哪儿 */
+    try {
+      const saved = JSON.parse(localStorage.getItem(POS_KEY) || "null");
+      if (saved && saved.x && saved.y) {
+        box.style.left = saved.x;
+        box.style.top = saved.y;
+        box.style.bottom = "auto";
+      }
+    } catch (e) {}
+
+    window.addEventListener("resize", () => {
+      if (box.style.top === "auto" || !box.style.top) return;
+      const w = box.offsetWidth, h = box.offsetHeight;
+      const x = Math.min(parseFloat(box.style.left) || 0, window.innerWidth - w - 4);
+      const y = Math.min(parseFloat(box.style.top) || 0, window.innerHeight - h - 4);
+      box.style.left = Math.max(4, x) + "px";
+      box.style.top = Math.max(4, y) + "px";
+    }, { passive: true });
+
+    /* 自己找点事做：偶尔放一段动作 */
+    const autoplay = () => {
+      if (reduce || document.hidden) return;
+      if (!busy && Date.now() - lastAct > 45000) react();
+      setTimeout(autoplay, 30000 + Math.random() * 30000);
+    };
+    setTimeout(autoplay, 26000);
+
+    syncHit();
+    window.addEventListener("resize", syncHit, { passive: true });
+    window.addEventListener("scroll", syncHitSoon, { passive: true });
+
+    /* 首次提示，过一会儿淡掉 */
+    setTimeout(() => tip.classList.add("on"), 1400);
+    setTimeout(() => tip.classList.remove("on"), 7600);
+
+    return { react, speak, nearestLine, syncHit, syncHitSoon, clips: CLIPS };
+  })();
+
+  /* ---------------- 女仆长的每日台词 ---------------- */
+  const QUOTES = [
+    "网兜已经准备好了，把重要的日子丢进来吧！",
+    "深海没有信号，但这里会替你数着日子～",
+    "明天、下周、明年——都先写在小本本上。",
+    "剩下的时间不多也不少，刚刚够你好好准备。",
+    "别怕，倒数的时候有鲸鲸陪着你！",
+    "每一个日子，都是从海底慢慢浮上来的珍珠。",
+    "把目标写下来，它就会开始向你游过来。",
+    "水压很大，但你的愿望更大呀。",
+  ];
+  const KEEPS = [
+    "token 给妈妈保管，日子给深海保管。",
+    "摸鱼可以，但日期记得加哦～",
+    "女仆长的围裙口袋里，全是你的待办。",
+  ];
+
+  /* ---------------- 卡片渲染 ---------------- */
+  const grid = $("grid");
+  const nodes = new Map(); // id -> {root, refs}
+  let filter = "all";
+  let query = ""; // v2：搜索关键字（空字符串 = 不过滤）
+
+  const el = (tag, cls, text) => {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text != null) n.textContent = text;
+    return n;
+  };
+
+  const buildEmpty = () => {
+    const box = el("div", "empty");
+    const copy = el("div");
+    copy.appendChild(el("h3", null, "还没有在册的日期"));
+    copy.appendChild(el("p", null, "点「添加新日期」，把要等的日子写下来～女仆长会替你盯着秒针，到点在海里放烟花。"));
+    const art = el("div", "art");
+    const img = document.createElement("img");
+    img.src = "assets/mascot-think.jpg";
+    img.alt = "女仆长正在思考";
+    art.appendChild(img);
+    box.append(copy, art);
+    return box;
+  };
+
+  const buildCard = (it, index) => {
+    const root = el("article", "card");
+    root.style.animationDelay = Math.min(index * 70, 460) + "ms";
+    root.dataset.id = it.id;
+
+    const head = el("div", "card-head");
+    const h2 = el("h2");
+    const sp = el("span", "spacer");
+    const tag = el("span", "tag");
+    head.append(h2, sp, tag);
+
+    const date = el("p", "card-date");
+
+    const dayRow = el("div", "day-row");
+    const num = el("div", "day-num", "--");
+    const unit = el("div", "day-unit", "天");
+    const note = el("div", "day-note");
+    dayRow.append(num, unit, note);
+
+    const mini = el("div", "mini");
+    const mkMini = (cap) => {
+      const d = el("div");
+      const b = el("b", null, "--");
+      d.append(b, el("span", null, cap));
+      return { d, b };
+    };
+    const mh = mkMini("小时"), mm = mkMini("分"), ms = mkMini("秒");
+    mini.append(mh.d, mm.d, ms.d);
+
+    const prog = el("div", "prog");
+    const track = el("div", "track");
+    const fill = el("i");
+    track.appendChild(fill);
+    const foot = el("div", "foot");
+    const footL = el("span"), footR = el("span");
+    foot.append(footL, footR);
+    prog.append(track, foot);
+
+    const actions = el("div", "card-actions");
+    const mkBtn = (act, cls, title, path) => {
+      const b = el("button", "btn ghost " + cls);
+      b.type = "button";
+      b.dataset.act = act;
+      b.title = title;
+      b.setAttribute("aria-label", title);
+      b.innerHTML = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + path + "</svg>";
+      return b;
+    };
+    const bEdit = mkBtn("edit", "", "编辑这个日期", '<path d="M11.2 2.4l2.4 2.4-8 8H3.2v-2.4l8-8Z"/>');
+    const bDup = mkBtn("dup", "", "复制一份", '<path d="M6 2.6h6.4v6.4"/><path d="M10 5.6H3.6v6.8H10V5.6Z"/>');
+    const bSave = mkBtn("save", "save", "存成一张纪念卡（PNG）", '<path d="M8 2.4v7.2m0 0 2.6-2.6M8 9.6 5.4 7M3 13h10"/>');
+    const bDel = mkBtn("del", "danger", "删除这个日期", '<path d="M3 4.4h10M6.4 4.4V2.8h3.2v1.6M4.4 4.4l.6 8.8h6l.6-8.8"/>');
+    const actionSp = el("span", "spacer");
+    actions.append(bEdit, bDup, bSave, actionSp, bDel);
+
+    root.append(head, date, dayRow, mini, prog, actions);
+
+    return { root, refs: { h2, tag, date, num, unit, note, mh: mh.b, mm: mm.b, ms: ms.b, fill, footL, footR }, lastCls: "", lastTagCls: "" };
+  };
+
+  const syncCards = () => {
+    const want = items.map((i) => i.id).join("|");
+    const have = [...nodes.keys()].join("|");
+    if (want === have) return;
+    const prev = new Map(nodes);
+    nodes.clear();
+    grid.textContent = "";
+    items.forEach((it, i) => {
+      const built = prev.get(it.id) ?? buildCard(it, i);
+      built.root.style.animationDelay = Math.min(i * 70, 460) + "ms";
+      nodes.set(it.id, built);
+      grid.appendChild(built.root);
+    });
+  };
+
+  /* ---------------- 排序 ---------------- */
+  const targetOf = (it) => parseTarget(it.date, it.time);
+  const sorted = () => {
+    const now = new Date();
+    return [...items].sort((a, b) => {
+      const ta = targetOf(a), tb = targetOf(b);
+      const fa = ta && ta.getTime() < now.getTime() ? 1 : 0;
+      const fb = tb && tb.getTime() < now.getTime() ? 1 : 0;
+      if (fa !== fb) return fa - fb;                 // 未过期在前
+      if (fa === 1) return (tb?.getTime() ?? 0) - (ta?.getTime() ?? 0); // 已过的：最近过的在前
+      return (ta?.getTime() ?? Infinity) - (tb?.getTime() ?? Infinity);
+    });
+  };
+
+  /* ---------------- 每个 id 的上一次渲染值（只做必要重绘） ---------------- */
+  const cache = new Map();
+  const celebrated = new Set();
+
+  const renderCard = (it, built, now) => {
+    const { refs } = built;
+    const t = targetOf(it);
+    if (!t) return;
+
+    let key = built.lastCls ?? "";
+    let tagKey = built.lastTagCls ?? "";
+
+    const remainMs = t.getTime() - now.getTime();
+    const days = calendarDays(t, now);
+    const past = remainMs <= 0;
+
+    // 状态与配色
+    let cls = "card", tagCls = "tag", tagText = "倒计时中", noteText = "";
+    if (past) {
+      cls += " past"; tagCls += " past"; tagText = "已过去";
+    } else if (days === 0) {
+      cls += " today"; tagCls += " today"; tagText = "就是今天";
+    } else if (days <= 3) {
+      cls += " soon"; tagCls += " soon"; tagText = "临近";
+    }
+    // 只在真正换状态时写 DOM：className 每帧重写会把入场动画一起冲掉
+    if (key !== cls) { key = cls; built.root.className = cls; }
+    if (tagKey !== tagCls) { tagKey = tagCls; refs.tag.className = tagCls; }
+    built.lastCls = key; built.lastTagCls = tagKey;
+    if (refs.tag.textContent !== tagText) refs.tag.textContent = tagText;
+
+    if (refs.h2.textContent !== it.title) refs.h2.textContent = it.title;
+
+    const ds = `${fmtDate(t)} ${WD[t.getDay()]}${(t.getHours() || t.getMinutes()) ? " " + pad(t.getHours()) + ":" + pad(t.getMinutes()) : " · 全天"}`;
+    if (refs.date.textContent !== ds) refs.date.textContent = ds;
+
+    // 大数字：未来的按自然日；已过的显示过去了多少天
+    const absDays = Math.abs(days);
+    const numText = String(absDays);
+    const prevVal = cache.get(it.id);
+    if (refs.num.textContent !== numText) {
+      refs.num.textContent = numText;
+      if (prevVal !== undefined && prevVal !== null && !reduce && !past) {
+        refs.num.classList.remove("pulse");
+        void refs.num.offsetWidth;
+        refs.num.classList.add("pulse");
+      }
+    }
+    cache.set(it.id, days);
+
+    const unitText = past ? "天前" : (days === 0 ? "今天" : "天");
+    if (refs.unit.textContent !== unitText) refs.unit.textContent = unitText;
+
+    // 精确时分秒
+    let hh = 0, mi = 0, ss = 0;
+    if (!past) {
+      const left = Math.floor(remainMs / 1000);
+      hh = Math.floor(left / 3600);
+      mi = Math.floor((left % 3600) / 60);
+      ss = left % 60;
+    }
+    const sh = pad(hh), sm = pad(mi), sss = pad(ss);
+    if (refs.mh.textContent !== sh) refs.mh.textContent = sh;
+    if (refs.mm.textContent !== sm) refs.mm.textContent = sm;
+    if (refs.ms.textContent !== sss) refs.ms.textContent = sss;
+
+    if (!noteText) {
+      if (past) {
+        const agoD = Math.abs(days);
+        noteText = agoD === 0 ? "就在今天过去了" : `已经过去 ${agoD} 天`;
+      } else if (days === 0) {
+        noteText = "今天到啦！";
+      } else {
+        // 精确到小时：和下面三格的小时数对得上，不再用"约 N 周"这种模糊说法
+        const totalH = Math.floor(remainMs / 3600000);
+        const dd = Math.floor(totalH / 24);
+        const rh = totalH % 24;
+        noteText = dd > 0 ? `还有 ${dd} 天 ${rh} 小时` : `还有 ${totalH} 小时`;
+      }
+    }
+    if (refs.note.textContent !== noteText) refs.note.textContent = noteText;
+
+    // 进度条：起算日 → 目标（起算日缺省则用创建时间）
+    const startBase = it.start ? parseTarget(it.start, "00:00") : null;
+    const startT = (startBase ?? new Date(it.createdAt)).getTime();
+    const span = t.getTime() - startT;
+    let pct;
+    if (span > 0) pct = Math.min(100, Math.max(0, (1 - remainMs / span) * 100));
+    else pct = past ? 100 : 0;
+    const pctText = pct.toFixed(1) + "%";
+    if (refs.fill.style.width !== pctText) refs.fill.style.width = pctText;
+
+    const fl = past ? "已完成" : `已走过 ${pct.toFixed(1)}%`;
+    const fr = `起点 ${it.start || fmtDate(new Date(startT))}`;
+    if (refs.footL.textContent !== fl) refs.footL.textContent = fl;
+    if (refs.footR.textContent !== fr) refs.footR.textContent = fr;
+
+    // 刚刚到点：放烟花（每张卡只放一次）
+    if (past && !celebrated.has(it.id)) {
+      celebrated.add(it.id);
+      if (remainMs > -4000) {
+        petApi.react("party", `「${it.title}」时间到啦！`);
+        if (!reduce) { confettiBurst(); toast(`「${it.title}」时间到啦！`); }
+      }
+    }
+  };
+
+  /* ---------------- 主循环 ---------------- */
+  const clock = $("clock"), tzline = $("tzline");
+  let lastSecond = -1;
+
+  const renderAll = (force) => {
+    const now = new Date();
+    if (!force && now.getSeconds() === lastSecond) return;
+    lastSecond = now.getSeconds();
+
+    clock.textContent = fmtClock(now);
+
+    // 过期项排在最后：把顺序固化回 items，视图与数据始终一致
+    items = sorted();
+
+    const list = items.filter((it) => {
+      if (query) {
+        const t = targetOf(it);
+        const hay = [it.title, it.date, it.start || "", t ? WD[t.getDay()] : "", t ? fmtDate(t) : ""].join(" ").toLowerCase();
+        if (hay.indexOf(query) < 0) return false;
+      }
+      if (filter === "all") return true;
+      const t = targetOf(it);
+      if (!t) return false;
+      const isPast = t.getTime() <= now.getTime();
+      return filter === "past" ? isPast : !isPast;
+    });
+    const visible = new Set(list);
+
+    syncCards();
+
+    for (const it of items) {
+      const built = nodes.get(it.id);
+      if (built) built.root.hidden = !visible.has(it);
+    }
+
+    const empty = grid.querySelector(".empty");
+    if (!items.length) {
+      if (!empty) grid.appendChild(buildEmpty());
+    } else if (empty) {
+      empty.remove();
+    }
+
+    for (const it of items) {
+      const built = nodes.get(it.id);
+      if (built) renderCard(it, built, now);
+    }
+
+    // 统计
+    const future = items.map(targetOf).filter((t) => t && t.getTime() > now.getTime());
+    const dayList = future.map((t) => calendarDays(t, now));
+    $("stat-count").textContent = String(items.length);
+    $("stat-sum").textContent = dayList.length ? String(dayList.reduce((a, b) => a + b, 0)) : "--";
+
+    // 最近的那一个：标成 next，卡片上给一圈光（助手条里显示的也是它）
+    let nextId = null, nextAt = Infinity;
+    for (const it of items) {
+      const t = targetOf(it);
+      if (!t) continue;
+      const v = t.getTime();
+      if (v > now.getTime() && v < nextAt) { nextAt = v; nextId = it.id; }
+    }
+    for (const [id, b] of nodes) {
+      const isNext = id === nextId;
+      if (b.isNext !== isNext) {
+        b.isNext = isNext;
+        b.root.classList.toggle("next", isNext);
+      }
+    }
+
+    petApi.syncHitSoon();
+
+    const total = items.length;
+    document.title = total ? `深海女仆工坊 · ${total} 个日子在倒数` : "深海女仆工坊 · 倒计时台";
+  };
+
+  let raf = 0;
+  const loop = () => {
+    renderAll(false);
+    raf = requestAnimationFrame(loop);
+  };
+
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) renderAll(true); });
+  window.addEventListener("focus", () => renderAll(true));
+
+  /* ---------------- 烟花 / 撒花 ---------------- */
+  const cvs = $("confetti");
+  const ctx = cvs.getContext("2d");
+  let parts = [], confettiRaf = 0, cw = 0, ch = 0, cdpr = 1;
+
+  const sizeCanvas = () => {
+    cdpr = Math.min(2, window.devicePixelRatio || 1);
+    cw = cvs.clientWidth; ch = cvs.clientHeight;
+    cvs.width = Math.round(cw * cdpr); cvs.height = Math.round(ch * cdpr);
+    ctx.setTransform(cdpr, 0, 0, cdpr, 0, 0);
+  };
+  sizeCanvas();
+  window.addEventListener("resize", sizeCanvas, { passive: true });
+
+  const COLORS = ["#ffffff", "#8ff4ff", "#7fb8ff", "#ffa6d5", "#ffe9a8", "#c8a8ff"];
+
+  const confettiBurst = () => {
+    if (reduce) return;
+    const cx = cw / 2, cy = ch * 0.32;
+    for (let i = 0; i < 160; i++) {
+      const a = Math.random() * Math.PI * 2, sp = 2 + Math.random() * 7.5;
+      parts.push({
+        x: cx + (Math.random() - 0.5) * 90, y: cy + (Math.random() - 0.5) * 46,
+        vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 2,
+        r: 1.8 + Math.random() * 3.6, life: 1,
+        c: COLORS[(Math.random() * COLORS.length) | 0],
+        rot: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.32,
+      });
+    }
+    if (!confettiRaf) confettiRaf = requestAnimationFrame(confettiTick);
+  };
+
+  const confettiTick = () => {
+    ctx.clearRect(0, 0, cw, ch);
+    for (const p of parts) {
+      p.vy += 0.055; p.vx *= 0.992; p.vy *= 0.994;
+      p.x += p.vx; p.y += p.vy; p.rot += p.vr;
+      p.life -= 0.006;
+    }
+    parts = parts.filter((p) => p.life > 0 && p.y < ch + 40);
+    for (const p of parts) {
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, Math.min(1, p.life));
+      ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.c;
+      ctx.shadowColor = p.c; ctx.shadowBlur = 9;
+      ctx.fillRect(-p.r, -p.r * 0.55, p.r * 2, p.r * 1.1);
+      ctx.restore();
+    }
+    if (parts.length) confettiRaf = requestAnimationFrame(confettiTick);
+    else { confettiRaf = 0; ctx.clearRect(0, 0, cw, ch); }
+  };
+
+  /* ---------------- 弹窗表单 ---------------- */
+  const dlg = $("dlg"), form = $("form"), err = $("err");
+  const fTitle = $("f-title"), fDate = $("f-date"), fTime = $("f-time"), fStart = $("f-start");
+  let editingId = null;
+
+  const openDlg = (it) => {
+    editingId = it ? it.id : null;
+    $("dlg-title").textContent = it ? "编辑日期" : "新增倒计时";
+    fTitle.value = it ? it.title : "";
+    const now = new Date();
+    fDate.value = it ? it.date : toISO(new Date(now.getTime() + 7 * 86400000));
+    fTime.value = it ? it.time : "00:00";
+    fStart.value = it ? it.start : toISO(now);
+    err.textContent = "";
+    $("btn-delete").hidden = !it;
+    if (typeof dlg.showModal === "function") dlg.showModal();
+    else dlg.setAttribute("open", "");
+    setTimeout(() => fTitle.focus(), 40);
+  };
+
+  const closeDlg = () => {
+    if (typeof dlg.close === "function" && dlg.open) dlg.close();
+    else dlg.removeAttribute("open");
+    editingId = null;
+  };
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const title = fTitle.value.trim();
+    if (!title) { err.textContent = "先给这个日子起个名字吧～"; fTitle.focus(); return; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(fDate.value)) { err.textContent = "请选择目标日期"; fDate.focus(); return; }
+    const t = parseTarget(fDate.value, fTime.value);
+    if (!t) { err.textContent = "日期格式不对，请重新选择"; fDate.focus(); return; }
+    const startOk = !fStart.value || /^\d{4}-\d{2}-\d{2}$/.test(fStart.value);
+    if (!startOk) { err.textContent = "起算日格式不对"; fStart.focus(); return; }
+
+    const payload = {
+      title: title.slice(0, 40),
+      date: fDate.value,
+      time: fTime.value || "",
+      start: fStart.value || "",
+    };
+
+    if (editingId) {
+      const i = items.findIndex((x) => x.id === editingId);
+      if (i >= 0) { items[i] = { ...items[i], ...payload }; celebrated.delete(editingId); }
+      toast("已更新：" + payload.title);
+      petApi.speak("改好啦，放心交给我。");
+    } else {
+      items.push({ id: uid(), createdAt: Date.now(), ...payload });
+      toast("已加入倒计时：" + payload.title);
+      petApi.speak("又记下一笔～");
+    }
+    save();
+    closeDlg();
+    renderAll(true);
+  });
+
+  $("btn-cancel").addEventListener("click", closeDlg);
+  $("btn-delete").addEventListener("click", () => {
+    if (!editingId) return;
+    const it = items.find((x) => x.id === editingId);
+    if (!it) return;
+    if (!confirm(`删除「${it.title}」？删掉就找不回来了。`)) return;
+    items = items.filter((x) => x.id !== editingId);
+    save(); closeDlg(); renderAll(true); toast("已删除：" + it.title); petApi.speak("诶，删掉啦？");
+  });
+
+  $("chips").addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    const d = new Date();
+    d.setDate(d.getDate() + Number(chip.dataset.days));
+    fDate.value = toISO(d);
+    if (!fTime.value) fTime.value = "00:00";
+    err.textContent = "";
+  });
+
+  $("btn-add").addEventListener("click", () => openDlg(null));
+  $("btn-add-top").addEventListener("click", () => openDlg(null));
+
+  grid.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-act]");
+    if (!btn) return;
+    const id = btn.closest(".card").dataset.id;
+    const it = items.find((x) => x.id === id);
+    if (!it) return;
+    const act = btn.dataset.act;
+    if (act === "edit") openDlg(it);
+    else if (act === "dup") {
+      const copy = { ...it, id: uid(), title: it.title + "（副本）", createdAt: Date.now() };
+      items.push(copy); save(); renderAll(true); toast("已复制一份"); petApi.speak("复制一份，稳稳的。");
+    } else if (act === "del") {
+      if (!confirm(`删除「${it.title}」？`)) return;
+      items = items.filter((x) => x.id !== id);
+      save(); renderAll(true); toast("已删除：" + it.title); petApi.speak("咻——收走啦。");
+    }
+  });
+
+  $("filter").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-f]");
+    if (!b) return;
+    filter = b.dataset.f;
+    [...$("filter").children].forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    petApi.speak(filter === "all" ? "全都摆出来啦。" : filter === "past" ? "翻旧账时间到。" : "只看要等的那些。");
+    renderAll(true);
+  });
+
+  $("btn-clear-past").addEventListener("click", () => {
+    const now = Date.now();
+    const past = items.filter((it) => { const t = targetOf(it); return t && t.getTime() <= now; });
+    if (!past.length) { toast("没有已过期的日期"); return; }
+    if (!confirm(`清理 ${past.length} 个已过期的日期？`)) return;
+    items = items.filter((it) => { const t = targetOf(it); return !(t && t.getTime() <= now); });
+    save(); renderAll(true); toast(`已清理 ${past.length} 个`); petApi.speak(`过期的我收走啦， 个。`);
+  });
+
+  /* ---------------- 导入 / 导出 ---------------- */
+  $("btn-export").addEventListener("click", () => {
+    const data = JSON.stringify({ app: "dshwhale-countdown", version: 1, exportedAt: new Date().toISOString(), items }, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `dshwhale-countdown-${toISO(new Date())}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast("已导出 " + items.length + " 个日期"); petApi.speak("打包好啦，收好～");
+  });
+
+  $("btn-import").addEventListener("click", () => $("file").click());
+  $("file").addEventListener("change", (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const parsed = JSON.parse(String(r.result));
+        const list = normalize(Array.isArray(parsed) ? parsed : parsed.items);
+        if (!list.length) { toast("文件里没有可导入的日期"); return; }
+        const ids = new Set(items.map((x) => x.id));
+        let added = 0;
+        for (const it of list) {
+          if (ids.has(it.id)) it.id = uid();
+          items.push(it); added++;
+        }
+        save(); renderAll(true); toast(`已导入 ${added} 个日期`); petApi.speak(`收到  个日子！`);
+      } catch (err2) {
+        toast("导入失败：不是有效的 JSON");
+      }
+    };
+    r.readAsText(file, "utf-8");
+    e.target.value = "";
+  });
+
+  /* ---------------- 启动 ---------------- */
+  const tzMin = -new Date().getTimezoneOffset();
+  const tzName = "UTC" + (tzMin >= 0 ? "+" : "-") + pad(Math.floor(Math.abs(tzMin) / 60)) + ":" + pad(Math.abs(tzMin) % 60);
+  tzline.textContent = `时区 ${tzName}`;
+
+  load();
+  const q = QUOTES[Math.floor(Math.random() * QUOTES.length)];
+  const k = KEEPS[Math.floor(Math.random() * KEEPS.length)];
+  $("quote").textContent = Math.random() < 0.35 ? k : q;
+
+  items = sorted();
+  renderAll(true);
+  if (reduce) renderAll(true);
+  else loop();
+
+  setTimeout(() => renderAll(true), 400);
+
+  /* ==========================================================================
+     V2 · 增强模块
+     --------------------------------------------------------------------------
+     ① 农历 / 节气   ② 四套配色   ③ 背景音（WebAudio 现场合成，不占音频文件）
+     ④ 沉浸时钟      ⑤ 搜索       ⑥ 桌宠心情 / 喂食     ⑦ 纪念卡导出 PNG
+     全部在这个 IIFE 里，不改上面已经跑通的逻辑。
+     ========================================================================== */
+  const V2 = (() => {
+    "use strict";
+
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    /* ---------------- 1 · 农历（交给浏览器内置的中国历，零数据表） ---------------- */
+    // 农历日名：初一 / 初十 / 十五 / 廿三 / 三十
+    const LUNAR_DAY_TENS = ["初", "十", "廿", "三"];
+    const LUNAR_ONE = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    const lunarDayName = (n) => {
+      if (!n || n < 1) return "";
+      if (n === 10) return "初十";
+      if (n === 20) return "二十";
+      if (n === 30) return "三十";
+      if (n > 30) return String(n);
+      return LUNAR_DAY_TENS[Math.floor(n / 10)] + LUNAR_ONE[n % 10];
+    };
+
+    const LUNAR_FMT = (() => {
+      try {
+        const f = new Intl.DateTimeFormat("zh-CN-u-ca-chinese", { month: "long", day: "numeric" });
+        const parts = f.formatToParts(new Date());
+        if (parts.some((p) => p.type === "month") && parts.some((p) => p.type === "day")) return f;
+      } catch (e) {}
+      return null;
+    })();
+
+    const lunarText = (date) => {
+      if (!LUNAR_FMT) return "";
+      try {
+        const parts = LUNAR_FMT.formatToParts(date);
+        const m = parts.find((p) => p.type === "month");
+        const d = parts.find((p) => p.type === "day");
+        if (!m || !d) return "";
+        // month 一般已经是「十月」「闰六月」；万一给数字就自己转
+        let mv = String(m.value || "");
+        const mn = parseInt(mv, 10);
+        if (!isNaN(mn) && mn >= 1 && mn <= 12) {
+          mv = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "冬", "腊"][mn - 1] + "月";
+        }
+        // day：ICU 给的是数字（初几），按农历习惯写成 初一 / 十五 / 廿三
+        let dv = String(d.value || "");
+        const dn = parseInt(dv, 10);
+        if (!isNaN(dn)) dv = lunarDayName(dn);
+        return mv + dv;
+      } catch (e) { return ""; }
+    };
+
+    /* ---------------- 1b · 节气（太阳视黄经走到 15° 的整数倍） ---------------- */
+    const RAD = Math.PI / 180;
+    const TERM_NAMES = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨",
+      "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑",
+      "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"];
+
+    // 公历 → 儒略日（UTC，含小数）
+    const toJD = (y, m, d, h) => {
+      if (m <= 2) { y -= 1; m += 12; }
+      const A = Math.floor(y / 100);
+      const B = 2 - A + Math.floor(A / 4);
+      return Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + d + B - 1524.5 + (h || 0) / 24;
+    };
+
+    // 太阳视黄经（度，0–360）：低精度足够定到"哪一天"
+    const sunLongitude = (jd) => {
+      const T = (jd - 2451545) / 36525;
+      const L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+      const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+      const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(M * RAD)
+        + (0.019993 - 0.000101 * T) * Math.sin(2 * M * RAD)
+        + 0.000289 * Math.sin(3 * M * RAD);
+      const omega = 125.04 - 1934.136 * T;
+      const lambda = L0 + C - 0.00569 - 0.00478 * Math.sin(omega * RAD);
+      return ((lambda % 360) + 360) % 360;
+    };
+
+    // 第 index 个节气（0 = 小寒 … 23 = 冬至）的儒略日
+    const termJD = (year, index) => {
+      const target = (285 + index * 15) % 360;
+      const guess = toJD(year, 1, 6) + index * 15.2184;
+      let lo = guess - 9, hi = guess + 9;
+      for (let i = 0; i < 42; i++) {
+        const mid = (lo + hi) / 2;
+        let diff = sunLongitude(mid) - target;
+        if (diff > 180) diff -= 360;
+        if (diff < -180) diff += 360;
+        if (diff > 0) hi = mid; else lo = mid;
+      }
+      return (lo + hi) / 2;
+    };
+
+    // 儒略日 → 北京时间的年月日
+    const fromJD = (jd) => {
+      const z = Math.floor(jd + 8 / 24 + 0.5);
+      let a = z;
+      if (z >= 2299161) {
+        const alpha = Math.floor((z - 1867216.25) / 36524.25);
+        a = z + 1 + alpha - Math.floor(alpha / 4);
+      }
+      const b = a + 1524;
+      const c = Math.floor((b - 122.1) / 365.25);
+      const e = Math.floor((b - Math.floor(365.25 * c)) / 30.6001);
+      const day = b - Math.floor(365.25 * c) - Math.floor(30.6001 * e);
+      const month = e < 14 ? e - 1 : e - 13;
+      const year = month > 2 ? c - 4716 : c - 4715;
+      return { y: year, m: month, d: day };
+    };
+
+    const termCache = new Map();
+    const termsOfYear = (y) => {
+      if (termCache.has(y)) return termCache.get(y);
+      const list = TERM_NAMES.map((name, i) => {
+        const d = fromJD(termJD(y, i));
+        return { name, y: d.y, m: d.m, d: d.d };
+      });
+      termCache.set(y, list);
+      return list;
+    };
+
+    // 离某天最近的节气（含前后一年，避免跨年断掉）
+    const nearestTerm = (date) => {
+      const y = date.getFullYear();
+      const t0 = Date.UTC(y, date.getMonth(), date.getDate());
+      let best = null, bestDiff = Infinity;
+      for (const yy of [y - 1, y, y + 1]) {
+        for (const t of termsOfYear(yy)) {
+          const diff = Math.abs(Date.UTC(t.y, t.m - 1, t.d) - t0);
+          if (diff < bestDiff) { bestDiff = diff; best = t; }
+        }
+      }
+      if (!best) return null;
+      const days = Math.round((t0 - Date.UTC(best.y, best.m - 1, best.d)) / 86400000);
+      return { name: best.name, y: best.y, m: best.m, d: best.d, days };
+    };
+
+    const termText = (date) => {
+      const t = nearestTerm(date);
+      if (!t) return "";
+      if (t.days === 0) return t.name;
+      return t.days > 0 ? `${t.name} 已过 ${t.days} 天` : `距 ${t.name} ${-t.days} 天`;
+    };
+
+    /* ---------------- 2 · 四套配色 ---------------- */
+    const THEMES = ["deep", "dawn", "dusk", "sakura"];
+    const THEME_KEY = "dshwhale.theme.v1";
+    const THEME_META = { deep: "#1a52c8", dawn: "#3f8ee0", dusk: "#04142e", sakura: "#6b4b8f" };
+    let theme = "deep";
+
+    const applyTheme = (t) => {
+      theme = THEMES.indexOf(t) >= 0 ? t : "deep";
+      if (theme === "deep") document.documentElement.removeAttribute("data-theme");
+      else document.documentElement.setAttribute("data-theme", theme);
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", THEME_META[theme]);
+      document.querySelectorAll("#theme-row .swatch").forEach((b) => {
+        b.setAttribute("aria-pressed", String(b.dataset.theme === theme));
+      });
+      try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
+    };
+
+    /* ---------------- 3 · 背景音：白噪声 + 滤波 + LFO，现场合成 ---------------- */
+    const Sound = (() => {
+      const KEY = "dshwhale.sound.v1";
+      let ctx = null, master = null, src = null, chain = [];
+      let mode = "off", vol = 0.45, noise = null;
+
+      const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ mode, vol })); } catch (e) {} };
+
+      const makeNoise = () => {
+        if (noise) return noise;
+        const len = Math.floor(ctx.sampleRate * 4);
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const data = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+        noise = buf;
+        return noise;
+      };
+
+      const ensure = () => {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = 0;
+        master.connect(ctx.destination);
+        return ctx;
+      };
+
+      const teardown = () => {
+        if (src) { try { src.stop(); } catch (e) {} src.disconnect(); src = null; }
+        chain.forEach((n) => { try { n.stop && n.stop(); } catch (e) {} try { n.disconnect(); } catch (e) {} });
+        chain = [];
+      };
+
+      const start = (kind) => {
+        if (!ensure()) return;
+        if (ctx.state === "suspended") ctx.resume();
+        teardown();
+        src = ctx.createBufferSource();
+        src.buffer = makeNoise();
+        src.loop = true;
+
+        if (kind === "rain") {
+          const hp = ctx.createBiquadFilter();
+          hp.type = "highpass"; hp.frequency.value = 1100; hp.Q.value = 0.4;
+          const lp = ctx.createBiquadFilter();
+          lp.type = "lowpass"; lp.frequency.value = 7600;
+          const g = ctx.createGain();
+          g.gain.value = 0.34;
+          const lfo = ctx.createOscillator(); lfo.frequency.value = 0.13;
+          const depth = ctx.createGain(); depth.gain.value = 0.06;
+          lfo.connect(depth); depth.connect(g.gain); lfo.start();
+          src.connect(hp); hp.connect(lp); lp.connect(g); g.connect(master);
+          chain = [hp, lp, g, lfo, depth];
+        } else {
+          const lp = ctx.createBiquadFilter();
+          lp.type = "lowpass"; lp.frequency.value = 430; lp.Q.value = 0.62;
+          const g = ctx.createGain();
+          g.gain.value = 0.5;
+          // 潮汐感：0.075Hz 的慢速起伏
+          const lfo = ctx.createOscillator(); lfo.frequency.value = 0.075;
+          const depth = ctx.createGain(); depth.gain.value = 0.34;
+          lfo.connect(depth); depth.connect(g.gain); lfo.start();
+          src.connect(lp); lp.connect(g); g.connect(master);
+          chain = [lp, g, lfo, depth];
+        }
+
+        src.start();
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
+        master.gain.linearRampToValueAtTime(mode === "off" ? 0 : vol, ctx.currentTime + 0.7);
+      };
+
+      const paint = () => {
+        const btn = $("btn-sound");
+        if (btn) {
+          btn.setAttribute("aria-pressed", String(mode !== "off"));
+          btn.title = mode === "off" ? "背景音：关" : mode === "rain" ? "背景音：雨声（点一下关）" : "背景音：海浪（点一下关）";
+        }
+        document.querySelectorAll(".menu [data-sound]").forEach((b) => {
+          b.classList.toggle("sel", b.dataset.sound === mode);
+        });
+      };
+
+      const setMode = (m) => {
+        mode = m === "rain" || m === "ocean" ? m : "off";
+        if (mode === "off") {
+          if (master && ctx) master.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.35);
+          setTimeout(teardown, 420);
+        } else {
+          start(mode);
+        }
+        save(); paint();
+      };
+
+      const setVol = (v) => {
+        vol = Math.max(0, Math.min(1, v));
+        if (master && ctx) master.gain.setTargetAtTime(mode === "off" ? 0 : vol, ctx.currentTime, 0.08);
+        save();
+      };
+
+      const load = () => {
+        try {
+          const s = JSON.parse(localStorage.getItem(KEY) || "{}");
+          if (typeof s.vol === "number") vol = s.vol;
+        } catch (e) {}
+        paint();
+      };
+
+      const toggle = () => setMode(mode === "off" ? "ocean" : "off");
+
+      // 切到后台就把声音停掉，回来再续（省电，也避免用户找不到声源）
+      document.addEventListener("visibilitychange", () => {
+        if (!ctx) return;
+        if (document.hidden) ctx.suspend();
+        else if (mode !== "off") ctx.resume();
+      });
+
+      return { load, setMode, setVol, toggle, paint, get mode() { return mode; }, get vol() { return vol; } };
+    })();
+
+    /* ---------------- 4 · 沉浸全屏时钟 ---------------- */
+    const imm = $("immersive"), immClock = $("imm-clock"), immMeta = $("imm-meta"),
+      immLunar = $("imm-lunar"), immNext = $("imm-next");
+    let immOn = false, immLastClock = "", immLastLunar = "", immLastMeta = "", immLastNext = "";
+
+    const paintImm = (now) => {
+      const clk = pad2(now.getHours()) + ":" + pad2(now.getMinutes()) + ":" + pad2(now.getSeconds());
+      if (clk !== immLastClock) { immLastClock = clk; immClock.textContent = clk; }
+
+      const l = lunarText(now);
+      const lunarLine = [l ? "农历" + l : "", termText(now)].filter(Boolean).join(" · ");
+      if (lunarLine !== immLastLunar) { immLastLunar = lunarLine; immLunar.textContent = lunarLine || " "; }
+
+      const meta = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日 · " + WD[now.getDay()];
+      if (meta !== immLastMeta) { immLastMeta = meta; immMeta.textContent = meta; }
+
+      const up = items
+        .map((it) => ({ it, t: targetOf(it) }))
+        .filter((x) => x.t && x.t.getTime() > now.getTime())
+        .sort((a, b) => a.t - b.t)[0];
+      const nextKey = up ? up.it.id + "|" + up.it.title : "none";
+      if (nextKey !== immLastNext) {
+        immLastNext = nextKey;
+        immNext.textContent = "";
+        if (up) {
+          const a = document.createElement("span");
+          a.textContent = up.it.title;
+          const b = document.createElement("b");
+          b.textContent = String(calendarDays(up.t, now));
+          const c = document.createElement("span");
+          c.textContent = "天后";
+          immNext.append(a, b, c);
+        } else {
+          const s = document.createElement("span");
+          s.textContent = "还没有在册的日子";
+          immNext.appendChild(s);
+        }
+      } else if (up) {
+        const b = immNext.querySelector("b");
+        if (b) {
+          const d = String(calendarDays(up.t, now));
+          if (b.textContent !== d) b.textContent = d;
+        }
+      }
+    };
+
+    const openImm = () => {
+      immOn = true;
+      imm.classList.add("on");
+      imm.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      immLastClock = immLastLunar = immLastMeta = immLastNext = "";
+      paintImm(new Date());
+      try { if (imm.requestFullscreen) imm.requestFullscreen().catch(() => {}); } catch (e) {}
+    };
+
+    const closeImm = () => {
+      immOn = false;
+      imm.classList.remove("on");
+      imm.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      try { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); } catch (e) {}
+    };
+
+    /* ---------------- 4b · 助手条：现在几点 + 下一个还有多久 ---------------- */
+    const bigClock = $("bigClock"), bigClockDay = $("bigClockDay"),
+      nuTitle = $("nuTitle"), nuDate = $("nuDate"), nuDays = $("nuDays"),
+      nuLeft = $("nuLeft"), nuFill = $("nuFill");
+    let lastClockTxt = "", lastNextId = "__init";
+
+    const paintConsole = (now) => {
+      const txt = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+      if (txt !== lastClockTxt) {
+        lastClockTxt = txt;
+        if (bigClock) bigClock.textContent = txt;
+      }
+      if (bigClockDay) {
+        const d = now.getFullYear() + "年" + (now.getMonth() + 1) + "月" + now.getDate() + "日 · " + WD[now.getDay()];
+        if (bigClockDay.textContent !== d) bigClockDay.textContent = d;
+      }
+      if (!nuTitle) return;
+
+      let next = null, nextAt = Infinity;
+      for (const it of items) {
+        const t = targetOf(it);
+        if (!t) continue;
+        const v = t.getTime();
+        if (v > now.getTime() && v < nextAt) { nextAt = v; next = it; }
+      }
+
+      if (!next) {
+        if (lastNextId !== "none") {
+          lastNextId = "none";
+          nuTitle.textContent = "还没有在册的日子";
+          if (nuDate) nuDate.textContent = "点「新增日期」记一笔";
+          if (nuDays) nuDays.textContent = "--";
+          if (nuLeft) nuLeft.textContent = "";
+          if (nuFill) nuFill.style.width = "0%";
+        }
+        return;
+      }
+
+      const tgt = targetOf(next);
+      const remainMs = Math.max(0, tgt.getTime() - now.getTime());
+      const leftSec = Math.floor(remainMs / 1000);
+      // 天数和右边时:分:秒要对得上：先取整天数，余下的再拆时分秒
+      const dd = Math.floor(leftSec / 86400);
+      const rem = leftSec - dd * 86400;
+      const hh = Math.floor(rem / 3600), mm = Math.floor((rem % 3600) / 60), ss = rem % 60;
+
+      if (lastNextId !== next.id) {
+        lastNextId = next.id;
+        nuTitle.textContent = next.title;
+        if (nuDate) {
+          const hasTime = tgt.getHours() || tgt.getMinutes();
+          nuDate.textContent = fmtDate(tgt) + (hasTime ? " " + pad(tgt.getHours()) + ":" + pad(tgt.getMinutes()) : " · 全天");
+        }
+      }
+      const dTxt = String(dd);
+      if (nuDays && nuDays.textContent !== dTxt) nuDays.textContent = dTxt;
+      const leftTxt = pad(hh) + ":" + pad(mm) + ":" + pad(ss);
+      if (nuLeft && nuLeft.textContent !== leftTxt) nuLeft.textContent = leftTxt;
+
+      if (nuFill) {
+        const startBase = next.start ? parseTarget(next.start, "00:00") : null;
+        const startT = (startBase || new Date(next.createdAt)).getTime();
+        const span = tgt.getTime() - startT;
+        const pct = span > 0 ? Math.min(100, Math.max(0, (1 - remainMs / span) * 100)) : 0;
+        const w = pct.toFixed(1) + "%";
+        if (nuFill.style.width !== w) nuFill.style.width = w;
+      }
+    };
+
+    /* ---------------- 4c · 少讫讫：只留关键场面的台词 ----------------
+       petApi.speak 在页面里被十几处调用，逐处删既啰嗦又不好回退，
+       这里套一层白名单：只有"记下了 / 改好了 / 喂食 / 卡片做好了"会开口。 */
+    (() => {
+      const SAYABLE = /记下一笔|改好啦|小鱼干|卡片做好了/;
+      const orig = petApi.speak;
+      petApi.speak = function (text, ms) {
+        if (!SAYABLE.test(String(text || ""))) return;
+        return orig.call(petApi, text, ms);
+      };
+    })();
+
+    /* ---------------- 4d · 快捷键面板 ---------------- */
+    const keysPanel = $("keys");
+    const toggleKeys = (on) => {
+      const next = typeof on === "boolean" ? on : !keysPanel.classList.contains("on");
+      keysPanel.classList.toggle("on", next);
+      keysPanel.setAttribute("aria-hidden", String(!next));
+    };
+    if ($("keys-close")) $("keys-close").addEventListener("click", () => toggleKeys(false));
+    keysPanel.addEventListener("click", (e) => { if (e.target === keysPanel) toggleKeys(false); });
+
+    /* ---------------- 5 · 搜索 ---------------- */
+    const qInput = $("q"), qWrap = $("search-wrap"), qClear = $("q-clear");
+
+    const paintNoHit = () => {
+      const old = grid.querySelector(".no-hit");
+      const shown = [...grid.querySelectorAll(".card")].some((c) => !c.hidden);
+      if (!query || shown) { if (old) old.remove(); return; }
+      const text = "没有找到「" + qInput.value.trim() + "」";
+      if (old && old.firstChild && old.firstChild.textContent === text) return;
+      if (old) old.remove();
+      const box = document.createElement("div");
+      box.className = "no-hit";
+      const b = document.createElement("b");
+      b.textContent = text;
+      const s = document.createElement("span");
+      s.textContent = "换个词试试，或者把搜索框清掉。";
+      box.append(b, s);
+      grid.appendChild(box);
+    };
+
+    const syncSearch = () => {
+      const v = qInput.value.trim().toLowerCase();
+      qWrap.classList.toggle("has", !!v);
+      if (v === query) return;
+      query = v;
+      renderAll(true);
+      paintNoHit();
+    };
+
+    qInput.addEventListener("input", syncSearch);
+    qInput.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") { qInput.value = ""; syncSearch(); qInput.blur(); }
+      else if (e.key === "Enter") qInput.blur();
+    });
+    qClear.addEventListener("click", () => { qInput.value = ""; syncSearch(); qInput.focus(); });
+
+    /* ---------------- 6 · 桌宠心情 / 喂小鱼干 ---------------- */
+    const MOOD_KEY = "dshwhale.pet.mood.v1";
+    const petEl = $("pet"), petHit = $("petHit"), petMood = $("petMood"),
+      petMoodBar = $("petMoodBar"), petMoodTxt = $("petMoodTxt"), petFeed = $("petFeed");
+    let mood = 62, moodTs = Date.now(), feedCool = 0, moodTimer = 0;
+
+    const saveMood = () => {
+      try { localStorage.setItem(MOOD_KEY, JSON.stringify({ v: Math.round(mood), t: moodTs })); } catch (e) {}
+    };
+
+    const paintMood = () => {
+      const v = Math.max(0, Math.min(100, Math.round(mood)));
+      if (petMoodBar) petMoodBar.style.width = v + "%";
+      if (petMoodTxt) petMoodTxt.textContent = "心情 " + v;
+      if (petMood) petMood.classList.toggle("low", v < 30);
+      if (petEl) petEl.classList.toggle("low-mood", v < 30);
+    };
+
+    const loadMood = () => {
+      try {
+        const s = JSON.parse(localStorage.getItem(MOOD_KEY) || "{}");
+        if (typeof s.v === "number") mood = s.v;
+        if (typeof s.t === "number") moodTs = s.t;
+      } catch (e) {}
+      // 每小时掉 1.6 点，最多按 100 小时结算，免得放一个月回来直接饿死
+      const hours = Math.min(100, Math.max(0, (Date.now() - moodTs) / 3600000));
+      mood = Math.max(0, Math.min(100, mood - hours * 1.6));
+      moodTs = Date.now();
+      saveMood();
+      paintMood();
+    };
+
+    const showMoodFor = (ms) => {
+      if (!petMood) return;
+      paintMood();
+      petMood.classList.add("on");
+      clearTimeout(moodTimer);
+      moodTimer = setTimeout(() => petMood.classList.remove("on"), ms || 2000);
+    };
+
+    if (petHit) {
+      petHit.addEventListener("pointerenter", () => showMoodFor(1800));
+      petHit.addEventListener("pointerleave", () => {
+        clearTimeout(moodTimer);
+        if (petMood) petMood.classList.remove("on");
+      });
+    }
+
+    // 鼠标进到列表里就把桌宠退到后面，别挡着看数字
+    if (petEl && grid) {
+      grid.addEventListener("pointerenter", () => petEl.classList.add("ghost"));
+      grid.addEventListener("pointerleave", () => petEl.classList.remove("ghost"));
+      document.querySelectorAll(".tools, footer").forEach((el) => {
+        el.addEventListener("pointerenter", () => petEl.classList.add("ghost"));
+        el.addEventListener("pointerleave", () => petEl.classList.remove("ghost"));
+      });
+    }
+
+    if (petFeed) {
+      petFeed.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const now = Date.now();
+        if (now - feedCool < 2400) { petApi.speak("慢慢吃，人家还没咽下去呢…"); return; }
+        feedCool = now;
+        mood = Math.min(100, mood + 8);
+        moodTs = now;
+        saveMood();
+        showMoodFor(2400);
+        if (petEl) {
+          petEl.classList.remove("happy");
+          void petEl.offsetWidth;
+          petEl.classList.add("happy");
+          setTimeout(() => petEl.classList.remove("happy"), 960);
+        }
+        const line = mood >= 96 ? "小鱼干！人家今天最幸福了～" : "小鱼干！谢谢主人～";
+        if (reduce) petApi.speak(line);
+        else petApi.react("hop", line);
+      });
+    }
+
+    /* ---------------- 7 · 纪念卡导出（Canvas 手绘，不依赖任何外部库） ---------------- */
+    const roundRect = (g, x, y, w, h, r) => {
+      const rr = Math.min(r, w / 2, h / 2);
+      g.beginPath();
+      g.moveTo(x + rr, y);
+      g.arcTo(x + w, y, x + w, y + h, rr);
+      g.arcTo(x + w, y + h, x, y + h, rr);
+      g.arcTo(x, y + h, x, y, rr);
+      g.arcTo(x, y, x + w, y, rr);
+      g.closePath();
+    };
+
+    const wrapText = (g, text, x, y, maxW, lineH) => {
+      const chars = Array.from(String(text || ""));
+      let line = "", yy = y, lines = 0;
+      for (const ch of chars) {
+        if (line && g.measureText(line + ch).width > maxW) {
+          g.fillText(line, x, yy);
+          line = ch;
+          yy += lineH;
+          lines++;
+        } else {
+          line += ch;
+        }
+      }
+      if (line) { g.fillText(line, x, yy); lines++; }
+      return { y: yy, lines: lines };
+    };
+
+    const exportCard = async (it) => {
+      const t = targetOf(it);
+      if (!t) return;
+      const now = new Date();
+      const days = calendarDays(t, now);
+      const past = t.getTime() <= now.getTime();
+      const lunar = lunarText(t);
+
+      try { await document.fonts.load('40px "ZCOOL KuaiLe Local"'); } catch (e) {}
+
+      const W = 1080, H = 1440;
+      const cv = document.createElement("canvas");
+      cv.width = W;
+      cv.height = H;
+      const g = cv.getContext("2d");
+      if (!g) return;
+      const CUTE = '"ZCOOL KuaiLe Local","Microsoft YaHei UI","PingFang SC",sans-serif';
+      const NUM = '"Segoe UI","Microsoft YaHei UI","PingFang SC",sans-serif';
+
+      // 底色：上亮下深的深海
+      const bg = g.createLinearGradient(0, 0, 0, H);
+      bg.addColorStop(0, "#2161bd");
+      bg.addColorStop(0.42, "#123f8c");
+      bg.addColorStop(1, "#061c44");
+      g.fillStyle = bg;
+      g.fillRect(0, 0, W, H);
+
+      // 顶部天光
+      const gl = g.createRadialGradient(W / 2, 0, 60, W / 2, 0, W * 1.1);
+      gl.addColorStop(0, "rgba(150,215,255,.5)");
+      gl.addColorStop(1, "rgba(150,215,255,0)");
+      g.fillStyle = gl;
+      g.fillRect(0, 0, W, H);
+
+      // 星点
+      for (let i = 0; i < 120; i++) {
+        g.globalAlpha = Math.random() * 0.45 + 0.15;
+        g.fillStyle = "#dff2ff";
+        g.beginPath();
+        g.arc(Math.random() * W, Math.random() * H, Math.random() * 2.3 + 0.5, 0, Math.PI * 2);
+        g.fill();
+      }
+      g.globalAlpha = 1;
+
+      // 面板
+      const pad = 56, rr = 46;
+      roundRect(g, pad, pad, W - pad * 2, H - pad * 2, rr);
+      g.fillStyle = "rgba(255,255,255,.10)";
+      g.fill();
+      g.strokeStyle = "rgba(255,255,255,.66)";
+      g.lineWidth = 6;
+      g.stroke();
+      roundRect(g, pad + 16, pad + 16, W - (pad + 16) * 2, H - (pad + 16) * 2, rr - 12);
+      g.strokeStyle = "rgba(255,255,255,.22)";
+      g.lineWidth = 3;
+      g.setLineDash([10, 12]);
+      g.stroke();
+      g.setLineDash([]);
+
+      const cx = W / 2;
+      g.textAlign = "center";
+
+      // 小标
+      g.fillStyle = "rgba(226,242,255,.9)";
+      g.font = "600 30px " + CUTE;
+      g.fillText("深 海 女 仆 工 坊 · 倒 计 时 台", cx, 200);
+
+      // 状态标签
+      const tag = past ? "已过去" : days === 0 ? "就是今天" : days <= 3 ? "临近" : "倒计时中";
+      g.font = "600 26px " + CUTE;
+      const tw = g.measureText(tag).width + 56;
+      roundRect(g, cx - tw / 2, 240, tw, 52, 26);
+      g.fillStyle = "rgba(255,255,255,.2)";
+      g.fill();
+      g.strokeStyle = "rgba(255,255,255,.7)";
+      g.lineWidth = 3;
+      g.stroke();
+      g.fillStyle = "#fff";
+      g.fillText(tag, cx, 277);
+
+      // 标题（最多三行，行数决定下面大数字能开多大）
+      g.fillStyle = "#fff";
+      g.font = "700 60px " + CUTE;
+      const wrapped = wrapText(g, it.title, cx, 404, W - pad * 2 - 130, 78);
+
+      // 目标日期
+      g.font = "600 32px " + NUM;
+      g.fillStyle = "rgba(226,242,255,.92)";
+      const hourTxt = (t.getHours() || t.getMinutes()) ? " " + pad2(t.getHours()) + ":" + pad2(t.getMinutes()) : " · 全天";
+      g.fillText(fmtDate(t) + " " + WD[t.getDay()] + hourTxt, cx, wrapped.y + 74);
+
+      // 大数字：一行标题给足 380，两行 330，三行 290
+      const bigSize = wrapped.lines >= 3 ? 290 : wrapped.lines === 2 ? 330 : 380;
+      const bigBase = 995;
+
+      // 数字背后的聚光同心环，填补中间的空白
+      g.save();
+      g.strokeStyle = "rgba(180,225,255,.16)";
+      g.lineWidth = 2;
+      for (let i = 1; i <= 3; i++) {
+        g.beginPath();
+        g.arc(cx, bigBase - bigSize * 0.34, bigSize * (0.5 + i * 0.26), 0, Math.PI * 2);
+        g.stroke();
+      }
+      const halo = g.createRadialGradient(cx, bigBase - bigSize * 0.34, 20, cx, bigBase - bigSize * 0.34, bigSize * 1.15);
+      halo.addColorStop(0, "rgba(130,205,255,.2)");
+      halo.addColorStop(1, "rgba(130,205,255,0)");
+      g.fillStyle = halo;
+      g.fillRect(0, 300, W, 800);
+      g.restore();
+
+      g.font = "800 " + bigSize + "px " + NUM;
+      g.fillStyle = "#ffffff";
+      g.shadowColor = "rgba(90,180,255,.85)";
+      g.shadowBlur = 60;
+      g.fillText(String(Math.abs(days)), cx, bigBase);
+      g.shadowBlur = 0;
+
+      // 单位
+      g.font = "700 54px " + CUTE;
+      g.fillStyle = "rgba(226,242,255,.95)";
+      g.fillText(past ? "天前" : days === 0 ? "今天" : "天", cx, bigBase + 68);
+
+      // 农历
+      g.font = "600 30px " + CUTE;
+      g.fillStyle = "rgba(255,233,168,.95)";
+      g.fillText(lunar ? "农历" + lunar : " ", cx, 1124);
+
+      // 进度条
+      const startBase = it.start ? parseTarget(it.start, "00:00") : null;
+      const startT = (startBase || new Date(it.createdAt)).getTime();
+      const span = t.getTime() - startT;
+      const remainMs = t.getTime() - now.getTime();
+      const pct = span > 0 ? Math.min(100, Math.max(0, (1 - remainMs / span) * 100)) : (past ? 100 : 0);
+      const barW = W - pad * 2 - 220, barX = cx - barW / 2, barY = 1176, barH = 16;
+      roundRect(g, barX, barY, barW, barH, barH / 2);
+      g.fillStyle = "rgba(6,30,70,.55)";
+      g.fill();
+      if (pct > 0.4) {
+        roundRect(g, barX, barY, Math.max(barH, barW * pct / 100), barH, barH / 2);
+        const gr = g.createLinearGradient(barX, 0, barX + barW, 0);
+        gr.addColorStop(0, "#8ff4ff");
+        gr.addColorStop(0.5, "#7fb8ff");
+        gr.addColorStop(1, "#c8a8ff");
+        g.fillStyle = gr;
+        g.fill();
+      }
+      g.font = "600 26px " + NUM;
+      g.fillStyle = "rgba(226,242,255,.9)";
+      g.fillText(past ? "已完成" : "已走过 " + pct.toFixed(1) + "%", cx, 1240);
+
+      // 底部一句话
+      g.font = "700 34px " + CUTE;
+      g.fillStyle = "rgba(255,255,255,.95)";
+      g.fillText(past ? "已经过去 " + Math.abs(days) + " 天" : "还有 " + days + " 天", cx, 1292);
+
+      // 分隔 + 水印
+      g.strokeStyle = "rgba(255,255,255,.24)";
+      g.lineWidth = 2;
+      g.beginPath();
+      g.moveTo(pad + 96, 1318);
+      g.lineTo(W - pad - 96, 1318);
+      g.stroke();
+      g.font = "600 23px " + CUTE;
+      g.fillStyle = "rgba(190,220,255,.66)";
+      g.fillText("深海女仆工坊 · 把重要的日子交给深海保管", cx, 1352);
+
+      window.__lastCardCanvas = cv; // 调试用：控制台能取到刚画的卡
+      cv.toBlob((blob) => {
+        if (!blob) { toast("生成失败，换个浏览器试试"); return; }        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = ("倒计时-" + it.title + "-" + Math.abs(days) + "天.png").replace(/[\\/:*?"<>|]/g, "_");
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        toast("卡存好啦，去下载文件夹看看");
+        petApi.speak("卡片做好了，拿去显摆吧～");
+      }, "image/png");
+    };
+
+    grid.addEventListener("click", (e) => {
+      const btn = e.target.closest('button[data-act="save"]');
+      if (!btn) return;
+      const card = btn.closest(".card");
+      if (!card) return;
+      const it = items.find((x) => x.id === card.dataset.id);
+      if (it) exportCard(it);
+    });
+
+    /* ---------------- 8 · 菜单 / 快捷键 / 定时刷新 ---------------- */
+    const menu = $("menu"), btnMore = $("btn-more");
+
+    const toggleMenu = (on) => {
+      const next = typeof on === "boolean" ? on : !menu.classList.contains("on");
+      menu.classList.toggle("on", next);
+      btnMore.setAttribute("aria-expanded", String(next));
+    };
+
+    btnMore.addEventListener("click", (e) => { e.stopPropagation(); toggleMenu(); });
+
+    document.addEventListener("click", (e) => {
+      if (!menu.classList.contains("on")) return;
+      if (e.target.closest && e.target.closest(".menu-wrap")) return;
+      toggleMenu(false);
+    });
+
+    menu.addEventListener("click", (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      if (b.dataset.theme) return; // 点色板不关菜单
+      toggleMenu(false);
+    });
+
+    $("menu-clear").addEventListener("click", () => { $("btn-clear-past").click(); });
+
+    $("theme-row").addEventListener("click", (e) => {
+      const b = e.target.closest(".swatch");
+      if (!b) return;
+      applyTheme(b.dataset.theme);
+      const line = b.dataset.theme === "sakura" ? "粉粉的，好可爱～"
+        : b.dataset.theme === "dusk" ? "天黑了，开始值夜班。"
+          : b.dataset.theme === "dawn" ? "天亮啦，出太阳了。"
+            : "回到深海蓝。";
+      petApi.speak(line);
+    });
+
+    $("btn-sound").addEventListener("click", () => Sound.toggle());
+    menu.querySelectorAll("[data-sound]").forEach((b) => {
+      b.addEventListener("click", () => Sound.setMode(b.dataset.sound));
+    });
+    $("vol").addEventListener("input", (e) => Sound.setVol(Number(e.target.value) / 100));
+
+    $("menu-quiet").addEventListener("click", () => {
+      document.body.classList.toggle("quiet");
+      petApi.speak(document.body.classList.contains("quiet") ? "安静下来了。" : "装饰回来啦。");
+    });
+
+    $("btn-immersive").addEventListener("click", openImm);
+    $("imm-quit").addEventListener("click", closeImm);
+    imm.addEventListener("dblclick", closeImm);
+
+    $("fab").addEventListener("click", () => openDlg(null));
+
+    document.addEventListener("keydown", (e) => {
+      const el = e.target;
+      const tag = ((el && el.tagName) || "").toLowerCase();
+      const typing = tag === "input" || tag === "textarea" || tag === "select" || (el && el.isContentEditable);
+      if (e.key === "Escape") {
+        if (immOn) { closeImm(); return; }
+        if (keysPanel.classList.contains("on")) { toggleKeys(false); return; }
+        if (menu.classList.contains("on")) { toggleMenu(false); return; }
+        if (typing) { el.blur(); return; }
+      }
+      if (typing) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const k = (e.key || "").toLowerCase();
+
+      if (k === "?") { e.preventDefault(); toggleKeys(); return; }
+      if (k === "f") { e.preventDefault(); if (immOn) closeImm(); else openImm(); }
+      else if (k === "q") { e.preventDefault(); document.body.classList.toggle("quiet"); }
+      else if (k === "/") { e.preventDefault(); qInput.focus(); qInput.select(); }
+      else if (k === "n") { e.preventDefault(); openDlg(null); }
+      else if (k === "t") { e.preventDefault(); applyTheme(THEMES[(THEMES.indexOf(theme) + 1) % THEMES.length]); }
+      else if (k === "m") { e.preventDefault(); Sound.toggle(); }
+      else if (k === "e") { e.preventDefault(); $("btn-export").click(); }
+      else if (k === "1" || k === "2" || k === "3") {
+        e.preventDefault();
+        const f = k === "1" ? "all" : k === "2" ? "future" : "past";
+        const btn = $("filter").querySelector('button[data-f="' + f + '"]');
+        if (btn) btn.click();
+      }
+    });
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement && immOn) closeImm();
+    });
+
+    /* ---------------- 启动 ---------------- */
+    let lastDayKey = "", lastSec = -1;
+
+    const paintToday = (now) => {
+      const key = now.getFullYear() + "-" + now.getMonth() + "-" + now.getDate();
+      if (key === lastDayKey) return;
+      lastDayKey = key;
+      const dEl = $("today-date"), wEl = $("today-week"), lEl = $("today-lunar"), tEl = $("today-term");
+      if (dEl) dEl.textContent = now.getFullYear() + "-" + pad2(now.getMonth() + 1) + "-" + pad2(now.getDate());
+      if (wEl) wEl.textContent = WD[now.getDay()];
+      if (lEl) {
+        const l = lunarText(now);
+        lEl.textContent = l ? "农历" + l : "农历 --";
+      }
+      if (tEl) {
+        const t = nearestTerm(now);
+        tEl.textContent = termText(now) || "--";
+        if (t && t.days === 0) {
+          tEl.style.background = "rgba(255,233,168,.32)";
+          tEl.style.borderColor = "rgba(255,233,168,.9)";
+        }
+      }
+    };
+
+    const tick = () => {
+      const now = new Date();
+      const s = now.getSeconds();
+      if (s === lastSec) return;
+      lastSec = s;
+      paintToday(now);
+      paintConsole(now);
+      if (immOn) paintImm(now);
+      if (query) paintNoHit();
+    };
+
+    applyTheme((() => {
+      try { return localStorage.getItem(THEME_KEY) || "deep"; } catch (e) { return "deep"; }
+    })());
+    Sound.load();
+    if ($("vol")) $("vol").value = String(Math.round(Sound.vol * 100));
+    loadMood();
+    paintToday(new Date());
+    setInterval(tick, 250);
+
+    return { lunarText, nearestTerm, termText, applyTheme, exportCard, get theme() { return theme; } };
+  })();
+
+  // 给控制台留个口子：手动触发一次重绘 / 读当前数据（调试用，不影响页面）
+  window.__whaleCountdown = {
+    render: () => renderAll(true),
+    items: () => items,
+    petClips: () => ({ ...petApi.clips }),
+    petHitPath: () => ($("petHit") ? getComputedStyle($("petHit")).clipPath : ""),
+    version: 3,
+    v2: V2,
+  };
+})();
+</script>
+</body>
+</html>
