@@ -1,0 +1,20 @@
+{
+  "name": "rainy-night-mart",
+  "version": "1.0.0",
+  "description": "雨夜便利店 —— three.js 实时渲染场景",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch",
+    "preview": "node serve.mjs"
+  },
+  "keywords": ["three.js", "webgl", "rain", "night"],
+  "license": "MIT",
+  "dependencies": {
+    "esbuild": "^0.28.2",
+    "three": "^0.169.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
+  }
+}

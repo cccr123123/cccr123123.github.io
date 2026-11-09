@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>雨夜便利店 · 可以走进去的那家</title>
+<meta name="description" content="第一人称走进雨夜便利店：逛货架、拿东西、到收银台结账、和店员说话" />
+<style>
+  :root {
+    --ink: rgba(240, 248, 245, 0.94);
+    --ink-dim: rgba(240, 248, 245, 0.56);
+    --ink-faint: rgba(240, 248, 245, 0.28);
+    --accent: #7ef2c0;
+    --warm: #ffd9a0;
+    --panel: rgba(9, 13, 19, 0.78);
+    --sans: "Helvetica Neue", "Hiragino Sans", "Yu Gothic", "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    --serif: "Yu Mincho", "Hiragino Mincho ProN", "Songti SC", "SimSun", serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: #04060a; color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  #scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: none; }
+  #scene:active { cursor: grabbing; }
+
+  /* ------------------------------------------------ 准星 */
+  #crosshair {
+    position: fixed; left: 50%; top: 50%; width: 7px; height: 7px;
+    margin: -3.5px 0 0 -3.5px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.55); box-shadow: 0 0 6px rgba(0,0,0,0.6);
+    pointer-events: none; z-index: 12; transition: all 0.18s ease;
+  }
+  #crosshair.active {
+    width: 18px; height: 18px; margin: -9px 0 0 -9px;
+    background: transparent; border: 2px solid var(--accent);
+    box-shadow: 0 0 14px rgba(126, 242, 192, 0.55);
+  }
+
+  /* ------------------------------------------------ 交互提示 */
+  #prompt {
+    position: fixed; left: 50%; top: 50%; transform: translate(-50%, 26px);
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 16px; border-radius: 999px;
+    background: rgba(8, 12, 17, 0.7);
+    backdrop-filter: blur(8px);
+    font-size: 13.5px; letter-spacing: 0.05em;
+    opacity: 0; transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none; z-index: 13; white-space: nowrap;
+  }
+  #prompt.show { opacity: 1; transform: translate(-50%, 20px); }
+  #prompt kbd {
+    font-family: var(--sans); font-size: 11px; font-weight: 700;
+    padding: 3px 7px; border-radius: 5px;
+    background: var(--accent); color: #08201a; letter-spacing: 0.06em;
+  }
+  #prompt-hint { color: var(--warm); font-size: 12px; letter-spacing: 0.04em; }
+  #prompt-hint.hide { display: none; }
+
+  /* ------------------------------------------------ 顶部条 */
+  #topbar {
+    position: fixed; left: 0; right: 0; top: 0;
+    padding: 18px clamp(16px, 3vw, 40px);
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+    background: linear-gradient(to bottom, rgba(2, 4, 8, 0.55), rgba(2, 4, 8, 0));
+    pointer-events: none; z-index: 10;
+  }
+  #topbar .brand {
+    font-family: var(--serif); font-size: 15px; letter-spacing: 0.42em;
+    color: var(--ink); text-shadow: 0 2px 14px rgba(0,0,0,0.7);
+  }
+  #topbar .brand span { display: block; font-size: 9px; letter-spacing: 0.3em; color: var(--ink-faint); margin-top: 5px; }
+  #topbar .hint { font-size: 11px; letter-spacing: 0.14em; color: var(--ink-faint); text-align: right; line-height: 1.9; }
+
+  /* ------------------------------------------------ 钱包 */
+  #wallet-bar {
+    position: fixed; right: clamp(16px, 3vw, 40px); top: 76px;
+    font-size: 11px; letter-spacing: 0.18em; color: var(--ink-dim);
+    pointer-events: none; z-index: 10;
+  }
+  #wallet-bar b { color: var(--warm); font-weight: 600; font-size: 13px; margin-left: 6px; }
+
+  /* ------------------------------------------------ 购物篮 */
+  #cart {
+    position: fixed; right: clamp(16px, 3vw, 40px); bottom: clamp(20px, 4vh, 44px);
+    width: 224px; padding: 14px 16px 12px;
+    background: var(--panel); backdrop-filter: blur(12px);
+    border: 1px solid rgba(126, 242, 192, 0.16); border-radius: 12px;
+    opacity: 0; transform: translateY(10px); transition: all 0.3s ease;
+    pointer-events: none; z-index: 11;
+  }
+  #cart.show { opacity: 1; transform: translateY(0); }
+  #cart .cart-head { font-size: 11px; letter-spacing: 0.2em; color: var(--ink-dim); margin-bottom: 8px; }
+  #cart .cart-head b { color: var(--accent); font-size: 13px; }
+  #cart-list { list-style: none; max-height: 168px; overflow: hidden; }
+  #cart-list li { display: flex; justify-content: space-between; font-size: 12.5px; padding: 4px 0; border-bottom: 1px dashed rgba(255,255,255,0.07); }
+  #cart-list li:last-child { border-bottom: none; }
+  .ci-price { color: var(--warm); font-size: 12px; }
+  #cart .cart-foot { margin-top: 9px; padding-top: 8px; border-top: 1px solid rgba(126,242,192,0.2); font-size: 11px; letter-spacing: 0.16em; color: var(--ink-dim); display: flex; justify-content: space-between; align-items: baseline; }
+  #cart .cart-foot b { color: var(--accent); font-size: 17px; letter-spacing: 0.04em; }
+
+  /* ------------------------------------------------ 消息 */
+  #message {
+    position: fixed; left: 50%; top: 16%; transform: translateX(-50%);
+    padding: 9px 20px; border-radius: 999px;
+    background: rgba(8, 12, 17, 0.78); backdrop-filter: blur(8px);
+    font-size: 13px; letter-spacing: 0.06em; color: var(--ink);
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none; z-index: 14;
+    border: 1px solid rgba(255, 217, 160, 0.16);
+  }
+  #message.show { opacity: 1; }
+
+  /* ------------------------------------------------ 对话 */
+  #dialogue {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    padding: clamp(20px, 4vh, 46px) clamp(18px, 6vw, 90px) clamp(24px, 5vh, 56px);
+    background: linear-gradient(to top, rgba(3, 6, 10, 0.94) 30%, rgba(3, 6, 10, 0.7) 70%, rgba(3, 6, 10, 0));
+    opacity: 0; transform: translateY(18px); transition: all 0.35s cubic-bezier(.2,.8,.2,1);
+    pointer-events: none; z-index: 20;
+  }
+  #dialogue.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .dlg-close {
+    position: absolute; right: clamp(14px, 3vw, 40px); top: 14px;
+    width: 34px; height: 34px; border-radius: 50%;
+    appearance: none; cursor: pointer;
+    background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.16);
+    color: var(--ink-dim); font-size: 19px; line-height: 1;
+    display: grid; place-items: center; transition: all 0.2s ease; z-index: 2;
+  }
+  .dlg-close:hover { background: rgba(255, 255, 255, 0.16); color: var(--ink); border-color: rgba(255,255,255,0.3); }
+  .dlg-tip { margin-top: 14px; font-size: 10px; letter-spacing: 0.14em; color: var(--ink-faint); }
+  .dlg-tip b { color: var(--accent); font-weight: 600; }
+  .dlg-inner { max-width: 760px; }
+  .dlg-name {
+    font-family: var(--serif); font-size: 12px; letter-spacing: 0.4em; color: var(--accent);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .dlg-name::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, rgba(126,242,192,0.4), transparent); }
+  .dlg-text {
+    font-size: clamp(14px, 1.5vw, 16.5px); line-height: 2.0; letter-spacing: 0.06em;
+    color: var(--ink); min-height: 3.4em;
+  }
+  .dlg-options { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; opacity: 0; transition: opacity 0.25s ease; }
+  .dlg-options.show { opacity: 1; }
+  .dlg-opt {
+    appearance: none; text-align: left; cursor: pointer;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+    color: var(--ink); font-family: var(--sans); font-size: 13.5px; letter-spacing: 0.05em;
+    padding: 10px 16px; border-radius: 8px; display: flex; align-items: center; gap: 12px;
+    transition: all 0.2s ease;
+  }
+  .dlg-opt b {
+    font-weight: 600; font-size: 10px; color: var(--accent);
+    border: 1px solid rgba(126,242,192,0.4); border-radius: 4px; padding: 1px 5px;
+  }
+  .dlg-opt:hover { background: rgba(126,242,192,0.1); border-color: rgba(126,242,192,0.45); transform: translateX(3px); }
+
+  /* ------------------------------------------------ 付款条 */
+  #pay-bar {
+    position: fixed; left: 50%; bottom: 26vh; transform: translateX(-50%) scale(0.96);
+    padding: 14px 30px; border-radius: 14px;
+    background: rgba(9, 13, 19, 0.9); border: 1px solid rgba(255, 217, 160, 0.35);
+    backdrop-filter: blur(10px);
+    font-size: 13px; letter-spacing: 0.16em; color: var(--ink-dim);
+    opacity: 0; transition: all 0.3s ease; pointer-events: none; z-index: 21;
+    display: flex; align-items: baseline; gap: 12px;
+  }
+  #pay-bar.show { opacity: 1; transform: translateX(-50%) scale(1); }
+  #pay-bar b { font-size: 28px; color: var(--warm); letter-spacing: 0.02em; font-weight: 600; }
+  #pay-bar span { color: var(--accent); font-size: 11px; }
+
+  /* ------------------------------------------------ 小票 */
+  #receipt {
+    position: fixed; right: clamp(16px, 4vw, 70px); top: 50%; transform: translateY(-50%) rotate(1.2deg) scale(0.94);
+    width: 246px; padding: 22px 20px 18px;
+    background: #f5f2e8; color: #23211c;
+    font-family: var(--sans); font-size: 11.5px; line-height: 1.8;
+    box-shadow: 0 18px 60px rgba(0,0,0,0.55);
+    opacity: 0; transition: all 0.45s cubic-bezier(.2,.9,.3,1); pointer-events: none; z-index: 22;
+  }
+  #receipt.show { opacity: 1; transform: translateY(-50%) rotate(-1deg) scale(1); }
+  #receipt::before, #receipt::after {
+    content: ''; position: absolute; left: 0; right: 0; height: 8px;
+    background: repeating-linear-gradient(45deg, transparent 0 4px, #f5f2e8 4px 8px);
+  }
+  #receipt::before { top: -8px; }
+  #receipt::after { bottom: -8px; transform: rotate(180deg); }
+  .rc-head { text-align: center; font-family: var(--serif); font-size: 14px; letter-spacing: 0.24em; padding-bottom: 10px; border-bottom: 1px dashed rgba(0,0,0,0.25); }
+  .rc-head small { display: block; font-size: 9px; letter-spacing: 0.18em; color: #6a655a; margin-top: 3px; }
+  #receipt-body { list-style: none; padding: 10px 0; border-bottom: 1px dashed rgba(0,0,0,0.25); max-height: 140px; overflow: hidden; }
+  #receipt-body li { display: flex; justify-content: space-between; font-size: 11px; }
+  .rc-row { display: flex; justify-content: space-between; padding-top: 6px; font-size: 11px; letter-spacing: 0.06em; }
+  .rc-row b { font-weight: 700; }
+  .rc-row.dim { color: #7c766a; }
+  .rc-foot { margin-top: 12px; padding-top: 10px; border-top: 1px dashed rgba(0,0,0,0.25); text-align: center; font-size: 9.5px; letter-spacing: 0.16em; color: #6a655a; }
+
+  /* ------------------------------------------------ 声音按钮 */
+  #btn-audio {
+    position: fixed; left: clamp(16px, 3vw, 40px); bottom: clamp(20px, 4vh, 40px);
+    appearance: none; cursor: pointer; z-index: 12;
+    background: rgba(9, 13, 19, 0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
+    color: var(--ink-dim); font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em;
+    padding: 9px 18px; transition: all 0.25s ease;
+  }
+  #btn-audio.on { color: var(--accent); border-color: rgba(126,242,192,0.45); }
+  #btn-audio:hover { color: var(--ink); border-color: rgba(255,255,255,0.3); }
+  #btn-quality {
+    position: fixed; left: calc(clamp(16px, 3vw, 40px) + 108px); bottom: clamp(20px, 4vh, 40px);
+    appearance: none; cursor: pointer; z-index: 12;
+    background: rgba(9, 13, 19, 0.7); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 999px;
+    color: var(--ink-dim); font-family: var(--sans); font-size: 11px; letter-spacing: 0.16em;
+    padding: 9px 18px; transition: all 0.25s ease;
+  }
+  #btn-quality:hover { color: var(--ink); border-color: rgba(255,255,255,0.3); }
+
+  /* ------------------------------------------------ 淡入 */
+  #fade { position: fixed; inset: 0; background: #04060a; opacity: 0; pointer-events: none; z-index: 30; }
+
+  /* ------------------------------------------------ 开始页 */
+  #loader {
+    position: fixed; inset: 0; z-index: 40; background: #04060a;
+    display: grid; place-items: center; transition: opacity 1.1s ease, visibility 1.1s ease;
+  }
+  #loader.hide { opacity: 0; visibility: hidden; }
+  .load-inner { text-align: center; padding: 0 24px; }
+  .load-jp { font-family: var(--serif); font-size: clamp(13px, 1.5vw, 17px); letter-spacing: 0.5em; color: rgba(240,248,245,0.7); animation: breathe 3.4s ease-in-out infinite; }
+  .load-bar { width: 132px; height: 1px; margin: 24px auto 0; background: rgba(240,248,245,0.12); overflow: hidden; }
+  .load-bar i { display: block; width: 40%; height: 100%; background: var(--accent); animation: slide 1.5s ease-in-out infinite; }
+  .load-tip { margin-top: 18px; font-size: 10px; letter-spacing: 0.28em; color: rgba(240,248,245,0.3); }
+  .load-tip.err { color: #ff8a8a; letter-spacing: 0.06em; line-height: 1.8; max-width: 70vw; }
+  .enter-btn {
+    margin-top: 30px; appearance: none; cursor: pointer;
+    background: transparent; border: 1px solid rgba(126,242,192,0.5); border-radius: 999px;
+    color: var(--accent); font-family: var(--sans); font-size: 12px; letter-spacing: 0.32em;
+    padding: 12px 34px; transition: all 0.3s ease;
+  }
+  .enter-btn:hover { background: rgba(126,242,192,0.12); box-shadow: 0 0 30px rgba(126,242,192,0.18); }
+  .load-keys { margin-top: 26px; font-size: 10.5px; letter-spacing: 0.14em; color: rgba(240,248,245,0.3); line-height: 2.1; }
+  @keyframes breathe { 0%,100% { opacity: 0.45 } 50% { opacity: 0.9 } }
+  @keyframes slide { 0% { transform: translateX(-110%) } 100% { transform: translateX(320%) } }
+
+  @media (max-width: 720px) {
+    #cart { width: 168px; }
+    #topbar .hint { display: none; }
+    #receipt { transform: translateY(-50%) scale(0.86); }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="scene" tabindex="0"></canvas>
+
+<div id="crosshair"></div>
+<div id="prompt"><kbd>E</kbd><span id="prompt-text"></span><span id="prompt-hint"></span></div>
+<div id="message"></div>
+
+<header id="topbar">
+  <div class="brand">星野マート<span>HOSHINO MART · 24H</span></div>
+  <div class="hint">按住鼠标拖动 看四周<br />WASD 走动 · E 互动</div>
+</header>
+
+<div id="wallet-bar">钱包 <b id="wallet">5000円</b></div>
+
+<div id="cart">
+  <div class="cart-head">购物篮 <b id="cart-count">0</b> 件</div>
+  <ul id="cart-list"></ul>
+  <div class="cart-foot">合计 <b id="cart-total">0円</b></div>
+</div>
+
+<div id="dialogue">
+  <button id="dlg-close" class="dlg-close" type="button" aria-label="关闭对话">×</button>
+  <div class="dlg-inner">
+    <div class="dlg-name" id="dlg-name"></div>
+    <div class="dlg-text" id="dlg-text"></div>
+    <div class="dlg-options" id="dlg-options"></div>
+    <div class="dlg-tip">按 <b>E</b> 选第一个 · <b>数字键</b> 选择 · <b>Esc</b> 结束对话</div>
+  </div>
+</div>
+
+<div id="pay-bar">请付款 <b id="pay-total">0円</b><span>按 E 支付</span></div>
+
+<div id="receipt">
+  <div class="rc-head">HOSHINO MART<small>星野マート · 24H</small></div>
+  <ul id="receipt-body"></ul>
+  <div class="rc-row">合计 <b id="receipt-total">0円</b></div>
+  <div class="rc-row">找零 <b id="receipt-change">0円</b></div>
+  <div class="rc-row dim">余额 <b id="receipt-wallet">0円</b></div>
+  <div class="rc-foot">谢谢光临 · またお越しください</div>
+</div>
+
+<button id="btn-audio" type="button">声音 关</button>
+<button id="btn-quality" type="button">画质 中</button>
+
+<div id="fade"></div>
+
+<div id="loader">
+  <div class="load-inner">
+    <div class="load-jp">雨が降り出した</div>
+    <div class="load-bar"><i></i></div>
+    <div id="loader-text" class="load-tip">正在点亮招牌…</div>
+    <button id="btn-enter" class="enter-btn" type="button" hidden>推门进去</button>
+    <div class="load-keys">WASD 走动 · 按住鼠标拖动看四周 · E 拿东西 / 结账 / 说话</div>
+  </div>
+</div>
+
+<script>
+  // 早期错误捕获：帮助定位初始化问题（也方便主人反馈）
+  window.__errors = [];
+  window.addEventListener('error', function (e) {
+    window.__errors.push(String(e.message || e));
+    var t = document.getElementById('loader-text');
+    if (t) { t.textContent = '出错了：' + (e.message || e); t.className = 'load-tip err'; }
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    var r = e.reason && e.reason.message ? e.reason.message : String(e.reason);
+    window.__errors.push('promise: ' + r);
+  });
+</script>
+<script src="dist/rainy-store.js"></script>
+</body>
+</html>
