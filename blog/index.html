@@ -1,0 +1,4212 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-hf-style="magazine" data-family="magazine" data-medium="page"
+      data-theme="indigo-porcelain" data-scheme="light" data-read="m" style="color-scheme:light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>cccr</title>
+<meta name="description" content="cccr 的笔记：做事的方法、工具，和写作本身。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" data-gz-fonts="playfair-display noto-serif-sc source-serif-4 noto-sans-sc ibm-plex-mono"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Noto+Serif+SC:wght@200..900&family=Source+Serif+4:ital,wght@0,200..900;1,200..900&family=Noto+Sans+SC:wght@100..900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>/* ---- block 1 ---- */
+/* GZ:TOKENS:START · guizang-design v0.1.0 生成，不要手改；改设计请改 guizang-design 后运行 scripts/sync-skill.mjs */
+:root{
+  --font-display:'Playfair Display','Noto Serif SC','Source Han Serif SC','Songti SC',serif;
+  --font-serif:'Source Serif 4','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif;
+  --font-serif-zh:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong',serif;
+  --font-sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,sans-serif;
+  --font-mono:'IBM Plex Mono','Noto Sans SC',ui-monospace,'SF Mono',Menlo,monospace;
+  --sp-1:2px;
+  --sp-2:4px;
+  --sp-3:8px;
+  --sp-4:12px;
+  --sp-5:16px;
+  --sp-6:24px;
+  --sp-7:32px;
+  --sp-8:40px;
+  --sp-9:48px;
+  --sp-10:64px;
+  --sp-11:80px;
+  --sp-12:96px;
+  --sp-13:160px;
+  --radius-none:0px;
+  --radius-xs:3px;
+  --radius-sm:6px;
+  --radius-md:14px;
+  --radius-pill:999px;
+  --ease-standard:cubic-bezier(.2,0,.38,.9);
+  --ease-expressive:cubic-bezier(.4,.14,.3,1);
+  --ease-entrance:cubic-bezier(0,0,.3,1);
+  --ease-entrance-standard:cubic-bezier(0,0,.38,.9);
+  --ease-editorial:cubic-bezier(.22,1,.36,1);
+  --ease-page:cubic-bezier(.77,0,.175,1);
+  --dur-fast-1:70ms;
+  --dur-fast-2:110ms;
+  --dur-moderate-1:150ms;
+  --dur-moderate-2:240ms;
+  --dur-slow-1:400ms;
+  --dur-slow-2:700ms;
+  --dur-page:900ms;
+  --stagger-tight:70ms;
+  --stagger-base:100ms;
+  --stagger-loose:160ms;
+  --move-sm:8px;
+  --move-md:16px;
+  --move-lg:24px;
+  --paper:#f1efea;
+  --paper-2:#e8e5de;
+  --ink:#0a0a0b;
+  --muted:#68625a;
+  --accent:#111111;
+  --accent-soft:#d8d2c6;
+  --accent-on:#f1efea;
+  --accent-ink:#111111;
+  --accent-display:#111111;
+  --accent-ink-inverse:#b2b2b2;
+  --text-primary:#0a0a0b;
+  --text-body:#2c2b2c;
+  --text-secondary:#404040;
+  --text-helper:#68625a;
+  --line-strong:#7e7d7b;
+  --line:#b7b5b2;
+  --line-subtle:#d1cfcb;
+  --ink-rgb:10,10,11;
+  --paper-rgb:241,239,234;
+  --accent-rgb:17,17,17;
+  --accent-on-rgb:241,239,234;
+  --accent-on-text:#f1efea;
+  --accent-on-text-rgb:241,239,234;
+  color-scheme:light;
+}
+[data-theme="ink-classic"]{
+  --paper:#f1efea;
+  --paper-2:#e8e5de;
+  --ink:#0a0a0b;
+  --muted:#68625a;
+  --accent:#111111;
+  --accent-soft:#d8d2c6;
+  --accent-on:#f1efea;
+  --accent-ink:#111111;
+  --accent-display:#111111;
+  --accent-ink-inverse:#b2b2b2;
+  --text-primary:#0a0a0b;
+  --text-body:#2c2b2c;
+  --text-secondary:#404040;
+  --text-helper:#68625a;
+  --line-strong:#7e7d7b;
+  --line:#b7b5b2;
+  --line-subtle:#d1cfcb;
+  --ink-rgb:10,10,11;
+  --paper-rgb:241,239,234;
+  --accent-rgb:17,17,17;
+  --accent-on-rgb:241,239,234;
+  --accent-on-text:#f1efea;
+  --accent-on-text-rgb:241,239,234;
+  color-scheme:light;
+}
+[data-theme="indigo-porcelain"]{
+  --paper:#f1f3f5;
+  --paper-2:#e4e8ec;
+  --ink:#0a1f3d;
+  --muted:#5f6d78;
+  --accent:#315d93;
+  --accent-soft:#d7e1ec;
+  --accent-on:#f1f3f5;
+  --accent-ink:#315d93;
+  --accent-display:#315d93;
+  --accent-ink-inverse:#89b9f5;
+  --text-primary:#0a1f3d;
+  --text-body:#2e415c;
+  --text-secondary:#43546d;
+  --text-helper:#5f6d78;
+  --line-strong:#808d9e;
+  --line:#b8c0ca;
+  --line-subtle:#d2d7dd;
+  --ink-rgb:10,31,61;
+  --paper-rgb:241,243,245;
+  --accent-rgb:49,93,147;
+  --accent-on-rgb:241,243,245;
+  --accent-on-text:#f1f3f5;
+  --accent-on-text-rgb:241,243,245;
+  color-scheme:light;
+}
+[data-theme="forest-ink"]{
+  --paper:#f5f1e8;
+  --paper-2:#ece7da;
+  --ink:#1a2e1f;
+  --muted:#5d665d;
+  --accent:#2e6b4f;
+  --accent-soft:#d4dfd2;
+  --accent-on:#f5f1e8;
+  --accent-ink:#2e6b4f;
+  --accent-display:#2e6b4f;
+  --accent-ink-inverse:#88c6a6;
+  --text-primary:#1a2e1f;
+  --text-body:#3d4d3e;
+  --text-secondary:#515f51;
+  --text-helper:#5d665d;
+  --line-strong:#8b9386;
+  --line:#c0c2b7;
+  --line-subtle:#d8d7cd;
+  --ink-rgb:26,46,31;
+  --paper-rgb:245,241,232;
+  --accent-rgb:46,107,79;
+  --accent-on-rgb:245,241,232;
+  --accent-on-text:#f5f1e8;
+  --accent-on-text-rgb:245,241,232;
+  color-scheme:light;
+}
+[data-theme="kraft-paper"]{
+  --paper:#eedfc7;
+  --paper-2:#e0d0b6;
+  --ink:#2a1e13;
+  --muted:#755f49;
+  --accent:#9b5a2e;
+  --accent-soft:#d5b58f;
+  --accent-on:#eedfc7;
+  --accent-ink:#804212;
+  --accent-display:#9b5a2e;
+  --accent-ink-inverse:#eda679;
+  --text-primary:#2a1e13;
+  --text-body:#493c2f;
+  --text-secondary:#5b4e3f;
+  --text-helper:#755f49;
+  --line-strong:#8f816f;
+  --line:#bfb09b;
+  --line-subtle:#d4c5af;
+  --ink-rgb:42,30,19;
+  --paper-rgb:238,223,199;
+  --accent-rgb:155,90,46;
+  --accent-on-rgb:238,223,199;
+  --accent-on-text:#ffffff;
+  --accent-on-text-rgb:255,255,255;
+  color-scheme:light;
+}
+[data-theme="dune"]{
+  --paper:#f0e6d2;
+  --paper-2:#e3d7bf;
+  --ink:#1f1a14;
+  --muted:#6f6557;
+  --accent:#8f7650;
+  --accent-soft:#d4c2a4;
+  --accent-on:#f0e6d2;
+  --accent-ink:#705833;
+  --accent-display:#8f7650;
+  --accent-ink-inverse:#cbb088;
+  --text-primary:#1f1a14;
+  --text-body:#3f3931;
+  --text-secondary:#524c42;
+  --text-helper:#6f6557;
+  --line-strong:#8a8275;
+  --line:#bdb4a3;
+  --line-subtle:#d4cab8;
+  --ink-rgb:31,26,20;
+  --paper-rgb:240,230,210;
+  --accent-rgb:143,118,80;
+  --accent-on-rgb:240,230,210;
+  --accent-on-text:#ffffff;
+  --accent-on-text-rgb:255,255,255;
+  color-scheme:light;
+}
+[data-theme="midnight-ink"]{
+  --paper:#0e0d0c;
+  --paper-2:#1a1714;
+  --ink:#ece2cf;
+  --muted:#9a8c75;
+  --accent:#d4a04a;
+  --accent-soft:#3a2a14;
+  --accent-on:#0e0d0c;
+  --accent-ink:#e0ab56;
+  --accent-display:#d4a04a;
+  --accent-ink-inverse:#875c00;
+  --text-primary:#ece2cf;
+  --text-body:#d5ccbb;
+  --text-secondary:#b9b2a3;
+  --text-helper:#b9b2a3;
+  --line-strong:#67635b;
+  --line:#373430;
+  --line-subtle:#23211f;
+  --ink-rgb:236,226,207;
+  --paper-rgb:14,13,12;
+  --accent-rgb:212,160,74;
+  --accent-on-rgb:14,13,12;
+  --accent-on-text:#0e0d0c;
+  --accent-on-text-rgb:14,13,12;
+  color-scheme:dark;
+}
+
+:root{
+  --fs-display:2.7rem;
+  --fw-display:500;
+  --lh-display:1.3;
+  --ls-display:.03em;
+  --ff-display:var(--font-serif);
+  --fst-display:normal;
+  --tt-display:none;
+  --fs-heading:1.85rem;
+  --fw-heading:500;
+  --lh-heading:1.4;
+  --ls-heading:.03em;
+  --ff-heading:var(--font-serif);
+  --fst-heading:normal;
+  --tt-heading:none;
+  --fs-subhead:1rem;
+  --fw-subhead:500;
+  --lh-subhead:1.4;
+  --ls-subhead:.02em;
+  --ff-subhead:var(--font-serif);
+  --fst-subhead:normal;
+  --tt-subhead:none;
+  --fs-lead:1.05rem;
+  --fw-lead:400;
+  --lh-lead:1.7;
+  --ls-lead:0;
+  --ff-lead:var(--font-sans);
+  --fst-lead:normal;
+  --tt-lead:none;
+  --fs-body:1.0625rem;
+  --fw-body:400;
+  --lh-body:1.85;
+  --ls-body:0;
+  --ff-body:var(--font-serif);
+  --fst-body:normal;
+  --tt-body:none;
+  --fs-small:0.9rem;
+  --fw-small:400;
+  --lh-small:1.6;
+  --ls-small:0;
+  --ff-small:var(--font-serif);
+  --fst-small:normal;
+  --tt-small:none;
+  --fs-caption:0.8125rem;
+  --fw-caption:400;
+  --lh-caption:1.6;
+  --ls-caption:0;
+  --ff-caption:var(--font-serif);
+  --fst-caption:normal;
+  --tt-caption:none;
+  --fs-label:0.8125rem;
+  --fw-label:500;
+  --lh-label:1.3;
+  --ls-label:.14em;
+  --ff-label:var(--font-mono);
+  --fst-label:normal;
+  --tt-label:uppercase;
+  --fs-meta:0.75rem;
+  --fw-meta:400;
+  --lh-meta:1.3;
+  --ls-meta:.06em;
+  --ff-meta:var(--font-mono);
+  --fst-meta:normal;
+  --tt-meta:uppercase;
+  --fs-quote:1.6rem;
+  --fw-quote:400;
+  --lh-quote:1.6;
+  --ls-quote:-.01em;
+  --ff-quote:var(--font-serif);
+  --fst-quote:normal;
+  --tt-quote:none;
+  --fs-num-xl:3rem;
+  --fw-num-xl:500;
+  --lh-num-xl:1;
+  --ls-num-xl:0;
+  --ff-num-xl:var(--font-display);
+  --fst-num-xl:normal;
+  --tt-num-xl:none;
+  --fs-display-zh:2.7rem;
+  --fw-display-zh:500;
+  --lh-display-zh:1.3;
+  --ls-display-zh:.03em;
+  --ff-display-zh:var(--font-serif);
+  --fst-display-zh:normal;
+  --tt-display-zh:none;
+  --fs-title:2.7rem;
+  --fw-title:500;
+  --lh-title:1.3;
+  --ls-title:.03em;
+  --ff-title:var(--font-serif);
+  --fst-title:normal;
+  --tt-title:none;
+  --fs-title-zh:2.7rem;
+  --fw-title-zh:500;
+  --lh-title-zh:1.3;
+  --ls-title-zh:.03em;
+  --ff-title-zh:var(--font-serif);
+  --fst-title-zh:normal;
+  --tt-title-zh:none;
+  --fs-num-l:3rem;
+  --fw-num-l:500;
+  --lh-num-l:1;
+  --ls-num-l:0;
+  --ff-num-l:var(--font-display);
+  --fst-num-l:normal;
+  --tt-num-l:none;
+  --fs-num-m:3rem;
+  --fw-num-m:500;
+  --lh-num-m:1;
+  --ls-num-m:0;
+  --ff-num-m:var(--font-display);
+  --fst-num-m:normal;
+  --tt-num-m:none;
+  --canvas-container:1200px;
+  --canvas-margin:80px;
+  --canvas-gutter:20px;
+  --canvas-measure:calc(30 * 1.0625rem);
+  --canvas-wide:920px;
+}
+.gz-t-display{font-family:var(--ff-display);font-size:var(--fs-display);font-weight:var(--fw-display);line-height:var(--lh-display);letter-spacing:var(--ls-display);font-style:var(--fst-display);text-transform:var(--tt-display)}
+.gz-t-heading{font-family:var(--ff-heading);font-size:var(--fs-heading);font-weight:var(--fw-heading);line-height:var(--lh-heading);letter-spacing:var(--ls-heading);font-style:var(--fst-heading);text-transform:var(--tt-heading)}
+.gz-t-subhead{font-family:var(--ff-subhead);font-size:var(--fs-subhead);font-weight:var(--fw-subhead);line-height:var(--lh-subhead);letter-spacing:var(--ls-subhead);font-style:var(--fst-subhead);text-transform:var(--tt-subhead)}
+.gz-t-lead{font-family:var(--ff-lead);font-size:var(--fs-lead);font-weight:var(--fw-lead);line-height:var(--lh-lead);letter-spacing:var(--ls-lead);font-style:var(--fst-lead);text-transform:var(--tt-lead)}
+.gz-t-body{font-family:var(--ff-body);font-size:var(--fs-body);font-weight:var(--fw-body);line-height:var(--lh-body);letter-spacing:var(--ls-body);font-style:var(--fst-body);text-transform:var(--tt-body)}
+.gz-t-small{font-family:var(--ff-small);font-size:var(--fs-small);font-weight:var(--fw-small);line-height:var(--lh-small);letter-spacing:var(--ls-small);font-style:var(--fst-small);text-transform:var(--tt-small)}
+.gz-t-caption{font-family:var(--ff-caption);font-size:var(--fs-caption);font-weight:var(--fw-caption);line-height:var(--lh-caption);letter-spacing:var(--ls-caption);font-style:var(--fst-caption);text-transform:var(--tt-caption)}
+.gz-t-label{font-family:var(--ff-label);font-size:var(--fs-label);font-weight:var(--fw-label);line-height:var(--lh-label);letter-spacing:var(--ls-label);font-style:var(--fst-label);text-transform:var(--tt-label)}
+.gz-t-meta{font-family:var(--ff-meta);font-size:var(--fs-meta);font-weight:var(--fw-meta);line-height:var(--lh-meta);letter-spacing:var(--ls-meta);font-style:var(--fst-meta);text-transform:var(--tt-meta)}
+.gz-t-quote{font-family:var(--ff-quote);font-size:var(--fs-quote);font-weight:var(--fw-quote);line-height:var(--lh-quote);letter-spacing:var(--ls-quote);font-style:var(--fst-quote);text-transform:var(--tt-quote)}
+.gz-t-num-xl{font-family:var(--ff-num-xl);font-size:var(--fs-num-xl);font-weight:var(--fw-num-xl);line-height:var(--lh-num-xl);letter-spacing:var(--ls-num-xl);font-style:var(--fst-num-xl);text-transform:var(--tt-num-xl)}
+.gz-t-display-zh{font-family:var(--ff-display-zh);font-size:var(--fs-display-zh);font-weight:var(--fw-display-zh);line-height:var(--lh-display-zh);letter-spacing:var(--ls-display-zh);font-style:var(--fst-display-zh);text-transform:var(--tt-display-zh)}
+.gz-t-title{font-family:var(--ff-title);font-size:var(--fs-title);font-weight:var(--fw-title);line-height:var(--lh-title);letter-spacing:var(--ls-title);font-style:var(--fst-title);text-transform:var(--tt-title)}
+.gz-t-title-zh{font-family:var(--ff-title-zh);font-size:var(--fs-title-zh);font-weight:var(--fw-title-zh);line-height:var(--lh-title-zh);letter-spacing:var(--ls-title-zh);font-style:var(--fst-title-zh);text-transform:var(--tt-title-zh)}
+.gz-t-num-l{font-family:var(--ff-num-l);font-size:var(--fs-num-l);font-weight:var(--fw-num-l);line-height:var(--lh-num-l);letter-spacing:var(--ls-num-l);font-style:var(--fst-num-l);text-transform:var(--tt-num-l)}
+.gz-t-num-m{font-family:var(--ff-num-m);font-size:var(--fs-num-m);font-weight:var(--fw-num-m);line-height:var(--lh-num-m);letter-spacing:var(--ls-num-m);font-style:var(--fst-num-m);text-transform:var(--tt-num-m)}
+
+:lang(zh){line-break:strict;text-spacing-trim:normal;text-autospace:normal;overflow-wrap:break-word}
+:lang(zh) .gz-prose em:not(:lang(en)){font-style:normal;text-emphasis:filled dot;text-emphasis-position:under right}
+.gz-tnum{font-variant-numeric:tabular-nums}
+
+/* 歸藏设计系统 · 共享组件
+ *
+ * 一份结构，三种介质：根节点 <html data-family="magazine|swiss" data-medium="slide|card|page">。
+ * 这里只管布局、颜色和间距；字号、字重、行高一律由 gz-t-<角色> 类提供，
+ * 所以同一个组件放进 PPT、卡片、网页会自动换成各自的字号。
+ * 颜色只用语义 token（--text-* / --line-* / --accent*），换主题不需要改组件。
+ */
+
+/* ---------- 家族差异 ---------- */
+/* 单张卡片 / 单页换主题（[data-theme]）或反色（[data-surface]）时，线条变量要在那一层重新计算，否则沿用根节点的颜色 */
+[data-family="magazine"], [data-family="magazine"] [data-theme], [data-family="magazine"] [data-surface] { --img-pos: center top; --rule: 1px solid var(--line-strong); --rule-strong: 1px solid var(--line-strong) }
+[data-family="swiss"], [data-family="swiss"] [data-theme], [data-family="swiss"] [data-surface] { --img-pos: center center; --rule: 1px solid var(--line); --rule-strong: 2px solid var(--ink) }
+
+/* ---------- 表面：反色块里文字角色跟着换 ---------- */
+[data-surface="ink"] {
+  background: var(--ink); color: var(--paper);
+  --text-primary: var(--paper); --text-body: rgba(var(--paper-rgb), .86); --text-secondary: rgba(var(--paper-rgb), .72);
+  --text-helper: rgba(var(--paper-rgb), .62); --line: rgba(var(--paper-rgb), .22); --line-strong: rgba(var(--paper-rgb), .45);
+  --accent-ink: var(--accent-ink-inverse); --accent-display: var(--accent-ink-inverse); --rule-strong: 2px solid var(--paper);
+}
+[data-family="magazine"] [data-surface="ink"], [data-family="magazine"][data-surface="ink"] { --rule-strong: 1px solid rgba(var(--paper-rgb), .45) }
+[data-surface="accent"] {
+  background: var(--accent); color: var(--accent-on);
+  --text-primary: var(--accent-on); --text-body: rgba(var(--accent-on-rgb), .88); --text-secondary: rgba(var(--accent-on-rgb), .78);
+  --text-helper: rgba(var(--accent-on-rgb), .7); --line: rgba(var(--accent-on-rgb), .3); --line-strong: rgba(var(--accent-on-rgb), .55);
+  --accent-ink: var(--accent-on); --accent-display: var(--accent-on); --rule-strong: 2px solid var(--accent-on);
+}
+[data-surface="paper-2"] { background: var(--paper-2) }
+
+/* 强调色文字：小字用 accent-ink，大字 / 大数字用 accent-display（浅色强调色在纸上会自动加深；反色块里自动切换） */
+.gz-c-accent { color: var(--accent-ink) }
+.gz-c-accent-display { color: var(--accent-display) }
+
+/* ---------- 页眉页脚 chrome ---------- */
+.gz-chrome { display: flex; justify-content: space-between; align-items: baseline; gap: var(--sp-6); color: var(--text-helper); border-top: var(--rule); padding-top: var(--sp-4) }
+.gz-chrome[data-pos="top"] { border-top: 0; border-bottom: var(--rule); padding: 0 0 var(--sp-4) }
+.gz-chrome__group { display: flex; gap: var(--sp-5); min-width: 0 }
+.gz-chrome__accent { color: var(--accent-ink) }
+
+/* ---------- 封面 cover ---------- */
+.gz-cover { display: flex; flex-direction: column; gap: var(--sp-6); color: var(--text-primary) }
+.gz-cover__kicker { color: var(--text-helper) }
+[data-family="swiss"] .gz-cover__kicker { color: var(--accent-ink) }
+.gz-cover__body { width: 100%; container-type: inline-size }
+/* 标题按最长一行的字数自动收字号：--chars 由 components/render.mjs 算好写进 style；手写时填最长一行的字数（中文 1、西文约 0.56）。上限仍是 token 定的展示字号 */
+.gz-cover__title { margin: 0; font-size: min(var(--fs-display-zh), calc(100cqi / var(--chars, 1) * .94)) }
+.gz-cover__rule { width: 96px; height: 0; border-top: 2px solid var(--accent) }
+[data-family="swiss"] .gz-cover__rule { border-top-width: 3px }
+.gz-cover__sub { margin: 0; color: var(--text-body); max-width: 32em }
+.gz-cover__meta { margin-top: auto }
+/* 幻灯片、卡片：封面撑满画布，标题压在下半部 */
+[data-medium="slide"] .gz-cover, [data-medium="card"] .gz-cover { height: 100% }
+[data-medium="slide"] .gz-cover__body, [data-medium="card"] .gz-cover__body { margin-top: auto; display: flex; flex-direction: column; gap: var(--sp-7) }
+[data-medium="slide"] .gz-cover__meta, [data-medium="card"] .gz-cover__meta { margin-top: var(--sp-10) }
+/* 网页：杂志风居中，瑞士风左对齐 */
+[data-medium="page"] .gz-cover { padding: var(--sp-11) 0 var(--sp-9); border-bottom: var(--rule) }
+[data-medium="page"] .gz-cover__body { display: flex; flex-direction: column; gap: var(--sp-6) }
+[data-medium="page"][data-family="magazine"] .gz-cover { align-items: center; text-align: center }
+[data-medium="page"][data-family="magazine"] .gz-cover__body { align-items: center }
+[data-medium="page"] .gz-cover__meta { margin-top: var(--sp-6); border-top: 0; padding-top: 0; justify-content: center }
+[data-medium="page"][data-family="swiss"] .gz-cover__meta { justify-content: flex-start }
+
+/* ---------- 大数字 stat ---------- */
+.gz-stats { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: var(--sp-9) var(--sp-7) }
+.gz-stats[data-count="1"] { --cols: 1 } .gz-stats[data-count="2"] { --cols: 2 } .gz-stats[data-count="4"] { --cols: 4 }
+[data-medium="card"] .gz-stats { --cols: 2 }
+[data-medium="card"] .gz-stats[data-count="1"], [data-medium="card"] .gz-stats[data-count="3"] { --cols: 1 }
+.gz-stat { display: flex; flex-direction: column; gap: var(--sp-4); border-top: var(--rule-strong); padding-top: var(--sp-5); min-width: 0 }
+.gz-stat__label { color: var(--text-helper) }
+.gz-stat__value { display: flex; align-items: baseline; gap: .06em; font-variant-numeric: tabular-nums lining-nums; white-space: nowrap }
+.gz-stat__unit { font-size: .4em; font-weight: 500; letter-spacing: 0; color: var(--text-secondary) }
+.gz-stat.is-accent .gz-stat__num { color: var(--accent-ink) }
+.gz-stat__note { margin: 0; color: var(--text-secondary); max-width: 24em }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat { display: grid; grid-template-columns: auto 1fr; align-items: end; column-gap: var(--sp-7) }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat__label { grid-column: 1 / -1 }
+[data-medium="card"] .gz-stats[data-count="3"] .gz-stat__note { padding-bottom: .6em }
+
+/* ---------- 引言 quote ---------- */
+.gz-quote { margin: 0; display: flex; flex-direction: column; gap: var(--sp-7) }
+.gz-quote__text { margin: 0; color: var(--text-primary); text-wrap: balance }
+.gz-quote__text p { margin: 0; text-wrap: balance }
+[data-family="magazine"] .gz-quote__text::before { content: "\201C"; display: block; font-family: var(--font-display); font-style: normal; color: var(--accent); font-size: 1.8em; line-height: 1; height: .55em }
+[data-family="swiss"] .gz-quote { border-top: var(--rule-strong); padding-top: var(--sp-7) }
+.gz-quote__source { color: var(--text-helper) }
+[data-medium="page"][data-family="magazine"] .gz-quote { align-items: center; text-align: center; padding: var(--sp-9) 0 }
+
+/* ---------- 流程 process：幻灯片 / 网页横排，卡片竖排 ---------- */
+.gz-process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: var(--sp-7) }
+.gz-process__step { display: flex; flex-direction: column; gap: var(--sp-4); border-top: var(--rule-strong); padding-top: var(--sp-5); min-width: 0 }
+.gz-process__nb { color: var(--accent-ink) }
+.gz-process__title { margin: 0 }
+.gz-process__desc { margin: 0; color: var(--text-secondary) }
+[data-medium="card"] .gz-process { grid-template-columns: 1fr; gap: 0; border-bottom: var(--rule) }
+[data-medium="card"] .gz-process__step { display: grid; grid-template-columns: 112px minmax(0, 1fr); column-gap: var(--sp-6); row-gap: var(--sp-3); padding: var(--sp-7) 0 }
+[data-medium="card"] .gz-process__step + .gz-process__step { border-top: var(--rule) }
+[data-medium="card"] .gz-process__nb { grid-row: span 2 }
+[data-medium="page"] .gz-process { --n: 2; row-gap: var(--sp-8) }
+
+/* ---------- 对比 compare：左右分栏，卡片上下叠 ---------- */
+.gz-compare { display: grid; grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr); gap: 0 var(--sp-9) }
+.gz-compare__rule { background: var(--line-strong) }
+.gz-compare__side { display: flex; flex-direction: column; gap: var(--sp-5); min-width: 0 }
+.gz-compare__tag { color: var(--text-helper) }
+.gz-compare__side[data-side="after"] .gz-compare__tag { color: var(--accent-ink) }
+.gz-compare__title { margin: 0 }
+.gz-compare__side[data-side="before"] .gz-compare__title { color: var(--text-secondary) }
+.gz-compare__desc { margin: 0; color: var(--text-secondary) }
+.gz-compare__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--sp-3); color: var(--text-body) }
+.gz-compare__list li { padding-left: 1.2em; position: relative }
+.gz-compare__list li::before { content: ""; position: absolute; left: 0; top: .72em; width: .5em; border-top: 1px solid currentColor }
+[data-family="swiss"] .gz-compare__side[data-side="after"][data-surface] { padding: var(--sp-8) }
+[data-medium="card"] .gz-compare { grid-template-columns: 1fr; gap: var(--sp-8) 0 }
+[data-medium="card"] .gz-compare__rule { height: 1px }
+
+/* ---------- 图框 figure：照片 cover 裁切，截图 contain 放在底台上 ---------- */
+.gz-figure { margin: 0; display: flex; flex-direction: column; gap: var(--sp-4); min-width: 0 }
+.gz-figure__well { position: relative; aspect-ratio: var(--ratio, 16 / 10); overflow: hidden; background: var(--paper-2) }
+.gz-figure__well > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: var(--img-pos) }
+.gz-figure[data-ratio="16x9"] { --ratio: 16 / 9 } .gz-figure[data-ratio="16x10"] { --ratio: 16 / 10 } .gz-figure[data-ratio="4x3"] { --ratio: 4 / 3 }
+.gz-figure[data-ratio="3x2"] { --ratio: 3 / 2 } .gz-figure[data-ratio="1x1"] { --ratio: 1 } .gz-figure[data-ratio="3x4"] { --ratio: 3 / 4 } .gz-figure[data-ratio="21x9"] { --ratio: 21 / 9 }
+.gz-figure[data-kind="screenshot"] .gz-figure__well { display: flex; align-items: center; justify-content: center; padding: var(--inset, var(--sp-8)) }
+.gz-figure[data-kind="screenshot"] .gz-figure__well > img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--radius-sm); box-shadow: 0 0 0 1px var(--line) }
+[data-family="magazine"] .gz-figure[data-kind="screenshot"] .gz-figure__well > img { box-shadow: 0 0 0 1px var(--line), 0 18px 40px -24px rgba(var(--ink-rgb), .45) }
+[data-family="swiss"] .gz-figure[data-kind="screenshot"] .gz-figure__well { background: var(--grey-1); border-top: 3px solid var(--accent) }
+[data-family="swiss"] .gz-figure[data-kind="screenshot"] .gz-figure__well > img { border-radius: 0 }
+.gz-figure__cap { color: var(--text-helper); display: flex; gap: var(--sp-4) }
+.gz-figure__idx { color: var(--accent-ink); flex: none }
+
+/* ---------- 图片网格 gallery ---------- */
+.gz-gallery { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: var(--sp-7) var(--sp-6) }
+[data-medium="card"] .gz-gallery { --cols: 2 }
+[data-medium="card"] .gz-gallery[data-count="3"] > :first-child { grid-column: 1 / -1; --ratio: 16 / 9 }
+
+/* ---------- 条目清单 ledger ---------- */
+.gz-ledger { list-style: none; margin: 0; padding: 0; border-top: var(--rule-strong) }
+.gz-ledger__row { display: grid; grid-template-columns: var(--nb-w, 3.2em) minmax(0, 1fr) auto; column-gap: var(--sp-6); align-items: baseline; padding: var(--sp-6) 0; border-bottom: var(--rule) }
+.gz-ledger__nb { color: var(--accent-ink) }
+.gz-ledger__title { margin: 0 }
+.gz-ledger__note { margin: var(--sp-2) 0 0; color: var(--text-secondary) }
+.gz-ledger__value { color: var(--text-helper); text-align: right; white-space: nowrap }
+[data-medium="card"] .gz-ledger__row { --nb-w: 72px; padding: var(--sp-7) 0 }
+
+/* 歸藏设计系统 · 纹理与特效图层（纯 CSS，颜色全部来自 token）
+ * 来源：PPT 瑞士风 .dots / .dot-mat / .ring-mat / .cross-mat / .hatch，卡片杂志风 .grain / .paper-wash。
+ */
+
+/* 特效画布：铺满父容器、在内容下面、不挡点击。父容器需要 position: relative */
+.gz-effect { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+.gz-layer-content { position: relative; z-index: 1 }
+
+/* 点阵：前景色画点，跟随所在表面的文字色 */
+.gz-dots      { background-image: radial-gradient(currentColor 1px, transparent 1.2px); background-size: 12px 12px; opacity: .18 }
+.gz-dots-fine { background-image: radial-gradient(currentColor .8px, transparent 1px); background-size: 8px 8px; opacity: .14 }
+.gz-dots-bold { background-image: radial-gradient(currentColor 1.4px, transparent 1.6px); background-size: 18px 18px; opacity: .22 }
+
+.gz-dot-mat         { --mat: 14px; background-image: radial-gradient(currentColor 1.4px, transparent 1.6px); background-size: var(--mat) var(--mat); opacity: .5 }
+.gz-dot-mat.is-lg   { --mat: 22px } .gz-dot-mat.is-xl { --mat: 34px }
+.gz-dot-mat.is-dense{ --mat: 9px; opacity: .62 }
+.gz-ring-mat        { --mat: 18px; background-image: radial-gradient(circle, transparent 2px, currentColor 2px, currentColor 2.7px, transparent 2.9px); background-size: var(--mat) var(--mat); opacity: .55 }
+.gz-ring-mat.is-lg  { --mat: 28px }
+.gz-cross-mat       { --mat: 22px; background: currentColor; opacity: .42;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M8 8l6 6M14 8l-6 6' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / var(--mat) var(--mat);
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M8 8l6 6M14 8l-6 6' stroke='%23000' stroke-width='1.4'/%3E%3C/svg%3E") 0 0 / var(--mat) var(--mat) }
+.gz-cross-mat.is-lg { --mat: 32px }
+.gz-hatch           { background-image: repeating-linear-gradient(135deg, currentColor 0 1px, transparent 1px 8px); opacity: .55 }
+
+/* 纸张颗粒与墨色晕染：杂志风卡片的「氛围层」，叠在特效画布上、内容下 */
+.gz-grain      { position: absolute; inset: 0; pointer-events: none; z-index: 0; mix-blend-mode: multiply; opacity: .35;
+                 background-image: radial-gradient(rgba(0,0,0,.045) 1px, transparent 1px); background-size: 3px 3px }
+[data-scheme="dark"] .gz-grain, .gz-grain.is-dark { mix-blend-mode: screen; opacity: .26; background-image: radial-gradient(rgba(255,244,214,.10) 1px, transparent 1px) }
+.gz-paper-wash { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+                 background: linear-gradient(180deg, rgba(var(--ink-rgb), .02), rgba(var(--ink-rgb), .05) 60%, rgba(var(--ink-rgb), .08)) }
+.gz-ink-vignette { position: absolute; inset: 0; pointer-events: none; z-index: 0;
+                 background: radial-gradient(circle at 18% 12%, rgba(var(--ink-rgb), .10), transparent 34%), radial-gradient(circle at 82% 80%, rgba(var(--accent-rgb), .10), transparent 38%) }
+
+/* PPT 杂志风：WebGL 背景上的纸 / 墨蒙版，保证文字可读（原 .slide.light/.dark::before） */
+.gz-veil       { position: absolute; inset: 0; pointer-events: none; z-index: 0; backdrop-filter: blur(3px); background: rgba(var(--paper-rgb), .78) }
+.gz-veil.is-ink{ background: rgba(var(--ink-rgb), .78) }
+.gz-veil.is-hero { backdrop-filter: none; background: rgba(var(--paper-rgb), .16) }
+.gz-veil.is-hero.is-ink { background: rgba(var(--ink-rgb), .12) }
+
+@media (prefers-reduced-motion: reduce) { .gz-effect { animation: none } }
+
+/* GZ:TOKENS:END */
+
+/* ---- block 2 ---- */
+  /* ========================================
+     MAGAZINE — literary / editorial layout
+     One centred reading axis, serif body, ornament section numbers,
+     centred pull quotes, book-style three-line tables.
+     ui.css is inlined after this file.
+     ======================================== */
+
+  /* ========================================
+     TOKENS
+     ======================================== */
+  /* Colours, fonts, type roles and spacing come from the design system
+     (assets/gz-magazine.css, inlined before this file; theme = <html data-theme>).
+     The names below are this stylesheet's own vocabulary, mapped onto its roles. */
+  :root {
+    --fg: var(--text-primary);
+    --fg-secondary: var(--text-secondary);
+    --fg-tertiary: var(--text-helper);
+    --bg: var(--paper);
+    --bg-card: var(--paper-2);
+    --bg-quote: var(--paper-2);
+    --bg-highlight: var(--ink);
+    --fg-highlight: var(--paper);
+    --border: var(--line-subtle);
+    --border-light: rgba(var(--ink-rgb), .08);
+    --tbl-line: rgba(var(--ink-rgb), .09);
+    --quote-tint: rgba(var(--ink-rgb), .03);
+    --hc-mute: rgba(var(--ink-rgb), .25);
+    /* UI and table text: Latin sans first (Inter), then the CJK sans */
+    --font-sans: 'Inter', 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+    --font-kai: "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", "BiauKai", "FangSong", "STFangsong", var(--font-serif, serif);
+    --measure: 1200px;
+    --gutter: 20px;
+    --columns: 12;
+    --margin: 80px;
+    --col: calc(30 * 1.0625rem);   /* reading column: 30 CJK characters at 17px */
+    --wide: 920px;                 /* breakout width for media and emphasis blocks */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 72px;
+    --space-3xl: 96px;
+    /* CJK body text — see references/design-rules.md §中文排版 */
+    --text-size: var(--fs-body);
+    --text-leading: var(--lh-body);
+    --text-measure: 36em;
+    --para-gap: 1em;
+  }
+
+  /* zh documents: the CJK face comes first, so digits and Latin inside Chinese text use its own
+     glyphs and sit on the same baseline (Source Serif 4 / Inter digits look sunk next to Noto CJK).
+     English documents keep the Latin-first stacks. The font picker overrides --font-serif inline. */
+  :root:lang(zh) {
+    --font-serif: 'Noto Serif SC', 'Source Serif 4', 'Source Han Serif SC', 'Songti SC', 'STSong', Georgia, serif;
+    --font-sans: 'Noto Sans SC', 'Inter', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+  }
+
+  /* Dark theme (midnight-ink): every colour above already follows the theme */
+  :root[data-scheme="dark"] img { opacity: 0.94; }
+
+  /* ========================================
+     RESET & BASE
+     ======================================== */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--fg);
+    background: var(--bg);
+    line-height: 1.8;
+    letter-spacing: 0.01em; /* Latin only; :lang(zh) resets to 0 */
+  }
+
+  :lang(zh) body {
+    letter-spacing: 0;              /* 汉字默认密排，不额外加字距 */
+    line-break: strict;             /* 避头尾：句读、闭括号等不出现在行首 */
+    word-break: normal;
+    overflow-wrap: break-word;      /* 长 URL / 长英文词允许断开，避免撑破版心 */
+    text-spacing-trim: normal;      /* 相邻标点挤压（Chrome 123+，需字体带 chws/halt） */
+    hanging-punctuation: allow-end; /* 行尾点号悬挂（目前仅 Safari） */
+    font-kerning: normal;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-on-text);
+  }
+
+  /* ========================================
+     LAYOUT — one centred column
+     Every block in .section / .hero spans the full 12-col grid and is
+     centred at --col; media and emphasis blocks break out to --wide.
+     ======================================== */
+  .container {
+    max-width: var(--measure);
+    margin: 0 auto;
+    padding: 0 var(--margin);
+  }
+
+  .section,
+  .hero,
+  .container > footer,
+  .divider-dot {
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 1fr);
+    column-gap: var(--gutter);
+  }
+
+  .section > *,
+  .hero > * {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 100%;
+    max-width: var(--col);
+  }
+
+  .section > .figure-card,
+  .section > .img-row,
+  .section > .img-strip-wrap,
+  .section > .gallery,
+  .section > .gallery-hint,
+  .section > .pullquote,
+  .section > .highlight-card,
+  .section > .table-wrap,
+  .section > .embed-card,
+  .section > .hchart {
+    max-width: var(--wide);
+  }
+
+  /* ========================================
+     MASTHEAD — one line: tags · author · date · reading time
+     ======================================== */
+  .doc-chrome.doc-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0;
+    max-width: min(var(--wide, 920px), 100%);
+    margin: 0 auto;
+    padding: 28px 0 12px !important; /* beats ui.css print `.doc-chrome` padding */
+    border-bottom: 1px solid rgba(var(--ink-rgb), .16);
+    font-family: var(--font-serif);
+    font-size: var(--fs-label);
+    letter-spacing: .04em;
+    color: var(--fg-secondary, var(--fg));
+    text-align: center;
+    white-space: normal;
+  }
+  .doc-line > span { white-space: nowrap; }
+  .doc-line .dl-sep { margin: 0 .7em; opacity: .5; }
+  .doc-line .dl-tag { color: var(--accent-ink, var(--accent)); }
+
+  /* ========================================
+     HERO
+     ======================================== */
+  .hero {
+    padding: 72px 0 24px;           /* the ornament closes the hero; no second rule */
+    text-align: center;
+  }
+
+  /* Ornament under the title: Lucide "sparkle" (ISC licence), thin stroke, accent colour */
+  .hero::after {
+    content: "";
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: 18px;
+    height: 18px;
+    margin-top: 36px;
+    background: var(--accent-ink, var(--accent));
+    -webkit-mask: var(--orn-sparkle) center / contain no-repeat;
+    mask: var(--orn-sparkle) center / contain no-repeat;
+  }
+  :root {
+    --orn-sparkle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.1' stroke-linejoin='round'%3E%3Cpath d='M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z'/%3E%3C/svg%3E");
+  }
+
+  .hero h1 {
+    font-family: var(--font-serif);
+    font-size: var(--fs-display);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.03em; /* zh too: headings are deliberately tracked out */
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-subtitle {
+    font-size: var(--fs-lead);
+    color: var(--fg-secondary);
+    line-height: 1.7;
+    margin: 18px auto 0;
+  }
+
+  /* ========================================
+     SECTION + SECTION HEADER
+     Header = centred "✦✦✦ 04 ✦✦✦" ornament number + title.
+     ======================================== */
+  .section {
+    padding: 72px 0 var(--space-lg);
+  }
+
+  .section-number {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    width: 100%;
+    padding-top: 6px;
+    margin-bottom: 18px;
+    font-family: var(--font-serif);
+    font-size: .9rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-ink, var(--accent));
+  }
+  .sn-sym .sn-side { flex: 1 1 0; display: inline-flex; align-items: center; gap: 6px; }
+  .sn-sym .sn-l { justify-content: flex-end; }
+  .sn-sym .sn-r { justify-content: flex-start; }
+  .sn-sym .sn-num {
+    flex: none;
+    margin: 0 14px;
+    padding-left: .12em; /* cancels the trailing letter-spacing: optical centring */
+    font-size: 1.05rem;
+    letter-spacing: .12em;
+    line-height: 1;
+  }
+  .sn-sym .sn-star { display: inline-block; line-height: 1; }
+  .sn-star.s1 { font-size: 0.95rem; opacity: 0.9; }
+  .sn-star.s2 { font-size: 0.72rem; opacity: 0.65; }
+  .sn-star.s3 { font-size: 0.52rem; opacity: 0.42; }
+
+  .section > h2 {
+    font-family: var(--font-serif);
+    font-size: var(--fs-heading);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+    text-align: center;
+    margin-bottom: 34px;
+  }
+
+  .section > h3 {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    text-align: center;
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  /* ui.js makes headings contenteditable, whose UA style resets line-break; restore 避头尾 */
+  :lang(zh) h1, :lang(zh) h2, :lang(zh) h3 { line-break: strict; }
+
+  /* Thematic breaks (---) are never drawn: the section rhythm already separates */
+  .divider { display: none; }
+
+  /* ========================================
+     PROSE
+     ======================================== */
+  p {
+    margin-bottom: var(--space-md);
+    font-size: 0.95rem;
+    line-height: 1.85;
+  }
+
+  .section p,
+  .section li {
+    font-family: var(--font-serif);
+    overflow-wrap: break-word;
+  }
+
+  .section > p,
+  .section li {
+    font-size: 1.08rem;
+    line-height: 1.85;
+    text-align: justify;
+  }
+
+  :lang(zh) .section > p,
+  :lang(zh) .section li {
+    font-size: var(--text-size);
+    line-height: var(--text-leading);
+    font-weight: 400;
+  }
+  :lang(zh) .section > p {
+    margin-bottom: var(--para-gap);
+    text-align: justify;            /* clreq §6.2：中文正文原则上两端对齐 */
+    text-justify: inter-character;
+  }
+  :lang(zh) .section li {
+    margin-bottom: 0.35em;
+    text-align: start;
+  }
+
+  /* Links / URLs / code / reference lists: start-aligned, so justify doesn't stretch the line */
+  .section > p:has(a.url, a[href^="http"], code),
+  .section.refs p,
+  .section.refs li {
+    text-align: start;
+    text-justify: auto;
+  }
+  /* English paragraphs stay justified but hyphenate to avoid rivers */
+  .section > p:lang(en) { hyphens: auto; -webkit-hyphens: auto; }
+
+  strong {
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  a {
+    color: var(--fg);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+    transition: text-decoration-color 0.2s;
+  }
+  .section a.url { overflow-wrap: anywhere; word-break: break-word; }
+
+  /* 汉字没有真正的斜体：*强调* 用着重号（clreq §5.3.1：横排置于字下）；斜体只给拉丁文 */
+  :lang(zh) em {
+    font-style: normal;
+    -webkit-text-emphasis: filled dot; text-emphasis: filled dot;
+    -webkit-text-emphasis-position: under right; text-emphasis-position: under right;
+  }
+  :lang(zh) em:lang(en), :lang(zh) code em { text-emphasis: none; -webkit-text-emphasis: none; }
+  blockquote *, .pullquote * { font-style: normal; }
+  :lang(en) em, em:lang(en), i:lang(en) { font-style: italic; }
+
+  /* 破折号：两字线不断开；——插入语—— 轻度强调 */
+  .dash { white-space: nowrap; letter-spacing: 0; }
+  .dash-em { color: var(--fg); font-weight: 600; }
+
+  /* 中西文间距：render.mjs 插入 .hf-sp；支持 text-autospace 的浏览器用原生间距 */
+  .hf-sp { white-space: normal; }
+  @supports (text-autospace: normal) {
+    :lang(zh) body { text-autospace: normal; }
+    .hf-sp { display: none; }
+  }
+
+  /* ========================================
+     LISTS
+     ======================================== */
+  ul, ol {
+    margin: var(--space-md) 0 var(--space-lg);
+    padding-left: var(--space-lg);
+  }
+
+  li { margin-bottom: var(--space-sm); }
+
+  li::marker { color: var(--accent-ink, var(--accent)); }
+
+  /* Footnote section: smaller, secondary colour. .section.section-footnote matches the
+     specificity of :lang(zh) .section li and comes later, so it also applies to zh docs */
+  .section.section-footnote li {
+    font-size: var(--fs-caption);
+    line-height: 1.7;
+    margin-bottom: var(--space-sm);
+    color: var(--fg-secondary);
+  }
+  .section.section-footnote > h2 { font-size: var(--fs-subhead); }
+
+  .checklist {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .checklist li {
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 0;
+  }
+
+  /* ========================================
+     BLOCKQUOTE — hairlines above and below, kai body, no fill
+     ======================================== */
+  blockquote {
+    margin: var(--space-lg) 0;
+    padding: 4px 0 4px 24px;
+    border-left: 1px solid var(--accent);
+    border-radius: 0;
+  }
+
+  .section > blockquote {
+    margin: 32px auto;
+    padding: 18px 0.25em;
+    border-left: 0;
+    border-top: 1px solid rgba(var(--ink-rgb), .18);
+    border-bottom: 1px solid rgba(var(--ink-rgb), .18);
+    font-family: var(--font-kai);
+    font-size: var(--fs-body);
+    line-height: 1.9;
+    color: var(--fg);
+  }
+
+  /* Quote text is kai (LXGW WenKai / system kai, serif fallback) at body size */
+  blockquote p {
+    font-family: var(--font-kai);
+    font-size: inherit;
+    line-height: inherit;
+    color: var(--fg);
+    margin-bottom: 0;
+  }
+  blockquote > p + p { margin-top: 0.6em; }
+
+  blockquote .bq-nested {
+    margin: 10px 0;
+    padding: 2px 0 2px 1em;
+    border-left: 1px solid rgba(var(--ink-rgb), .2);
+    background: var(--quote-tint);
+  }
+
+  .bq-cite {
+    margin-top: 0.7em;
+    font-family: var(--font-serif);
+    font-size: 0.82rem;
+    color: var(--fg-secondary, var(--fg));
+    text-align: right;
+  }
+
+  /* ========================================
+     PULL QUOTE — centred, big opening mark, hairlines
+     ======================================== */
+  .pullquote {
+    position: relative;
+    margin: var(--space-lg) 0;
+    padding: 44px 48px 36px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+  .section > .pullquote:last-child { margin-bottom: 0; }
+  .pullquote + .pullquote { margin-top: calc(-1 * var(--space-lg)); }
+
+  .pullquote::before {
+    content: "“";
+    display: block;
+    font-family: Georgia, var(--font-serif);
+    font-size: 5rem;
+    line-height: 0.6;
+    color: var(--accent-ink, var(--accent));
+    margin-bottom: 8px;
+  }
+
+  .pullquote p {
+    font-family: var(--font-serif);
+    font-size: var(--fs-quote);
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    margin-bottom: 0;
+  }
+
+  .pullquote .accent-mark,
+  .pullquote strong { color: var(--accent-ink, var(--accent)); }
+
+  .pq-cite {
+    margin-top: var(--space-md);
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--fg-tertiary);
+    letter-spacing: 0.02em;
+    text-align: center;
+  }
+  .pq-cite::before { content: "—— "; }
+
+  /* ========================================
+     HIGHLIGHT CARD — key insight
+     ======================================== */
+  .highlight-card {
+    margin: var(--space-md) 0;
+    padding: var(--space-lg);
+    background: var(--bg-highlight);
+    color: var(--fg-highlight);
+    border-radius: 0;
+    box-shadow: inset 4px 0 0 var(--accent-ink-inverse);
+    position: relative;
+  }
+
+  .highlight-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 0;
+    opacity: 0.04;
+    pointer-events: none;
+    /* crosshatch texture via SVG */
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 8L8 0M-1 1L1 -1M7 9L9 7' stroke='%23fff' stroke-width='.5'/%3E%3C/svg%3E");
+  }
+
+  .highlight-card p {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--fg-highlight);
+    margin-bottom: 0;
+  }
+  .highlight-card strong,
+  .highlight-card b,
+  .highlight-card a {
+    color: var(--fg-highlight);
+  }
+
+  .highlight-card .attr {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.06em;
+    color: var(--fg-highlight); opacity: 0.55;
+    margin-top: var(--space-md);
+    text-transform: uppercase;
+  }
+
+  /* ========================================
+     DEFINITION CARD — glossary style
+     ======================================== */
+  /* Glossary entries read as one set: hairline between entries, a firmer rule above and below the run */
+  .def-card {
+    margin: 0;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--border);
+  }
+  .def-card:not(.def-card + .def-card) { margin-top: var(--space-lg); border-top: 1px solid var(--fg); }
+  .def-card:not(:has(+ .def-card)) { margin-bottom: var(--space-lg); border-bottom: 1px solid var(--fg); }
+
+  .def-card-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--fg-tertiary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .def-card-term {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+  }
+
+  .def-card-body {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--fg-secondary);
+  }
+
+  /* ========================================
+     ASIDE CARD — contextual note
+     ======================================== */
+  .aside-card {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--fg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: var(--space-md);
+    align-items: flex-start;
+  }
+
+  .aside-icon {
+    flex-shrink: 0;
+    color: var(--accent-ink, var(--accent));
+    padding-top: 2px;
+  }
+  .aside-icon svg { display: block; }
+
+  .aside-title {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-ink, var(--accent));
+    margin-bottom: var(--space-xs);
+  }
+
+  .aside-content p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--fg-secondary);
+    margin-bottom: 0;
+  }
+
+  /* ========================================
+     SUMMARY CARD — key takeaway grid
+     ======================================== */
+  .summary-card {
+    margin: var(--space-xl) 0;
+  }
+
+  .summary-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-ink, var(--accent));
+    display: inline-block;
+    padding: 0;
+    border-radius: 0;
+    margin-bottom: var(--space-md);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--space-sm);
+  }
+
+  .summary-item {
+    border-top: 1px solid var(--fg);
+    padding: var(--space-md) 0 var(--space-sm);
+  }
+
+  .summary-item-title {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .summary-item-desc {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--fg-secondary);
+  }
+
+  /* ========================================
+     PROCESS — numbered steps
+     ======================================== */
+  .process {
+    margin: var(--space-xl) 0;
+  }
+
+  .process-step {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-md) 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .process-step:last-child {
+    border-bottom: none;
+  }
+
+  .process-num {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--accent-ink, var(--accent));
+    flex: 0 0 32px;
+    padding-top: 2px;
+  }
+
+  .process-content {
+    flex: 1;
+  }
+
+  .process-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .process-desc {
+    font-size: 0.88rem;
+    color: var(--fg-secondary);
+    line-height: 1.7;
+  }
+
+  /* ========================================
+     EMBED CARD — inline SVG / UI preview
+     ======================================== */
+  .embed-card {
+    margin: var(--space-xl) 0;
+    padding: var(--space-md) 0;
+    border-top: 1px solid var(--fg);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .embed-label {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-ink, var(--accent));
+    padding: 0;
+    display: inline-block;
+  }
+
+  .embed-body {
+    padding: var(--space-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+  }
+
+  .embed-body svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .embed-caption {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.04em;
+    color: var(--fg-tertiary);
+    padding: 0 var(--space-md) var(--space-md);
+  }
+
+  /* ========================================
+     GALLERY — horizontal scroll of placeholders
+     ======================================== */
+  .gallery {
+    margin: var(--space-xl) 0;
+    padding: 0;
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .gallery::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .gallery::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .gallery::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 0;
+  }
+
+  .gallery-item {
+    flex: 0 0 auto;
+    width: 280px;
+    scroll-snap-align: start;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-radius: 0;
+    border: 1px solid var(--border-light);
+  }
+
+  .gallery-cap {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.04em;
+    color: var(--fg-tertiary);
+    margin-top: var(--space-sm);
+    line-height: 1.5;
+  }
+
+  .gallery-hint {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    color: var(--fg-tertiary);
+    letter-spacing: 0.04em;
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    text-align: right;
+  }
+
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 8L8 0M-1 1L1 -1M7 9L9 7' stroke='%23d4d0c8' stroke-width='.5'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  .img-placeholder span {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.06em;
+    color: var(--fg-tertiary);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+    background: var(--bg-card);
+    padding: 2px 8px;
+  }
+
+  .gallery-item .img-placeholder {
+    aspect-ratio: 3/2;
+    height: 180px;
+  }
+
+  /* ========================================
+     FIGURES — single image, 2–3 image row, 4+ image strip, video/iframe
+     (markdown images carry an inline border-radius from render.mjs)
+     ======================================== */
+  .figure-card {
+    margin: var(--space-xl) 0;
+  }
+
+  .figure-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+    border: 1px solid var(--border-light);
+    object-fit: cover;
+  }
+
+  .figure-card figcaption {
+    margin-top: 12px;
+    font-family: var(--font-serif);
+    font-size: var(--fs-caption);
+    line-height: 1.6;
+    letter-spacing: 0;
+    color: var(--fg-secondary, var(--fg));
+    text-align: left;
+  }
+  /* 图注首句加粗当标题 */
+  figcaption .cap-lead { font-weight: 600; font-style: normal; color: var(--fg); margin-right: .35em; }
+
+  .img-row { display: grid; gap: 12px; margin-top: 2.2em; margin-bottom: 2.2em; }
+  .img-row-2 { grid-template-columns: 1fr 1fr; }
+  .img-row-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .img-row .figure-card { margin: 0; min-width: 0; }
+  .img-row .figure-card img { aspect-ratio: 4 / 3; object-fit: cover; }
+
+  .img-strip-wrap { margin-top: 2.2em; margin-bottom: 2.2em; }
+  .img-strip { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; }
+  .img-strip .figure-card { flex: 0 0 62%; margin: 0; scroll-snap-align: start; }
+  .img-strip-hint { font-family: var(--font-mono); font-size: var(--fs-meta); color: var(--fg-tertiary); text-align: right; margin-top: 6px; }
+
+  .media-embed video, .media-embed iframe { width: 100%; aspect-ratio: 16 / 9; height: auto; display: block; border: 0; background: #000; }
+
+  /* ========================================
+     TABLE — book-style three-line table
+     ======================================== */
+  .table-wrap {
+    margin: 2em 0;
+    overflow-x: auto;
+  }
+
+  .table-wrap table {
+    width: 100%;
+    min-width: 0;
+    border-collapse: collapse;
+    font-size: var(--fs-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .table-wrap th {
+    padding: 10px 12px;
+    border-top: 1.5px solid var(--fg);
+    border-bottom: 1.5px solid var(--fg);
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0;
+    color: var(--fg);
+    text-align: left;
+    vertical-align: bottom;
+  }
+
+  .table-wrap td {
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--tbl-line);
+    font-family: var(--font-serif);
+    line-height: 1.45;
+    color: var(--fg);
+    vertical-align: top;
+  }
+  .table-wrap td:first-child { white-space: nowrap; }
+  .table-wrap tbody tr:last-child td { border-bottom: 1.5px solid var(--fg); }
+  /* Leftover zebra reset. Its !important also beats ui.css's [contenteditable]
+     hover/focus tint, so even rows never tint; kept for parity. */
+  .table-wrap tbody tr:nth-child(even) td { background: none !important; }
+
+  .table-wrap .al-num, .table-wrap .al-right { text-align: right; }
+  .table-wrap td.al-num, .table-wrap td.al-right { white-space: nowrap; }
+  .table-wrap .al-center { text-align: center; }
+  .table-wrap td strong { color: var(--accent-ink, var(--accent)); font-weight: 700; }
+  .table-wrap td small, .table-wrap td .sub { color: var(--fg-tertiary); font-size: 0.78em; }
+
+  .table-caption {
+    caption-side: top;
+    margin-top: var(--space-sm);
+    margin-bottom: 10px;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--fg-secondary);
+    text-align: center;
+  }
+
+  /* ========================================
+     BAR CHART (```chart) — pure HTML/CSS, follows the palette
+     ======================================== */
+  .hchart {
+    margin: 2.2em 0;
+    padding: 30px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .hc-title { margin-bottom: 22px; font-family: var(--font-serif); font-size: 1.1rem; font-weight: 600; color: var(--fg); text-align: center; }
+  .hc-legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-bottom: 22px; font-size: 0.78rem; color: var(--fg-secondary); }
+  .hc-key i { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; background: var(--hc-mute); }
+  .hc-row { display: grid; grid-template-columns: minmax(120px, 30%) 1fr; gap: 18px; align-items: center; padding: 7px 0; }
+  .hc-group { padding: 16px 0; border-top: 1px solid var(--tbl-line); }
+  .hc-label { font-size: 0.82rem; color: var(--fg); line-height: 1.35; }
+  .hc-bars { display: grid; gap: 6px; }
+  .hc-bar { position: relative; display: flex; align-items: center; gap: 8px; height: 20px; padding-right: 5em; }  /* room for the value after a 100% bar */
+  .hc-group .hc-bar { height: 14px; }
+  .hc-fill { display: block; height: 100%; background: var(--hc-mute); flex: none; }
+  .hc-val { font-size: var(--fs-meta); font-variant-numeric: tabular-nums; color: var(--fg-secondary); white-space: nowrap; }
+  .hc-group .hc-val { font-size: var(--fs-meta); }
+  .hc-hi .hc-fill, .hc-key.hc-hi i { background: var(--accent); }
+  .hc-hi .hc-val, .hc-row.hc-hi .hc-label { color: var(--fg); font-weight: 600; }
+  /* both series highlighted: the second one is lighter so the pair stays distinguishable */
+  .hc-s0.hc-hi ~ .hc-s1.hc-hi .hc-fill, .hc-key.hc-s0.hc-hi ~ .hc-key.hc-s1.hc-hi i { opacity: 0.6; }
+  .hc-na .hc-val { color: var(--fg-tertiary); font-style: italic; }
+  .hc-cap {
+    margin-top: 20px;
+    font-family: var(--font-serif);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--fg-secondary);
+    text-align: center;
+  }
+
+  /* ========================================
+     CODE
+     ======================================== */
+  pre {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md) var(--space-lg);
+    background: var(--fg);
+    color: var(--bg);
+    border-radius: 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+  pre code {
+    background: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--border-light);
+    padding: 2px 5px;
+    border-radius: 0;
+  }
+  .section code { overflow-wrap: anywhere; word-break: break-all; }
+
+  /* ========================================
+     TOC SIDEBAR (open/push behaviour lives in ui.css)
+     ======================================== */
+  .toc {
+    position: fixed;
+    left: 0; top: 0;
+    width: 0; height: 0;
+    overflow: visible;
+    z-index: 100;
+    pointer-events: none;
+  }
+
+  .toc-toggle {
+    position: fixed;
+    left: var(--space-lg); top: var(--space-lg);
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 0;
+    cursor: pointer;
+    color: var(--fg-tertiary);
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    z-index: 102;
+    pointer-events: auto;
+  }
+
+  .toc-toggle:hover,
+  .toc-open .toc-toggle {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+  }
+
+  .toc-panel {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 320px !important; /* beats ui.css drawer width min(300px, 86vw) */
+    background: var(--bg-card);
+    border-right: 1px solid var(--border-light);
+    padding: var(--space-3xl) var(--space-lg) var(--space-2xl);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    z-index: 101;
+    pointer-events: auto;
+  }
+
+  .toc-open .toc-panel {
+    transform: translateX(0);
+  }
+
+  .toc-header {
+    font-family: var(--font-mono);
+    font-size: var(--fs-label);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-tertiary);
+    margin-bottom: 18px;
+  }
+
+  /* Narrow tabular number column; groups by whitespace, no rules */
+  .toc-item {
+    display: grid;
+    grid-template-columns: 2.4em 1fr;
+    gap: 0 10px;
+    align-items: baseline;
+    padding: 9px 0;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    font-weight: 400;
+    line-height: 1.55;
+    color: var(--fg-secondary);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .toc-item:hover {
+    color: var(--accent-ink, var(--accent));
+  }
+
+  .toc-item.toc-active {
+    color: var(--accent-ink, var(--accent));
+    font-weight: 600;
+  }
+
+  .toc-num {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--fg-tertiary);
+    flex-shrink: 0;
+    width: 22px;
+    text-align: right;
+    opacity: .7;
+  }
+
+  .toc-active .toc-num {
+    color: var(--accent-ink, var(--accent));
+  }
+
+  /* ========================================
+     FOOTER
+     ======================================== */
+  .divider-dot {
+    display: block;                 /* not a grid: the dots are one centred line */
+    margin: var(--space-2xl) auto;
+    width: 100%;
+    text-align: center;
+    color: var(--border);
+    font-size: 14px;
+    letter-spacing: 8px;
+  }
+
+  .container > footer {
+    padding: var(--space-2xl) 0 var(--space-3xl);
+    text-align: center;
+  }
+
+  .container > footer > * {
+    grid-column: 1 / -1;
+  }
+
+  .container > footer p {
+    font-family: var(--font-mono);
+    font-size: var(--fs-meta);
+    letter-spacing: 0.06em;
+    color: var(--fg-tertiary);
+    text-transform: uppercase;
+  }
+
+  /* ========================================
+     RESPONSIVE
+     ======================================== */
+  @media (max-width: 1024px) {
+    .container { padding: 0 var(--space-xl); }
+    .section-number { padding-top: 0; }
+  }
+
+  @media (max-width: 760px) {
+    .img-row-3 { grid-template-columns: 1fr 1fr; }
+    .img-strip .figure-card { flex-basis: 85%; }
+  }
+
+  @media (max-width: 640px) {
+    html, body { overflow-x: hidden; }
+    .container { padding: 0 var(--space-lg); }
+    /* masthead clears the TOC button and wraps cleanly */
+    .doc-chrome.doc-line { padding: 68px 4px 12px !important; font-size: 12px; line-height: 1.9; } /* !important: see desktop rule */
+    .doc-line .dl-sep { margin: 0 .5em; }
+    .hero h1 { font-size: 1.8rem; overflow-wrap: anywhere; }
+    .pullquote p { font-size: 1.15rem; }
+    .section > * { min-width: 0; }
+    .gallery-item { width: 220px; }
+    .summary-grid { grid-template-columns: 1fr; }
+    .hc-row { grid-template-columns: 1fr; }
+  }
+
+  /* ========================================
+     PRINT / PDF
+     Break rules live in ui.css (shared). Never put break-inside:avoid on
+     .section/.hero: a whole chapter that doesn't fit gets pushed to the
+     next page and leaves a half-empty page behind.
+     ======================================== */
+  @media print {
+    .gallery { flex-wrap: wrap; overflow: visible; }
+    .gallery-item { width: 45%; }
+    .img-strip { flex-wrap: wrap; overflow: visible; }
+    .img-strip-hint { display: none; }
+  }
+
+  /* ========================================
+     FOOTNOTES — [^n] references and the list at the end
+     ======================================== */
+  sup.fn-ref { font-size: .72em; line-height: 0; margin-left: 1px; }
+  sup.fn-ref a, .fn-back { color: var(--accent-ink); text-decoration: none; }
+  .footnotes li { scroll-margin-top: 80px; }
+
+  /* Phones: diagrams keep a readable size and scroll sideways; table headers don't break inside a word */
+  .table-wrap th { word-break: keep-all; }
+  @media (max-width: 640px) {
+    .embed-body { overflow-x: auto; }
+    .embed-body > svg { min-width: 520px; }
+  }
+
+/* ---- block 3 ---- */
+  /* ══════════════════════════════════════
+     UI OVERLAY — Settings, Share, Edit
+     Shared across all themes
+     ══════════════════════════════════════ */
+
+  /* ── Editable text ── */
+  [contenteditable] {
+    outline: none;
+    cursor: text;
+    transition: background 0.15s;
+    border-radius: 2px;
+  }
+  [contenteditable]:hover {
+    background: rgba(0,0,0,0.03);
+  }
+  [contenteditable]:focus {
+    background: rgba(0,0,0,0.05);
+    box-shadow: 0 0 0 2px var(--accent, #002FA7);
+  }
+
+  /* ── FAB container (bottom-right) ── */
+  .hf-fab {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+  }
+
+  .hf-fab-btn {
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--fg, #0a0a0a);
+    color: var(--bg, #fafaf8);
+    border: none; border-radius: 0; cursor: pointer;
+    transition: opacity 0.15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .hf-fab-btn:hover { opacity: 0.85; }
+  .hf-fab-btn svg { width: 20px; height: 20px; }
+
+  /* ── Dropdown menu (share + settings) ── */
+  .hf-dropdown {
+    position: absolute;
+    background: var(--fg, #0a0a0a);
+    color: var(--bg, #fafaf8);
+    min-width: 220px;
+    padding: 8px 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.15s, transform 0.15s;
+    z-index: 210;
+  }
+  .hf-dropdown.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  .hf-fab .hf-dropdown { right: 0; bottom: calc(100% + 6px); }
+
+  .hf-dropdown-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 16px;
+    font-family: var(--font-sans, sans-serif);
+    font-size: 13px; font-weight: 400;
+    cursor: pointer;
+    transition: background 0.1s;
+    border: none; background: none; color: inherit;
+    width: 100%; text-align: left;
+  }
+  .hf-dropdown-item:hover { background: rgba(255,255,255,0.08); }
+  .hf-dropdown-item svg { width: 16px; height: 16px; opacity: 0.5; }
+
+  .hf-dropdown-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 6px 0;
+  }
+
+  .hf-dropdown-label {
+    padding: 8px 16px 4px;
+    font-family: var(--font-mono, monospace);
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    opacity: 0.35;
+  }
+
+  /* ── Color swatches ── */
+  .hf-swatches {
+    display: flex; gap: 6px;
+    padding: 6px 16px 10px;
+  }
+  .hf-swatch {
+    -webkit-appearance: none; appearance: none; padding: 0;
+    width: 28px; height: 28px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    position: relative;
+  }
+  .hf-swatch:hover { border-color: rgba(255,255,255,0.3); }
+  .hf-swatch.active { border-color: var(--bg, #fff); }
+  .hf-swatch.active::after {
+    content: '✓';
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+  }
+
+  /* ── Font options ── */
+  .hf-font-options {
+    display: flex; flex-direction: column; gap: 2px;
+    padding: 4px 16px 8px;
+  }
+  .hf-font-option {
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 8px;
+    font-size: 13px;
+    cursor: pointer;
+    border: none; background: none; color: inherit;
+    width: 100%; text-align: left;
+    transition: background 0.1s;
+  }
+  .hf-font-option:hover { background: rgba(255,255,255,0.08); }
+  .hf-font-option.active { background: rgba(255,255,255,0.12); }
+  .hf-font-option .font-preview {
+    font-size: 15px; font-weight: 300;
+    opacity: 0.7;
+  }
+  .hf-font-option .font-name {
+    font-family: var(--font-mono, monospace);
+    font-size: 10px; letter-spacing: 0.08em;
+    text-transform: uppercase; opacity: 0.4;
+  }
+
+  /* ── Print hide UI ── */
+  @media print {
+    .hf-fab,.toc,.toc-scrim { display: none !important; }
+    [contenteditable] { box-shadow: none !important; background: none !important; }
+  }
+
+  /* ── TOC layout behaviour (shared) ──
+     Root cause of the old "TOC covers half the article" bug: the panel is a
+     280px fixed overlay, while the article container starts ~120px from the
+     left edge on a 1440px screen, so opening it always covered the text.
+     Fix: on wide screens opening the TOC pushes the page (body padding-left),
+     so nothing is covered; on narrow screens it is a drawer with a scrim and
+     closes on outside click / Esc. */
+  .toc { width: 0; height: 0; overflow: visible; pointer-events: none; }
+  .toc-toggle, .toc-panel { pointer-events: auto; }
+  .toc-panel { visibility: hidden; transition: transform 0.25s cubic-bezier(.2,0,.38,.9), visibility 0s linear 0.25s; }
+  .toc-open .toc-panel { visibility: visible; transition: transform 0.25s cubic-bezier(.2,0,.38,.9); }
+  body { transition: padding-left 0.25s cubic-bezier(.2,0,.38,.9); }
+  .toc-scrim { display: none; }
+  @media (min-width: 1025px) {
+    html.toc-is-open body { padding-left: 300px; }
+  }
+  @media (max-width: 1024px) {
+    .toc-scrim {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.28);
+    }
+    html.toc-is-open .toc-scrim { display: block; }
+    .toc-panel { width: min(300px, 86vw); }
+  }
+
+  /* ══════════════════════════════════════
+     PRINT / PDF — pagination (shared by both styles)
+     Root cause of the "half-empty page" bug: style-magazine.css had
+     `.hero, .section { break-inside: avoid }`, and both themes lay sections
+     out as CSS grids; any chapter taller than the remaining space jumped to
+     the next page whole. Rules now: only small atomic blocks avoid breaking,
+     long containers flow across pages, headings stick to what follows.
+     ══════════════════════════════════════ */
+  /* Page margins live inside the page (container padding repeated on every page via
+     box-decoration-break), so the theme's paper colour fills the whole sheet — Chrome
+     doesn't paint @page margins, which left a white frame around dark themes. */
+  @page { size: A4; margin: 0; }
+  @media print {
+    html, body, body * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html { background: var(--bg); }
+    html.toc-is-open body, body { padding-left: 0 !important; }
+    .container { max-width: none !important; padding: 14mm 12mm 16mm !important; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .embed-label, .summary-label, .aside-title { break-after: avoid; }
+    /* grid fragmentation is fragile — flow sections as blocks on paper */
+    .section, .hero, footer, .container > .pullquote { display: block !important; }
+    .section-header { display: block !important; }
+    .section, .hero, .process, .gallery, .gallery-grid, .summary-card,
+    .summary-grid, .table-wrap, table, ul, ol, pre, .chart-row,
+    .embed-card, .data-figure { break-inside: auto !important; }
+
+    /* headings never end a page */
+    h1, h2, h3, h4, h5, .section-number, .section-header, .hero-kicker,
+    .def-card-label, .hl-label, .toc-header { break-after: avoid; break-inside: avoid; }
+    p { orphans: 3; widows: 3; }
+
+    /* small atomic blocks: keep whole */
+    blockquote, .def-card, .def-card-swiss, .highlight-card, .highlight-swiss,
+    .pullquote, .pullquote-swiss, .aside-card, .process-step, .big-number,
+    .summary-item, .gallery-item, li, tr, .callout { break-inside: avoid; }
+
+    /* image + caption travel together; cap height (120mm ≈ 45% of an A4 text area). Residual gap: a heading kept with a big figure can still leave up to ~half a page — intended (no orphan heading). so a figure never strands more than ~half a page */
+    figure, .figure-card { break-inside: avoid; }
+    figure img, .figure-card img, img { max-height: 120mm; width: auto; max-width: 100%; object-fit: contain; }
+    figcaption, .figure-caption, .caption { break-before: avoid; }
+    pre { white-space: pre-wrap; word-break: break-all; }
+    .section { padding-top: 12mm !important; padding-bottom: 4mm !important; }
+    a { text-decoration: none; }
+  }
+
+  /* ══════════════════════════════════════
+     PRINT v0.14 — blank-space budget (≤25% per page)
+     A block that can't split leaves at most its own height as a gap, so every
+     unsplittable block is capped well under a quarter page; everything tall
+     (tables, charts, quotes) is allowed to split. Screen layout untouched.
+     ══════════════════════════════════════ */
+  @media print {
+    .section { padding-top: 5mm !important; padding-bottom: 2mm !important; margin-top: 0 !important; border: 0 !important; }
+    .section::before { content: none !important; }
+    .section > .section-number { margin-bottom: 2mm !important; }
+    .section h2, .section-header { margin-bottom: 4mm !important; }
+    .hero { padding-top: 0 !important; padding-bottom: 4mm !important; }
+    .hero::after { margin-top: 3mm !important; }
+    .doc-chrome { padding-top: 0 !important; padding-bottom: 4mm !important; }
+    .hero-cover, .hero-cover .hero-bg { min-height: 0 !important; height: 60mm !important; }
+
+    /* media: shrink to fit instead of jumping */
+    figure img, .figure-card img, .img-row img, .img-strip img, img { max-height: 58mm !important; width: auto !important; max-width: 100% !important; object-fit: contain !important; margin-left: auto; margin-right: auto; }
+    .img-row img { max-height: 42mm !important; }
+    .media-embed video, .media-embed iframe { max-height: 58mm !important; }
+    figure, .figure-card { margin-top: 3mm !important; margin-bottom: 3mm !important; }
+    .figure-card > figcaption { margin-top: 1.5mm !important; text-align: center; }  /* images shrink and centre on paper */
+
+    /* headings stay with the next *line*, not with a whole big block */
+    h2, h3, .section-header, .section-number { break-after: avoid; }
+    .section-header + .figure-card, h2 + .figure-card, .section-number + h2 + .figure-card,
+    h2 + .table-wrap, h2 + .hchart, .section-header + .hchart, .section-header + .table-wrap { break-before: auto !important; }
+
+    /* tables: split across pages, header row repeats */
+    .table-wrap, .table-wrap table { break-inside: auto !important; overflow: visible !important; }
+    .table-wrap thead { display: table-header-group; }
+    .table-wrap tr { break-inside: avoid; }
+    .table-caption { break-after: avoid; }
+
+    /* charts: allowed to split between rows/groups */
+    .hchart { break-inside: auto !important; padding-top: 4mm !important; padding-bottom: 4mm !important; margin-top: 4mm !important; margin-bottom: 4mm !important; }
+    .hc-row, .hc-group, .hc-legend { break-inside: avoid; }
+    .hc-title, .hc-legend { break-after: avoid; }
+
+    /* quotes / cards may split when long; small ones still stay whole via orphans/widows */
+    blockquote, .pullquote, .pullquote-swiss, .highlight-card, .highlight-swiss { break-inside: auto !important; }
+    .pullquote, .pullquote-swiss { padding-top: 5mm !important; padding-bottom: 5mm !important; margin-top: 4mm !important; margin-bottom: 4mm !important; }
+    .img-row, .img-strip-wrap { margin-top: 3mm !important; margin-bottom: 3mm !important; }
+    p { orphans: 2; widows: 2; }
+  }
+  @media print {
+    figure img, .figure-card img, img { max-height: 54mm !important; }
+    .img-strip { display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+    .img-strip .figure-card { flex: none !important; }
+    .img-strip img, .img-row img { max-height: 34mm !important; }
+  }
+  @media print {
+    /* heading followed directly by an unsplittable media block: don't drag the heading along */
+    .section-header:has(+ .figure-card), .section-header:has(+ .img-row), .section-header:has(+ .media-embed),
+    h2:has(+ .figure-card), h2:has(+ .img-row), h2:has(+ .media-embed),
+    .section-number:has(+ h2 + .figure-card) { break-after: auto !important; }
+  }
+  @media print { figure img, .figure-card img, img { max-height: 50mm !important; } .section-header .section-number { font-size: 20px !important; } }
+  @media print { .section-header + .figure-card img, h2 + .figure-card img { max-height: 38mm !important; } }
+  @media print { .section-header .section-number { display: inline-block !important; margin: 0 4mm 0 0 !important; } .section-header h2 { display: inline !important; } .section-header { margin-bottom: 3mm !important; } .figure-card { margin-top: 2mm !important; } }
+  @media print { h3 + .figure-card img { max-height: 38mm !important; } .hc-group { padding: 2mm 0 !important; } .hc-group .hc-bar { height: 10px !important; } .hc-bars { gap: 3px !important; } .hc-legend { margin-bottom: 3mm !important; } .hc-title { margin-bottom: 3mm !important; } .hc-row { padding: 1mm 0 !important; } .hc-bar { height: 13px !important; } }
+</style>
+<style>/* =====================================================================
+   cccr · 博客外壳样式
+   建立在归藏 Page 杂志风设计系统（base.css）之上：
+   颜色只用语义变量（--bg / --fg / --ink / --line / --accent…），
+   字体只走 --font-serif / --font-sans / --font-mono，换主题不用改这里。
+   ===================================================================== */
+
+:root {
+  --head-h: 64px;
+  --site-max: var(--measure);
+  --read-size: var(--fs-body);
+}
+
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  /* 顶栏是 fixed：给它留出高度，内容不从标题底下穿过 */
+  padding-top: 0;
+}
+
+/* 顶栏是 fixed：目录跳转后别让标题钻到顶栏下面 */
+.section[id] { scroll-margin-top: calc(var(--head-h) + 8px); }
+
+/* ---------- 阅读字号档位（设置面板控制） ---------- */
+html[data-read="s"]  { --text-size: 0.99rem; --read-size: 0.99rem; }
+html[data-read="l"]  { --text-size: 1.16rem; --read-size: 1.16rem; }
+html[data-read="xl"] { --text-size: 1.27rem; --read-size: 1.27rem; }
+
+/* =====================================================================
+   顶栏
+   ===================================================================== */
+.site-head {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 110;
+  /* 不透明纸色：滚动时正文绝对不会从顶栏下面透出来 */
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.site-head-in {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--margin);
+  height: var(--head-h);
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--fg);
+  text-decoration: none;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s;
+}
+.brand:hover { border-bottom-color: var(--accent); }
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-left: auto;
+}
+.site-nav a {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 7px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.16s, border-color 0.16s;
+}
+.site-nav a:hover { color: var(--fg); }
+.site-nav a.on {
+  color: var(--fg);
+  border-bottom-color: var(--fg);
+}
+
+.site-tools { display: flex; align-items: center; gap: 10px; }
+
+.icon-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.16s, color 0.16s, border-color 0.16s;
+}
+.icon-btn:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg);
+}
+.icon-btn svg { width: 16px; height: 16px; }
+
+/* 阅读进度条：贴在顶栏下缘 */
+.readbar {
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 2px;
+  background: transparent;
+  pointer-events: none;
+  overflow: hidden;
+}
+.readbar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transform-origin: left center;
+}
+
+/* =====================================================================
+   视图容器
+   ===================================================================== */
+.site-main {
+  padding-top: var(--head-h);
+  min-height: calc(100vh - var(--head-h) - 180px);
+}
+
+.view { animation: viewIn 0.4s var(--ease-standard) both; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .view { animation: none; }
+}
+
+/* 文章视图：首屏标题不跟顶栏挤在一起 */
+.view-post .hero { padding-top: 56px; }
+.view-post .doc-chrome.doc-line { padding-top: 40px !important; }
+/* 标题后的第一节收一点，别让花饰编号掉进大片空白里 */
+.view-post .hero + .section { padding-top: 44px; }
+
+/* =====================================================================
+   列表视图
+   ===================================================================== */
+.view-list,
+.view-about {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+
+.list-head {
+  padding: 72px 0 0;
+  text-align: center;
+}
+.list-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent-ink, var(--accent));
+}
+.list-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 2.9rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: 1.3;
+  margin: 20px 0 0;
+}
+.list-sub {
+  font-family: var(--font-serif);
+  font-size: var(--fs-lead);
+  color: var(--text-helper);
+  line-height: 1.7;
+  margin: 16px auto 0;
+  max-width: var(--col);
+}
+
+.list-tools {
+  /* 跟下面的文章列表同宽，搜索线才对得上列表的分隔线 */
+  margin: 52px 0 0;
+}
+
+/* 搜索：下划线式，杂志感 */
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line-strong);
+  padding: 10px 2px;
+  transition: border-color 0.18s;
+}
+.search-wrap:focus-within { border-bottom-color: var(--fg); }
+.search-wrap svg {
+  width: 16px; height: 16px; flex: none;
+  color: var(--text-helper);
+}
+.search-wrap input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  color: var(--fg);
+  letter-spacing: 0.02em;
+}
+.search-wrap input::placeholder { color: var(--text-helper); }
+/* 去掉 Chrome / Safari 原生的搜索清空按钮，只留自己的那一个 */
+.search-wrap input::-webkit-search-cancel-button,
+.search-wrap input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+.search-clear {
+  border: none; background: none; cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-helper);
+  padding: 0 2px;
+}
+.search-clear:hover { color: var(--fg); }
+
+/* 标签筛选 */
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 0;
+}
+.chip {
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  padding: 6px 13px;
+  cursor: pointer;
+  transition: color 0.16s, border-color 0.16s, background 0.16s;
+}
+.chip:hover { border-color: var(--fg); color: var(--fg); }
+.chip.on {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+.chip .chip-n {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  opacity: 0.55;
+  margin-left: 6px;
+}
+
+.list-count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--text-helper);
+  margin: 34px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.list-count .lc-live { color: var(--accent-ink, var(--accent)); }
+
+.post-list {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.post-row { border-bottom: 1px solid var(--line-subtle); }
+.post-row a {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto 24px;
+  gap: 28px;
+  align-items: baseline;
+  padding: 26px 6px;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.16s;
+}
+.post-row a:hover { background: rgba(var(--ink-rgb), 0.035); }
+
+.pr-num {
+  font-family: var(--font-serif);
+  font-size: 1.42rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--line-strong);
+  font-variant-numeric: tabular-nums;
+  padding-top: 8px;
+  transition: color 0.18s;
+}
+.post-row a:hover .pr-num { color: var(--accent-ink, var(--accent)); }
+
+.pr-arrow {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--accent-ink, var(--accent));
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.18s, transform 0.18s;
+}
+.post-row a:hover .pr-arrow { opacity: 1; transform: none; }
+.pr-title {
+  font-family: var(--font-serif);
+  font-size: 1.42rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+.post-row a:hover .pr-title { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 1px; }
+.pr-sub {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  color: var(--text-helper);
+  line-height: 1.6;
+  margin-top: 7px;
+  letter-spacing: 0.01em;
+}
+.pr-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+  white-space: nowrap;
+  padding-top: 6px;
+}
+.pr-tags { color: var(--accent-ink, var(--accent)); }
+
+.list-empty {
+  padding: 56px 0 24px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--text-helper);
+}
+.list-empty .le-k {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 14px;
+  color: var(--text-helper);
+}
+
+mark {
+  background: var(--accent-soft);
+  color: var(--ink);
+  padding: 0 2px;
+}
+
+/* =====================================================================
+   文章视图 · 站内上一篇 / 下一篇
+   ===================================================================== */
+.post-wrap { max-width: var(--site-max); margin: 0 auto; padding: 0 var(--margin); }
+
+/* 章末三点 + 上一篇/下一篇：收一收间距，别在文末留出一屏空白 */
+.view-post .divider-dot { margin: 34px auto 30px; }
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 44px;
+  padding-top: 26px;
+  border-top: 1px solid var(--line);
+}
+.post-nav a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.post-nav a:hover .pn-title { text-decoration: underline; text-underline-offset: 4px; }
+.pn-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-helper);
+}
+.pn-title {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.06rem;
+  font-weight: 500;
+  margin-top: 9px;
+  line-height: 1.5;
+}
+.pn-next { text-align: right; }
+/* 只有一侧时单列排，不硬撑两栏 */
+.post-nav.single-prev,
+.post-nav.single-next { grid-template-columns: 1fr; }
+.post-nav.single-next .pn-next { text-align: left; }
+
+/* =====================================================================
+   关于页
+   ===================================================================== */
+.about-head { padding: 72px 0 0; text-align: center; }
+.about-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.9rem, 1.5rem + 1.4vw, 2.6rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin: 20px 0 0;
+}
+.about-body {
+  max-width: var(--col);
+  margin: 46px auto 0;
+}
+.about-body p {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.95;
+  margin-bottom: 1.1em;
+  text-align: justify;
+  color: var(--text-body);
+}
+.about-rule {
+  max-width: var(--col);
+  margin: 52px auto;
+  border: none;
+  border-top: 1px solid var(--line);
+}
+.social-grid {
+  max-width: var(--col);
+  margin: 0 auto;
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--line-subtle);
+}
+.social-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 2px;
+  border-bottom: 1px solid var(--line-subtle);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.16s;
+}
+.social-row:hover { background: rgba(var(--ink-rgb), 0.035); }
+.social-label {
+  font-family: var(--font-sans);
+  font-size: 0.94rem;
+  letter-spacing: 0.04em;
+}
+.social-note {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+}
+.social-row:hover .social-label { text-decoration: underline; text-underline-offset: 4px; }
+
+.rss-row {
+  max-width: var(--col);
+  margin: 22px auto 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+}
+.rss-chip {
+  border: 1px dashed var(--line-strong);
+  padding: 5px 10px;
+  letter-spacing: 0.16em;
+}
+
+.about-foot {
+  max-width: var(--col);
+  margin: 64px auto 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--line-subtle);
+  padding-top: 18px;
+}
+
+/* =====================================================================
+   页脚
+   ===================================================================== */
+.site-foot {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+.site-foot-in {
+  border-top: 1px solid var(--border-light);
+  margin-top: 88px;
+  /* 底部空间交给 .foot-strip，这里只留一点，滚到底时按钮也不压字 */
+  padding: 26px 0 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+}
+.site-foot-in a { color: var(--text-helper); text-decoration: none; }
+.site-foot-in a:hover { color: var(--fg); }
+.foot-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.foot-strip {
+  margin: 12px 0 26px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: var(--text-helper);
+}
+
+/* =====================================================================
+   TOC：躲开固定顶栏
+   ===================================================================== */
+.toc-toggle {
+  top: calc(var(--head-h) + 14px);
+  background: var(--bg-card);
+  transition: opacity 0.2s var(--ease-standard), background 0.15s, color 0.15s, border-color 0.15s;
+}
+/* 滚动时让按钮让路，停下来再出现——手机上它正好压在正文上面 */
+.hf-fab { transition: opacity 0.24s var(--ease-standard); }
+html.is-scrolling .toc-toggle { opacity: 0; pointer-events: none; }
+html.is-scrolling .hf-fab { opacity: 0.28; }
+html.toc-is-open .toc-toggle { opacity: 1 !important; pointer-events: auto; }
+.toc-panel { padding-top: calc(var(--head-h) + 64px); }
+
+/* =====================================================================
+   设置面板：跟随主题的纸色浮层 + 字号档位
+   （渲染器默认是反色黑底；在博客里换成跟纸色一致的面板，
+     夜间模式下才不会突然弹出一块浅色板）
+   ===================================================================== */
+.hf-fab .hf-dropdown {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  max-height: min(78vh, 560px);
+  overflow-y: auto;
+  box-shadow: 0 10px 34px rgba(var(--ink-rgb), 0.14);
+}
+.hf-dropdown-label { color: var(--text-helper); opacity: 0.75; }
+.hf-dropdown-divider { background: var(--border); }
+.hf-dropdown-note {
+  padding: 8px 16px 12px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--text-helper);
+}
+.hf-swatch { border: 1px solid var(--border); }
+.hf-swatch:hover { border-color: var(--line-strong); }
+.hf-swatch.active { border-color: var(--fg); }
+.hf-swatch.active::after { color: #fff; }
+.hf-font-option:hover { background: rgba(var(--ink-rgb), 0.05); }
+.hf-font-option.active { background: rgba(var(--ink-rgb), 0.09); }
+.hf-font-option .font-name { color: var(--text-helper); opacity: 1; }
+.hf-font-option .font-preview { opacity: 0.85; }
+
+.hf-size-row {
+  display: flex;
+  gap: 6px;
+  padding: 4px 16px 12px;
+}
+.hf-size-btn {
+  flex: 1;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 7px 0;
+  cursor: pointer;
+  transition: background 0.14s, border-color 0.14s, color 0.14s;
+}
+.hf-size-btn:hover {
+  background: rgba(var(--ink-rgb), 0.06);
+  border-color: var(--line-strong);
+  color: var(--text-primary);
+}
+.hf-size-btn.on {
+  background: var(--accent-soft);
+  border-color: var(--fg);
+  color: var(--text-primary);
+}
+
+/* =====================================================================
+   首页封面：满版怪诞画册
+   ===================================================================== */
+:root {
+  /* 压在图片上的文字色（图片本身偏暗，所以这里固定浅色，不随主题反转） */
+  --on-media: #f4f5f7;
+  --on-media-dim: rgba(244, 245, 247, 0.82);
+  --on-media-faint: rgba(244, 245, 247, 0.58);
+}
+
+.view-home { max-width: none; padding: 0; }
+
+.home-hero { position: relative; }
+.home-hero-media {
+  position: relative;
+  height: min(72vh, 660px);
+  min-height: 440px;
+  overflow: hidden;
+  background: #0a1f3d;
+}
+.home-hero-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+}
+.home-hero-shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 13, 26, 0) 24%,
+    rgba(6, 16, 32, 0.48) 52%,
+    rgba(4, 10, 22, 0.93) 92%
+  );
+}
+.home-hero-body {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--margin) 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  gap: 40px;
+}
+.home-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--on-media-dim);
+}
+.home-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.8rem, 2rem + 8vw, 8rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  margin: 16px 0 0;
+  color: var(--on-media);
+}
+.home-tagline {
+  font-family: var(--font-serif);
+  font-size: 1.02rem;
+  color: var(--on-media-dim);
+  letter-spacing: 0.02em;
+  margin: 20px 0 0;
+}
+.home-hero-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: right;
+  padding-bottom: 4px;
+}
+.hs-item { display: flex; flex-direction: column; gap: 2px; }
+.hs-k {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--on-media-faint);
+}
+.hs-v {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  color: var(--on-media-dim);
+}
+
+.home-body {
+  max-width: var(--site-max);
+  margin: 0 auto;
+  padding: 0 var(--margin);
+}
+
+.home-latest { margin-top: 52px; }
+.latest-kicker {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-helper);
+}
+.lk-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  display: inline-block;
+}
+.latest-card {
+  display: block;
+  margin-top: 18px;
+  padding: 34px 36px 30px;
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s, background 0.2s;
+}
+.latest-card:hover {
+  border-color: var(--fg);
+  background: var(--bg-card);
+}
+.latest-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.7rem, 1.2rem + 1.6vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+.latest-sub {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 14px 0 0;
+  line-height: 1.7;
+}
+.latest-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--text-helper);
+}
+.latest-cta {
+  display: inline-block;
+  margin-top: 26px;
+  font-family: var(--font-sans);
+  font-size: 0.86rem;
+  letter-spacing: 0.06em;
+  color: var(--accent-ink, var(--accent));
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.18s;
+}
+.latest-cta i { font-style: normal; }
+.latest-card:hover .latest-cta { border-bottom-color: var(--accent-ink, var(--accent)); }
+
+.home-picks { margin-top: 64px; }
+.picks-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+.picks-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-helper);
+}
+.picks-all {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.16s;
+}
+.picks-all:hover { color: var(--fg); }
+.pick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line-subtle);
+}
+.pick-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 26px 22px 30px;
+  background: var(--bg);
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s;
+}
+.pick-card:hover { background: var(--bg-card); }
+.pick-no {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: var(--text-helper);
+}
+.pick-title {
+  font-family: var(--font-serif);
+  font-size: 1.16rem;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+}
+.pick-card:hover .pick-title { text-decoration: underline; text-underline-offset: 4px; }
+.pick-sub {
+  font-family: var(--font-sans);
+  font-size: 0.84rem;
+  color: var(--text-helper);
+  line-height: 1.65;
+}
+.pick-meta {
+  margin-top: auto;
+  padding-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  color: var(--text-helper);
+}
+
+/* =====================================================================
+   视觉块：大字报 / 满版墨块 / 大数字 / 左右分栏
+   ===================================================================== */
+.sec-statement { padding: 92px 0 86px; }
+.section.sec-statement > .stmt-wrap {
+  max-width: var(--wide);
+  margin: 0 auto;
+}
+.stmt-wrap::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin: 0 auto 34px;
+  background: var(--accent);
+}
+.stmt-line {
+  font-family: var(--font-serif);
+  font-size: clamp(1.75rem, 1rem + 2.3vw, 2.9rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-wrap: balance;
+  margin: 0;
+  color: var(--fg);
+}
+
+.sec-panel { padding: 40px 0; }
+.section.sec-panel > .panel-block {
+  max-width: var(--wide);
+  margin: 0 auto;
+  background: var(--ink);
+  padding: 64px 56px;
+  text-align: center;
+}
+.panel-line {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1rem + 1.8vw, 2.3rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+  margin: 0;
+  color: var(--paper);
+  text-align: center;
+  text-wrap: balance;
+}
+.panel-note {
+  display: block;
+  margin-top: 22px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-ink-inverse, var(--muted));
+}
+
+.sec-data { padding: 96px 0 80px; }
+.data-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent-ink, var(--accent));
+  text-align: center;
+  margin-bottom: 30px;
+}
+.section.sec-data > .data-row {
+  max-width: var(--wide);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0 auto;
+}
+.data-cell { text-align: center; padding: 8px 4px; }
+.data-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 1.5rem + 4.5vw, 5.4rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--accent-ink, var(--accent));
+  font-variant-numeric: tabular-nums;
+}
+.data-unit {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+  color: var(--text-helper);
+}
+.data-cap {
+  display: block;
+  margin-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+.section.sec-data > .data-note {
+  max-width: var(--col);
+  margin: 40px auto 0;
+  font-family: var(--font-serif);
+  font-size: 0.94rem;
+  color: var(--text-helper);
+  line-height: 1.8;
+  text-align: center;
+}
+
+.sec-split { padding: 72px 0 32px; }
+/* 分栏页的标题已经在左列，顶部的花饰编号就多余了 */
+.sec-split .section-number { display: none; }
+.section.sec-split > .split-row {
+  max-width: var(--wide);
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  gap: 48px;
+  align-items: start;
+  margin: 0 auto;
+}
+.split-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1.1rem + 1.2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  text-align: left;
+  margin: 0;
+  color: var(--fg);
+  position: sticky;
+  top: calc(var(--head-h) + 32px);
+}
+.split-body p {
+  font-family: var(--font-serif);
+  font-size: var(--text-size);
+  line-height: var(--text-leading);
+  margin-bottom: var(--para-gap);
+  text-align: justify;
+}
+.split-body p:first-child { margin-top: 0; }
+.split-body p:last-child { margin-bottom: 0; }
+.split-body strong { font-weight: 600; color: var(--fg); }
+
+/* =====================================================================
+   滚动入场的轻动效（只给视觉块）
+   ===================================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.85s var(--ease-editorial), transform 0.85s var(--ease-editorial);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* =====================================================================
+   文章配图：四种版位，故意不一样高矮
+   ===================================================================== */
+.post-figure { margin: 44px 0; }
+.post-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--bg-card);
+}
+.post-figure figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  line-height: 1.75;
+  color: var(--text-helper);
+  text-align: left;
+}
+.fig-no {
+  flex: none;
+  letter-spacing: 0.14em;
+  color: var(--accent-ink, var(--accent));
+}
+
+/* 出血：撑满内容宽度（比正文列宽得多） */
+.section > .fig-band { max-width: 100%; }
+.section > .fig-full { max-width: var(--wide); }
+/* 竖图靠左，右边故意留空 */
+.section > .fig-tall {
+  max-width: 380px;
+  justify-self: start;
+  margin-top: 12px;
+}
+/* 标本照：小、居中、带细框 */
+.section > .fig-specimen { max-width: 300px; }
+.fig-specimen img {
+  padding: 7px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+}
+/* 像被人随手贴在页面上 */
+.fig-tilt { transform: rotate(-1.7deg); }
+.about-figure { max-width: var(--wide); margin: 56px auto 0; }
+.split-body .post-figure { max-width: 380px; margin: 30px 0 4px; }
+
+/* =====================================================================
+   荒诞层：印刷事故 · 标本图鉴
+   套印错位 / 半色调网点 / 裁切十字 / 荧光异常标记 / 首字下沉
+   ===================================================================== */
+:root {
+  /* 酸性黄绿只做底色、细线和方块，绝不做正文色（白纸上会糊） */
+  --glitch: #d8ff36;
+  --glitch-ink: #161a00;
+}
+
+/* —— 套印错位：标题下面压一层荧光油墨的副影 —— */
+.ink-offset {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+}
+.ink-offset::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  color: var(--glitch);
+  transform: translate(-4px, 3px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* —— 首字下沉：大得过分的那种 —— */
+.view-post .section[id="sec-1"] > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 4.4rem;
+  line-height: 0.86;
+  padding: 5px 10px 0 0;
+  color: var(--accent-ink, var(--accent));
+}
+
+/* —— 荧光笔：像被人用手划了一道 —— */
+.marker {
+  background: linear-gradient(180deg, transparent 58%, var(--glitch) 58%);
+  padding: 0 2px;
+}
+/* 深色纸上荧光条会吃掉文字，改成荧光字 */
+html[data-scheme="dark"] .marker {
+  background: none;
+  color: var(--glitch);
+  padding: 0;
+}
+
+/* —— 档案标签 —— */
+.tag-glitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--glitch);
+  color: var(--glitch-ink);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 9px;
+  line-height: 1.4;
+}
+
+/* —— 竖排档案字 —— */
+.vert-tag {
+  position: absolute;
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.34em;
+  color: var(--text-helper);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* —— 裁切十字：图片角上的对位标记 —— */
+.crop-marks { position: relative; }
+.crop-marks::before,
+.crop-marks::after {
+  content: '+';
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--accent-ink, var(--accent));
+  pointer-events: none;
+}
+.crop-marks::before { top: -11px; left: -11px; }
+.crop-marks::after { bottom: -11px; right: -11px; }
+
+/* —— 套印错位：图片右下压一块荧光边，像印刷时套歪了 —— */
+.fig-offset { position: relative; }
+.fig-offset img { position: relative; z-index: 1; }
+.fig-offset::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translate(9px, 9px);
+  border: 1px solid var(--glitch);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* —— 半色调网点：旧印刷品的颗粒 —— */
+.fig-halftone { position: relative; }
+.fig-halftone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(10, 31, 61, 0.22) 1px, transparent 1.3px);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* —— 大字报：深蓝副影，像套印偏了一格 —— */
+.stmt-line { text-shadow: 3px 2px 0 rgba(49, 93, 147, 0.16); }
+
+/* —— 数据块标题前的小方块 —— */
+.data-label::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--glitch);
+  margin-right: 9px;
+  vertical-align: middle;
+}
+
+/* —— 满版块：荧光细框 + 角标 —— */
+.panel-block {
+  border: 1px solid var(--glitch);
+  position: relative;
+}
+
+/* —— 装饰：品牌旁的荧光指示点、页脚条码 —— */
+.brand::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--glitch);
+  margin-left: 9px;
+  vertical-align: 0.55em;
+}
+.barcode {
+  display: inline-block;
+  width: 84px;
+  height: 13px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    currentColor 0 1px, transparent 1px 3px,
+    currentColor 3px 5px, transparent 5px 6px,
+    currentColor 6px 7px, transparent 7px 10px
+  );
+}
+
+/* —— 纸面上的错位用蓝墨：荧光在白纸上几乎看不见 —— */
+.ink-offset--ink::before {
+  color: var(--accent-ink, var(--accent));
+  opacity: 0.9;
+}
+
+/* —— 图片上的竖排档案字，加一层阴影保证可读 —— */
+.home-hero-media .vert-tag {
+  text-shadow: 0 1px 8px rgba(5, 13, 26, 0.65);
+}
+
+/* —— 整页纸纹：印刷品的颗粒，看不清但能感觉到 —— */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+html[data-scheme="dark"] body::after {
+  mix-blend-mode: screen;
+  opacity: 0.28;
+}
+@media print {
+  body::after { display: none; }
+}
+
+/* —— 文章顶部的标本编号 —— */
+.post-specimen {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+.view-post .doc-chrome.doc-line { padding-top: 22px !important; }
+.view-post .hero { position: relative; }
+.post-vert { top: 6px; right: 8px; }
+.home-hero-tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* =====================================================================
+   新组件的响应式
+   ===================================================================== */
+@media (max-width: 1024px) {
+  .home-hero-media { height: 56vh; min-height: 380px; }
+  .home-hero-body { grid-template-columns: 1fr; gap: 18px; padding-bottom: 24px; }
+  .home-hero-side { flex-direction: row; flex-wrap: wrap; gap: 22px; text-align: left; }
+  .pick-grid { grid-template-columns: 1fr 1fr; }
+  .section.sec-split > .split-row { grid-template-columns: 1fr; gap: 22px; }
+  .split-title { position: static; }
+  .sec-statement { padding: 72px 0 !important; }
+  .sec-data { padding: 68px 0 !important; }
+}
+
+@media (max-width: 640px) {
+  .home-hero-media { height: 64vh; min-height: 400px; }
+  .home-title { font-size: clamp(3.2rem, 20vw, 4.8rem); }
+  .home-tagline { font-size: 0.94rem; }
+  .pick-grid { grid-template-columns: 1fr; }
+  .latest-card { padding: 24px 20px; }
+  .panel-block { padding: 42px 22px !important; }
+  /* 手机上三个数字改成「数字 + 说明」的横排清单，别占掉两屏 */
+  .section.sec-data > .data-row { grid-template-columns: 1fr; gap: 26px; }
+  .data-cell {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    text-align: left;
+    padding: 0;
+  }
+  .data-num { font-size: 2.7rem; flex: none; width: 1.9em; }
+  .data-cap { margin-top: 0; font-size: 0.82rem; }
+  .sec-statement { padding: 56px 0 52px !important; }
+  .stmt-wrap::before { margin-bottom: 26px; }
+  /* 小屏上首字下沉收小，竖排档案字藏起来 */
+  .view-post .section[id="sec-1"] > p:first-of-type::first-letter {
+    font-size: 2.8rem;
+    padding-right: 8px;
+  }
+  .post-vert { display: none; }
+  /* 小屏上所有配图统一满列，倾斜收掉 */
+  .section > .fig-tall,
+  .section > .fig-specimen,
+  .split-body .post-figure { max-width: 100%; }
+  .fig-tilt { transform: none; }
+}
+
+/* =====================================================================
+   响应式
+   ===================================================================== */
+@media (max-width: 1024px) {
+  :root { --head-h: 58px; }
+  /* 手机上目录按钮挪到右下，跟设置按钮竖排：不再压在正文左侧 */
+  .toc-toggle {
+    left: auto;
+    right: 24px;
+    top: auto;
+    bottom: 78px;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+  .toc-panel { padding-top: calc(var(--head-h) + 30px); }
+  /* 和设计系统 .container 的内边距保持一致，手机上正文才不会挤成一条 */
+  .site-head-in, .post-wrap, .view-list, .view-about, .site-foot,
+  .home-hero-body, .home-body {
+    padding-left: var(--space-xl);
+    padding-right: var(--space-xl);
+  }
+  .site-head-in { gap: 18px; }
+  .site-nav { gap: 20px; }
+  .brand { font-size: 1.1rem; }
+  .pr-title { font-size: 1.2rem; }
+  .pr-num { font-size: 1.1rem; }
+  .pr-arrow { display: none; }
+  .post-row a { grid-template-columns: 40px minmax(0, 1fr); gap: 16px; padding: 22px 2px; }
+  .pr-meta {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding-top: 0;
+    margin-top: 10px;
+  }
+  .view-post .hero { padding-top: 40px; }
+  .view-post .doc-chrome.doc-line { padding-top: 56px !important; }
+  .post-nav { grid-template-columns: 1fr; gap: 22px; }
+  .pn-next { text-align: left; }
+  .list-head, .about-head { padding-top: 52px; }
+  .list-tools { margin-top: 38px; }
+  .about-foot { flex-direction: column; gap: 8px; }
+  .site-foot-in { margin-top: 56px; }
+}
+
+@media (max-width: 640px) {
+  .site-head-in, .post-wrap, .view-list, .view-about, .site-foot,
+  .home-hero-body, .home-body {
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+  }
+  /* 页脚改两行左对齐：右下角按钮不盖字 */
+  .site-foot-in { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .about-body p { font-size: 1.04rem; line-height: 1.9; }
+  .list-sub { font-size: 0.98rem; }
+  .hero-subtitle { font-size: 0.98rem; }
+}
+
+@media (max-width: 560px) {
+  .site-nav a { font-size: 0.78rem; letter-spacing: 0.08em; }
+  .site-nav { gap: 16px; }
+  .pr-num { display: none; }
+  .post-row a { grid-template-columns: minmax(0, 1fr); }
+  .pr-meta { grid-column: 1; }
+  .chip { font-size: 0.72rem; padding: 5px 10px; }
+}
+
+/* 打印：只留正文与页脚 */
+@media print {
+  .site-head, .site-foot, .post-nav, .toc, .toc-scrim, .hf-fab { display: none !important; }
+  .site-main { padding-top: 0; }
+  .view { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ 顶栏 ============ -->
+<header class="site-head">
+  <div class="site-head-in">
+    <a class="brand" href="#/">cccr</a>
+    <nav class="site-nav" aria-label="站点导航">
+      <a href="#/articles" data-nav="articles">文章</a>
+      <a href="#/about" data-nav="about">关于</a>
+    </nav>
+    <div class="site-tools">
+      <button class="icon-btn" id="search-jump" type="button" aria-label="搜索文章" title="搜索文章">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.3-3.3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="readbar" id="readbar" style="display:none"><i id="readbar-fill"></i></div>
+</header>
+
+<!-- ============ 目录（文章视图才出现） ============ -->
+<nav class="toc" id="toc" hidden aria-label="文章目录">
+  <button class="toc-toggle" id="toc-toggle" type="button" aria-label="打开目录" aria-expanded="false">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <path d="M2 4h14M2 9h10M2 14h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="toc-panel" id="toc-panel">
+    <div class="toc-header">目录</div>
+    <div id="toc-items"></div>
+  </div>
+</nav>
+<div class="toc-scrim" id="toc-scrim"></div>
+
+<!-- ============ 主内容 ============ -->
+<main class="site-main" id="main" role="main"></main>
+
+<!-- ============ 页脚 ============ -->
+<footer class="site-foot">
+  <div class="site-foot-in">
+    <span>cccr · 笔记</span>
+    <span class="foot-right"><i class="barcode" aria-hidden="true"></i> © 2026 · 排版 归藏 Page</span>
+  </div>
+  <div class="foot-strip">
+    <span>NO. 005 · 五件藏品</span>
+    <span>采集周期 2026.08 — 2026.10</span>
+    <span>未经校对 · 请勿引用</span>
+  </div>
+</footer>
+
+<!-- ============ 阅读设置 ============ -->
+<div class="hf-fab">
+  <button class="hf-fab-btn" id="hf-settings-toggle" type="button" title="阅读设置" aria-haspopup="true" aria-expanded="false" aria-label="阅读设置">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+      <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+      <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+      <line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+    </svg>
+  </button>
+  <div class="hf-dropdown" id="hf-settings-dropdown">
+    <div class="hf-dropdown-label">配色</div>
+    <div class="hf-swatches">
+      <button type="button" class="hf-swatch active" data-theme-id="indigo-porcelain" data-scheme="light" style="background:linear-gradient(135deg,#f1f3f5 0 50%,#315d93 50% 100%)" title="靛蓝瓷" aria-label="靛蓝瓷"></button>
+      <button type="button" class="hf-swatch" data-theme-id="ink-classic" data-scheme="light" style="background:linear-gradient(135deg,#f1efea 0 50%,#111111 50% 100%)" title="墨水经典" aria-label="墨水经典"></button>
+      <button type="button" class="hf-swatch" data-theme-id="forest-ink" data-scheme="light" style="background:linear-gradient(135deg,#f5f1e8 0 50%,#2e6b4f 50% 100%)" title="森林墨" aria-label="森林墨"></button>
+      <button type="button" class="hf-swatch" data-theme-id="kraft-paper" data-scheme="light" style="background:linear-gradient(135deg,#eedfc7 0 50%,#9b5a2e 50% 100%)" title="牛皮纸" aria-label="牛皮纸"></button>
+      <button type="button" class="hf-swatch" data-theme-id="dune" data-scheme="light" style="background:linear-gradient(135deg,#f0e6d2 0 50%,#8f7650 50% 100%)" title="沙丘" aria-label="沙丘"></button>
+      <button type="button" class="hf-swatch" data-theme-id="midnight-ink" data-scheme="dark" style="background:linear-gradient(135deg,#0e0d0c 0 50%,#d4a04a 50% 100%)" title="午夜墨" aria-label="午夜墨"></button>
+    </div>
+
+    <div class="hf-dropdown-divider"></div>
+    <div class="hf-dropdown-label">明暗</div>
+    <div class="hf-size-row" id="scheme-row">
+      <button type="button" class="hf-size-btn on" data-scheme-mode="day">日间</button>
+      <button type="button" class="hf-size-btn" data-scheme-mode="night">夜间</button>
+    </div>
+
+    <div class="hf-dropdown-divider"></div>
+    <div class="hf-dropdown-label">字号</div>
+    <div class="hf-size-row" id="size-row">
+      <button type="button" class="hf-size-btn" data-read="s">小</button>
+      <button type="button" class="hf-size-btn on" data-read="m">标准</button>
+      <button type="button" class="hf-size-btn" data-read="l">大</button>
+      <button type="button" class="hf-size-btn" data-read="xl">特大</button>
+    </div>
+
+    <div class="hf-dropdown-divider"></div>
+    <div class="hf-dropdown-label">字体</div>
+    <div class="hf-font-options">
+      <button type="button" class="hf-font-option active" data-vars="--font-serif" data-family="'Source Serif 4','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif" data-href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,200..900;1,200..900&amp;display=swap">
+        <span class="font-preview" style="font-family:'Source Serif 4','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif">衬线 Aa</span>
+        <span class="font-name">Source Serif 4</span>
+      </button>
+      <button type="button" class="hf-font-option" data-vars="--font-serif" data-family="'Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif" data-href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&amp;display=swap">
+        <span class="font-preview" style="font-family:'Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif">衬线 Aa</span>
+        <span class="font-name">Noto Serif SC</span>
+      </button>
+      <button type="button" class="hf-font-option" data-vars="--font-serif" data-family="'Playfair Display','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif" data-href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap">
+        <span class="font-preview" style="font-family:'Playfair Display','Noto Serif SC','Source Han Serif SC','Songti SC','STSong',Georgia,serif">衬线 Aa</span>
+        <span class="font-name">Playfair Display</span>
+      </button>
+    </div>
+    <div class="hf-dropdown-note">选择会记在这台浏览器里</div>
+  </div>
+</div>
+
+<script>window.__BLOG__ = {"site":{"name":"cccr","tagline":"把东西做慢一点，做细一点。","aboutKicker":"ABOUT","about":["这里是 cccr 的笔记，写做事的方法、工具，和写作本身。","不追热点，也不保证更新。每篇尽量只讲一件小事，讲透就停笔。","如果做法不合你的胃口，就当看一个陌生人的工作台下角。"],"social":[{"label":"GitHub","href":"https://github.com/cccr","note":"代码与半成品"},{"label":"Bilibili","href":"https://space.bilibili.com/","note":"偶尔的记录"},{"label":"邮件","href":"mailto:cccr@example.com","note":"随便聊聊"}],"rss":{"label":"RSS","note":"订阅还没接上"}},"posts":[{"slug":"slow-craft","title":"把一件小事做透","subtitle":"返工三次之后，我给自己定了一套笨办法","tags":["方法论","品质"],"date":"2026.10.18","minutes":12,"featured":true,"sections":[{"title":"从一次返工说起","html":"\n<p>上周把同一块内容返工了三次。第一次是想法没想清楚，写出来自己都不信；第二次是想法清楚了，但排版把重点埋了；第三次是重点浮出来了，结尾又软了。三次加起来，比从零做一遍还久。</p>\n<p>返工之后我把这套笨办法写在纸上：<strong class=\"marker\">先量、再改、用同一把尺子验收</strong>。这不是什么方法论文档，是给自己用的检查表。它唯一的好处是——下次不用靠感觉判断「好了没有」。</p>\n<figure class=\"post-figure fig-tall fig-tilt crop-marks\">\n  <img src=\"assets/img/milkyway.jpg\" alt=\"山谷上方的银河与星空\" loading=\"lazy\">\n  <figcaption><span class=\"fig-no\">PLATE 01</span>采集于 02:14，阳台朝南。观察对象：一个不肯睡觉的人。</figcaption>\n</figure>\n"},{"layout":"statement","text":"把一件小事做透，靠的不是灵感，是量尺。"},{"title":"先量，再改","html":"\n<p>改之前先把问题量出来。别急着「感觉不对」，感觉说不清的地方，改三次还是不对。</p>\n<div class=\"def-card\"><div class=\"def-card-label\">术语</div><div class=\"def-card-term\">量尺</div><div class=\"def-card-body\">能重复、能说出口的判断标准。一行字到边距多宽、一个段落开头有没有兑现标题，都是可以量出来的。</div></div>\n<p>我现在的量尺只有三格：这一屏的问题是什么、改哪一处、改完拿同一句话再问一遍。三格填满才动第二处。</p>\n<div class=\"process\"><div class=\"process-step\"><div class=\"process-num\">01</div><div class=\"process-content\"><div class=\"process-title\">量</div><div class=\"process-desc\">把这一屏、这一页、这一段的问题写成一句话，写不出来就是还没看清。</div></div></div><div class=\"process-step\"><div class=\"process-num\">02</div><div class=\"process-content\"><div class=\"process-title\">改</div><div class=\"process-desc\">只改这句话指向的那一处。手指忍住，别顺手美化。</div></div></div><div class=\"process-step\"><div class=\"process-num\">03</div><div class=\"process-content\"><div class=\"process-title\">再量</div><div class=\"process-desc\">拿同一句话再量一次。能量出变化才算改过，量不出就是白改。</div></div></div></div>\n<p>一次只改一处。改三处，下次出问题，你不知道是哪一处的功劳。</p>\n"},{"title":"密度不是字数","layout":"split","html":"\n<p>信息密度是有效信息除以面积，不是字数除以面积。删掉一句，读者记住的反而更多——这种情况出现得比想象中频繁。</p>\n<p>杂志页讲究「一屏一个结论」。我把它改成「一屏一个问题」：读者在这一屏需要知道什么，就只留这个答案需要的东西。剩下的，要么挪到下一页，要么删掉。</p>\n<p><strong>删掉的每一句，都该换成读者省下的一口气。</strong></p>\n<p>判断有没有做到，有个土办法：把这一屏给一个没看过前文的人，让他复述。复述得出来，密度就够了；复述成「讲了很多」，就是塞多了。</p>\n<figure class=\"post-figure fig-halftone\">\n  <img src=\"assets/img/coffee-headless.jpg\" alt=\"一个没有头的人，脸被一张报纸遮住，双手各举一只杯子\" loading=\"lazy\">\n  <figcaption><span class=\"fig-no\">PLATE 02</span>信息摄入后的标本。仍能站立，头部已被替换。</figcaption>\n</figure>\n"},{"title":"克制的三条线","html":"\n<p>做过头的东西有共同的长相：多一根线、多一个卡片、多一个看起来很专业的词。我给自己划了三条线，任何一条越线，就说明页面上多了一个抢注意力的东西。</p>\n<ul class=\"checklist\"><li>不为了填满而加东西</li><li>不为了漂亮而加线条</li><li>不为了显得专业而堆术语</li></ul>\n<div class=\"aside-card\"><div class=\"aside-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\"/><path d=\"M9 18h6\"/><path d=\"M10 22h4\"/></svg></div><div class=\"aside-content\"><div class=\"aside-title\">实践提示</div><p>写完后把窗口缩到手机宽度看一遍。还立得住的排版，才是真的立得住。</p></div></div>\n<p>这三条不是审美洁癖，是成本控制。每多一个元素，下次修改就多一处要照顾，读者的眼睛也多一次要绕路。</p>\n"},{"title":"做透的验收标准","html":"\n<p>一个东西做透了，会有三个信号，都能说出口：</p>\n<ol><li>你说不出还能删什么。</li><li>陌生人看完能复述你的结论。</li><li>三个月后你自己还认得出这是你做的。</li></ol>\n<p>第三条最容易被忽略。很多活做完当下漂亮，三个月后回看，你自己都认不出那是自己的手笔——因为当时是照着别人的样式凑的。</p>\n<figure class=\"table-wrap\"><table><thead><tr><th>检查项</th><th>通过的样子</th><th>不通过的样子</th></tr></thead><tbody><tr><td>一句话结论</td><td>陌生人听完能复述</td><td>听完说「信息量挺大」</td></tr><tr><td>可删性</td><td>删任何一块都伤</td><td>删掉两块也没人发现</td></tr><tr><td>视线落点</td><td>第一眼落在标题或结论</td><td>第一眼落在装饰上</td></tr><tr><td>耗时</td><td>花的时间和开始估的差不多</td><td>时间全花在边角细节上</td></tr></tbody></table></figure>\n<p>这四行我贴在显示器边上。做完了对着过一遍，过的就打勾，不客气。</p>\n<figure class=\"post-figure fig-specimen fig-offset\">\n  <img src=\"assets/img/leaf-specimen.jpg\" alt=\"一片带小洞的黄色枫叶挂在枝头\" loading=\"lazy\">\n  <figcaption><span class=\"fig-no\">PLATE 03</span>单片。深秋采于路边，叶心有一个洞。</figcaption>\n</figure>\n"},{"title":"一张表，一段代码，一次复盘","html":"\n<p>这套办法落到工具上，最开始只是一个 Markdown 文件。每天睡前写三行：</p>\n<pre><code class=\"language-md\">- 今天的结论：\n- 明天只改那一处：\n- 量了没有：</code></pre>\n<p>看起来过于轻。用了六周之后，我在第三行后面加了一个数字：这周返工了几次。数字在往下掉，看着当然舒服，但它真正的用处不是好看，是让「感觉好点了」变成「确实好点了」。</p>\n<figure class=\"hchart\"><div class=\"hc-title\">最近六周返工次数</div><div class=\"hc-body\"><div class=\"hc-row\"><div class=\"hc-label\">第 1 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:100.00%\"></span><span class=\"hc-val\">6<span class=\"hf-sp\"> </span>次</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 2 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:66.67%\"></span><span class=\"hc-val\">4<span class=\"hf-sp\"> </span>次</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 3 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:83.33%\"></span><span class=\"hc-val\">5<span class=\"hf-sp\"> </span>次</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 4 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:50.00%\"></span><span class=\"hc-val\">3<span class=\"hf-sp\"> </span>次</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 5 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:33.33%\"></span><span class=\"hc-val\">2<span class=\"hf-sp\"> </span>次</span></div></div></div><div class=\"hc-row hc-hi\"><div class=\"hc-label\">第 6 周</div><div class=\"hc-bars\"><div class=\"hc-bar hc-hi\"><span class=\"hc-fill\" style=\"width:16.67%\"></span><span class=\"hc-val\">1<span class=\"hf-sp\"> </span>次</span></div></div></div></div></figure>\n<p>数字不是目的。目的是让注意力每天都落回同一件事上——量尺上那三格。</p>\n"},{"layout":"data","label":"六周下来","items":[{"num":"3","unit":"次","cap":"同一块内容返工的次数"},{"num":"6","unit":"周","cap":"把返工次数记下来的时长"},{"num":"1","unit":"次","cap":"最近一周的返工次数"}],"note":"数字不会替我改稿。它只负责让「感觉好点了」变成「确实好点了」。"},{"layout":"panel","text":"看得见的规矩，才管得住手。","note":"贴在显示器边上的那张纸"},{"title":"尾声","html":"\n<figure class=\"post-figure fig-band crop-marks fig-halftone\">\n  <img src=\"assets/img/ridge-light.jpg\" alt=\"山脊最后一段被夕阳照亮，其余部分沉在阴影里\" loading=\"lazy\">\n  <figcaption><span class=\"fig-no\">PLATE 04</span>山脊东侧，日落前四分钟。光只占全部的七分之一。</figcaption>\n</figure>\n<p>这套办法没什么新鲜的。量、改、验收，全是常识。</p>\n<p>难的是每次都按常识做事。返工常常不是因为不会，是因为跳过了。跳过一次没出事，就有了第二次，然后一年的时间都花在补第三次的窟窿上<sup class=\"fn-ref\"><a href=\"#fn-craft-1\" id=\"fnref-craft-1\">1</a></sup>。</p>\n<p>所以我把检查表贴在显示器边上，而不是存在某个 App 里。App 会提醒我更新，纸不会。</p>\n<ol class=\"footnotes\"><li id=\"fn-craft-1\">「量尺」这个词借自我一个做出版的朋友。他说校对就是用同一把尺子量三遍，量到第三遍还好意思交，就算过了。 <a class=\"fn-back\" href=\"#fnref-craft-1\" aria-label=\"返回正文\">↩</a></li></ol>\n"}]},{"slug":"tools-slow-me","title":"工具不该比活儿更花时间","subtitle":"一条判断线，替我砍掉了大半工具","tags":["工具","方法论"],"date":"2026.09.27","minutes":8,"sections":[{"title":"一个下午的折腾","html":"\n<p>花了一下午配置一个「更好用」的写作工具。笔记迁移、插件、快捷键、主题、字体。配置完天黑了，晚上要写的东西只写了三行。</p>\n<p>第二天早上我盯着那三行想：这个下午不是花在写作上，是花在一个「让我写得更快」的东西上。而它甚至还没开始省时间。</p>\n"},{"layout":"statement","text":"工具是用来省时间的，不是用来花的。"},{"title":"一条判断线","html":"\n<p>现在我用一条线判断工具值不值得：<span class=\"marker\">它一周能省的分钟数，要稳定大于它花掉的分钟数</span>。一周之内回不了本的，基本就不装了。</p>\n<div class=\"def-card\"><div class=\"def-card-label\">判断线</div><div class=\"def-card-term\">回本线</div><div class=\"def-card-body\">一个工具从安装到顺手，允许花掉的分钟数，不超过它一周能省下的分钟数。超了就是负债，不是资产。</div></div>\n<p>这条线砍掉了很多「以后可能会用」的东西：稍后读、双链笔记、自动化流水线、第三个待办 App。它们单个都不贵，加起来是一整块注意力。</p>\n"},{"title":"现在留在桌上的东西","html":"\n<p>三个，缺一不可：</p>\n<ul><li>一个纯文本编辑器，能开目录就够了；</li><li>一个 Markdown 文件，什么都往里扔，不分类；</li><li>一个计时器，四十分钟响一次。</li></ul>\n<p>后两个其实不是工具，是约束。约束比工具管用——工具给你更多可能，约束帮你砍掉选择。</p>\n<div class=\"aside-card\"><div class=\"aside-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\"/><path d=\"M9 18h6\"/><path d=\"M10 22h4\"/></svg></div><div class=\"aside-content\"><div class=\"aside-title\">实践提示</div><p>想装新东西之前，先问：现在这个工具，我用到它的几成？八成以下的，从来不是缺工具。</p></div></div>\n"},{"layout":"panel","text":"工具越少，习惯越稳。","note":""},{"title":"结尾","html":"\n<p>习惯稳了，工具好坏就变得不重要了。</p>\n<p>这话听起来像在劝人清心寡欲。其实反过来也一样成立：工具越好，用不上它的人越焦虑。我属于后者，所以选择先少装。</p>\n"}]},{"slug":"write-to-think","title":"写下来才算想过","subtitle":"笔记不是收藏，是压缩","tags":["写作"],"date":"2026.09.09","minutes":7,"sections":[{"title":"收藏是假的","html":"\n<p>我的收藏夹里有四百多篇文章，点开过的不到三成。收藏那个动作给人的满足感，几乎和读完一样——甚至更便宜。</p>\n<p>更麻烦的是，收藏让人误以为自己「拥有」了这个观点。真正需要用的时候，一个都调不出来。</p>\n"},{"layout":"statement","text":"收藏是把别人的结论存进硬盘，写作是把结论装进自己脑子。"},{"title":"写下来的三个作用","html":"\n<div class=\"process\"><div class=\"process-step\"><div class=\"process-num\">01</div><div class=\"process-content\"><div class=\"process-title\">逼出结论</div><div class=\"process-desc\">写不出结论，说明还没想清楚。这是写作最诚实的地方。</div></div></div><div class=\"process-step\"><div class=\"process-num\">02</div><div class=\"process-content\"><div class=\"process-title\">造出索引</div><div class=\"process-desc\">一个月后能搜到自己当时怎么想的，比记住更重要。</div></div></div><div class=\"process-step\"><div class=\"process-num\">03</div><div class=\"process-content\"><div class=\"process-title\">留下证据</div><div class=\"process-desc\">判断到底对不对，翻旧账就知道，不用靠记忆美化自己。</div></div></div></div>\n<p>三个作用里，第一个最值钱。很多时候我以为自己想通了，一落笔发现中间缺了一环。</p>\n"},{"title":"我的记法","html":"\n<p>一条笔记只写三行：结论、依据、下一步。超过三行，多半是在偷偷写文章，那就该开一个新的文档。</p>\n<pre><code class=\"language-md\">结论：排版密度靠删，不靠加。\n依据：三次返工里两次是塞多了。\n下一步：下次先写完再删一轮。</code></pre>\n<p>如果是别人的观点，我只记「我不认同哪一点」。记他讲了什么没有用，那种笔记永远不会被翻第二次。</p>\n<div class=\"aside-card\"><div class=\"aside-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5\"/><path d=\"M9 18h6\"/><path d=\"M10 22h4\"/></svg></div><div class=\"aside-content\"><div class=\"aside-title\">实践提示</div><p>笔记的开头别写「关于……的思考」。直接写那个结论，读的时候才有抓手，三个月后搜也搜得到。</p></div></div>\n"},{"layout":"panel","text":"写作不是想清楚之后的事，是想清楚的方式。","note":""},{"title":"结尾","html":"\n<p>所以我现在订了一个很笨的规矩：想不清的事，别在脑子里绕，开个空白文件写三行。写完往往就知道该干嘛了——或者知道这件事暂时不该干嘛。</p>\n"}]},{"slug":"three-things","title":"一周只认真做三件事","subtitle":"把精力当预算，而不是当弹药","tags":["节奏"],"date":"2026.08.21","minutes":5,"sections":[{"title":"从「全力」到「配额」","html":"\n<p>以前的任务表是一长串，每天打勾。打到周三，勾已经没意义了——剩下的和没剩下的都看不见。</p>\n<p>后来改成一周只排三件「必须认真做」的事。剩下的时间留给杂事和意外。第一个月，完成的事反而变多了。</p>\n"},{"layout":"statement","text":"精力是预算，先决定花在哪三处，剩下的自然有去处。"},{"title":"怎么选三件","html":"\n<p>每周一早上问自己三个问题，答案交叉的那三件就是这一周的三件：</p>\n<ol><li>这周结束时，什么没做完我会难受？</li><li>哪件事做完，别的会变简单？</li><li>哪件事不做，其实没人会死？</li></ol>\n<p>第三个问题专门用来删东西。想删又不敢删的，就会一直占着位置。</p>\n<ul class=\"checklist\"><li>三件之内，不排第四件</li><li>做不完就减，不加</li><li>每天只问「今天动的是哪件」，不问「还剩几件」</li></ul>\n"},{"layout":"data","label":"五周之后","items":[{"num":"3","unit":"件","cap":"每周固定只排三件"},{"num":"5","unit":"周","cap":"连续这样排的周数"},{"num":"11","unit":"件","cap":"五周里真正做完的事"}],"note":"数字不漂亮，但它把「忙」和「做完」这两件事分开了。"},{"title":"五周之后","html":"\n<p>数字不漂亮，但方向是对的：</p>\n<figure class=\"hchart\"><div class=\"hc-title\">每周三件事的完成数量</div><div class=\"hc-body\"><div class=\"hc-row\"><div class=\"hc-label\">第 1 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:33.33%\"></span><span class=\"hc-val\">1<span class=\"hf-sp\"> </span>件</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 2 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:66.67%\"></span><span class=\"hc-val\">2<span class=\"hf-sp\"> </span>件</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 3 周</div><div class=\"hc-bars\"><div class=\"hc-bar hc-hi\"><span class=\"hc-fill\" style=\"width:100.00%\"></span><span class=\"hc-val\">3<span class=\"hf-sp\"> </span>件</span></div></div></div><div class=\"hc-row\"><div class=\"hc-label\">第 4 周</div><div class=\"hc-bars\"><div class=\"hc-bar \"><span class=\"hc-fill\" style=\"width:66.67%\"></span><span class=\"hc-val\">2<span class=\"hf-sp\"> </span>件</span></div></div></div><div class=\"hc-row hc-hi\"><div class=\"hc-label\">第 5 周</div><div class=\"hc-bars\"><div class=\"hc-bar hc-hi\"><span class=\"hc-fill\" style=\"width:100.00%\"></span><span class=\"hc-val\">3<span class=\"hf-sp\"> </span>件</span></div></div></div></div></figure>\n<p>没完成的那两周不是因为忙，是因为那三件排得太大。三件不是三次冲刺，是三块可以在一周内做透的事。</p>\n<p>反过来看，被删掉的第四件、第五件，事后回想，一件都不重要。</p>\n"}]},{"slug":"stop-chasing","title":"我为什么不再追新","subtitle":"信息节食一个月之后","tags":["决策"],"date":"2026.08.02","minutes":4,"sections":[{"title":"追新追的是什么","html":"\n<p>早上刷到三个「新范式」，晚上一个都记不住。追新的快感来自「我在场」，不是「我懂」。</p>\n<p>在场感很便宜，点开就有；懂要花力气，还得承认自己之前做错了。所以大部分人（包括我）更喜欢前者。</p>\n<figure class=\"post-figure fig-tall fig-tilt fig-offset\">\n  <img src=\"assets/img/pumpkin.jpg\" alt=\"一颗咧嘴大笑的南瓜灯插画，印在粗糙的灰纸上\" loading=\"lazy\">\n  <figcaption><span class=\"fig-no\">PLATE 05</span>万圣节遗留物。过季两个月，还在笑。</figcaption>\n</figure>\n"},{"layout":"statement","text":"信息越便宜，动手越贵。"},{"title":"一个月的试验","html":"\n<p>断掉所有信息源一个月，只保留两份定期看的东西：一个我信得过的作者，一个我所在领域的更新。</p>\n<p>结果没漏掉任何重要的事。真正重要的消息有两种走法：要么热闹到我绕不开，要么直接关系到我在做的事——后一种，会有同行来告诉我。</p>\n"},{"title":"结尾","html":"\n<p><span class=\"marker\">手比眼睛好用</span>。看得越多，动手越少，判断力也会跟着钝——因为判断没被现实打过脸。</p>\n<p>现在我的默认动作是：先写今天那一行，写完再看要不要刷。顺序反过来之后，一天就安静了。</p>\n"}]}]};</script>
+<script>/* =====================================================================
+   cccr 博客 · 前端逻辑
+   无构建依赖，纯原生 JS：hash 路由 + 视图渲染 + 搜索筛选 + 目录 + 阅读设置。
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  var DATA = window.__BLOG__ || { site: {}, posts: [] };
+  var SITE = DATA.site || {};
+  var POSTS = DATA.posts || [];
+  var bySlug = new Map(POSTS.map(function (p) { return [p.slug, p]; }));
+
+  var $ = function (sel, el) { return (el || document).querySelector(sel); };
+  var $$ = function (sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+  var stripTags = function (s) { return String(s).replace(/<[^>]*>/g, ' '); };
+  var pad = function (n) { return String(n).padStart(2, '0'); };
+  var readTime = function (p) { return '约 ' + p.minutes + ' 分钟'; };
+
+  /* ---------- 搜索索引（标题 / 副标题 / 标签 / 正文纯文本） ---------- */
+  POSTS.forEach(function (p) {
+    p._hay = [
+      p.title,
+      p.subtitle,
+      (p.tags || []).join(' '),
+      (p.sections || []).map(function (s) { return s.title + ' ' + stripTags(s.html); }).join(' ')
+    ].join(' ').toLowerCase();
+  });
+
+  /* ---------- DOM ---------- */
+  var main = $('#main');
+  var readbar = $('#readbar');
+  var readbarFill = $('#readbar-fill');
+  var tocNav = $('#toc');
+  var tocItemsWrap = $('#toc-items');
+  var tocToggle = $('#toc-toggle');
+  var tocScrim = $('#toc-scrim');
+  var navLinks = $$('.site-nav a');
+  var root = document.documentElement;
+
+  var state = { view: 'post', post: null, query: '', tag: '全部' };
+  var tocOpen = false;
+  var spy = null;
+
+  /* =====================================================================
+     TOC
+     ===================================================================== */
+  function setTocOpen(v) {
+    tocOpen = v;
+    tocNav.classList.toggle('toc-open', v);
+    root.classList.toggle('toc-is-open', v);
+    tocToggle.setAttribute('aria-expanded', String(v));
+  }
+
+  function buildToc(post) {
+    tocItemsWrap.innerHTML = (post.sections || [])
+      .filter(function (s) { return !!s.title; })
+      .map(function (s, i) {
+        return '<a class="toc-item" href="#sec-' + (i + 1) + '" data-target="sec-' + (i + 1) + '">' +
+          '<span class="toc-num">' + pad(i + 1) + '</span>' + esc(s.title) + '</a>';
+      }).join('');
+  }
+
+  function startSpy() {
+    if (spy) { spy.disconnect(); spy = null; }
+    var secs = $$('.section[id]');
+    if (!secs.length || !('IntersectionObserver' in window)) return;
+    spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        $$('.toc-item').forEach(function (a) { a.classList.remove('toc-active'); });
+        var link = $('.toc-item[data-target="' + en.target.id + '"]');
+        if (link) link.classList.add('toc-active');
+      });
+    }, { rootMargin: '-16% 0px -66% 0px' });
+    secs.forEach(function (s) { spy.observe(s); });
+  }
+
+  /* 视觉块滚进视口时轻轻浮上来（正文节不加，避免拖沓） */
+  var revealer = null;
+  function startReveal() {
+    if (revealer) { revealer.disconnect(); revealer = null; }
+    var els = $$('.reveal');
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    revealer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-in');
+        revealer.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    els.forEach(function (el) { revealer.observe(el); });
+  }
+
+  tocToggle.addEventListener('click', function (e) { e.stopPropagation(); setTocOpen(!tocOpen); });
+  tocScrim.addEventListener('click', function () { setTocOpen(false); });
+  tocItemsWrap.addEventListener('click', function (e) {
+    var a = e.target.closest('.toc-item');
+    if (!a) return;
+    e.preventDefault();
+    var target = document.getElementById(a.getAttribute('data-target'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (window.matchMedia('(max-width: 1024px)').matches) setTocOpen(false);
+  });
+
+  /* =====================================================================
+     视图：文章
+     ===================================================================== */
+  function sectionNumber(n) {
+    return '<div class="section-number sn-sym">' +
+      '<span class="sn-side sn-l"><span class="sn-star s3">✦</span><span class="sn-star s2">✦</span><span class="sn-star s1">✦</span></span>' +
+      '<span class="sn-num">' + n + '</span>' +
+      '<span class="sn-side sn-r"><span class="sn-star s1">✦</span><span class="sn-star s2">✦</span><span class="sn-star s3">✦</span></span>' +
+      '</div>';
+  }
+
+  function postNavHtml(idx) {
+    var prev = POSTS[idx - 1] || null;   // 更新的文章
+    var next = POSTS[idx + 1] || null;   // 更早的文章
+    var parts = [];
+    if (prev) {
+      parts.push('<a class="pn-prev" href="#/a/' + prev.slug + '">' +
+        '<span class="pn-label">← 更新的一篇</span>' +
+        '<span class="pn-title">' + esc(prev.title) + '</span></a>');
+    }
+    if (next) {
+      parts.push('<a class="pn-next" href="#/a/' + next.slug + '">' +
+        '<span class="pn-label">更早的一篇 →</span>' +
+        '<span class="pn-title">' + esc(next.title) + '</span></a>');
+    }
+    if (!parts.length) return '';
+    // 只有一侧时让它靠左/靠右对齐，不塞空占位
+    var cls = parts.length === 1 ? (prev ? ' single-prev' : ' single-next') : '';
+    return '<nav class="post-nav' + cls + '" aria-label="文章导航">' + parts.join('') + '</nav>';
+  }
+
+  function renderChapter(s, no) {
+    var isSplit = s.layout === 'split';
+    return '<section class="section' + (isSplit ? ' sec-split' : '') + '" id="sec-' + no + '">' +
+      sectionNumber(pad(no)) +
+      (isSplit
+        ? '<div class="split-row"><h2 class="split-title">' + esc(s.title) + '</h2>' +
+          '<div class="split-body">' + s.html + '</div></div>'
+        : '<h2>' + esc(s.title) + '</h2>' + s.html) +
+      '</section>';
+  }
+
+  /* 视觉块：不占章节编号、不进目录，只负责给阅读节奏换气 */
+  function renderBlock(s) {
+    if (s.layout === 'statement') {
+      return '<section class="section sec-statement reveal">' +
+        '<div class="stmt-wrap"><p class="stmt-line">' + esc(s.text) + '</p></div>' +
+        '</section>';
+    }
+    if (s.layout === 'panel') {
+      return '<section class="section sec-panel reveal">' +
+        '<div class="panel-block"><p class="panel-line">' + esc(s.text) + '</p>' +
+        (s.note ? '<span class="panel-note">' + esc(s.note) + '</span>' : '') +
+        '</div></section>';
+    }
+    if (s.layout === 'data') {
+      var cells = (s.items || []).map(function (it) {
+        return '<div class="data-cell">' +
+          '<span class="data-num">' + esc(it.num) +
+            (it.unit ? '<span class="data-unit">' + esc(it.unit) + '</span>' : '') +
+          '</span>' +
+          '<span class="data-cap">' + esc(it.cap) + '</span>' +
+        '</div>';
+      }).join('');
+      return '<section class="section sec-data reveal">' +
+        (s.label ? '<div class="data-label">' + esc(s.label) + '</div>' : '') +
+        '<div class="data-row">' + cells + '</div>' +
+        (s.note ? '<p class="data-note">' + esc(s.note) + '</p>' : '') +
+        '</section>';
+    }
+    return '';
+  }
+
+  function renderPost(post) {
+    var idx = POSTS.indexOf(post);
+    var tags = (post.tags || []).map(function (t) { return '<span class="dl-tag">' + esc(t) + '</span>'; })
+      .join('<span class="dl-sep">·</span>');
+
+    var chapterNo = 0;
+    var secs = (post.sections || []).map(function (s) {
+      if (s.title) { chapterNo++; return renderChapter(s, chapterNo); }
+      return renderBlock(s);
+    }).join('\n');
+
+    main.innerHTML =
+      '<article class="view view-post">' +
+        '<div class="post-wrap">' +
+          '<div class="post-specimen"><span class="tag-glitch">SPECIMEN No.' + pad(idx + 1) + '</span></div>' +
+          '<div class="doc-chrome doc-line">' +
+            tags +
+            '<span class="dl-sep">·</span><span>' + esc(SITE.name || 'cccr') + '</span>' +
+            '<span class="dl-sep">·</span><span>' + esc(post.date) + '</span>' +
+            '<span class="dl-sep">·</span><span>' + readTime(post) + '</span>' +
+          '</div>' +
+          '<header class="hero">' +
+            '<h1 class="ink-offset ink-offset--ink" data-text="' + esc(post.title) + '">' + esc(post.title) + '</h1>' +
+            '<p class="hero-subtitle">' + esc(post.subtitle) + '</p>' +
+            '<span class="vert-tag post-vert">' + esc((post.tags || []).join(' / ')) + ' · ' + esc(post.date) + '</span>' +
+          '</header>' +
+          secs +
+          '<div class="divider-dot">· · ·</div>' +
+          postNavHtml(idx) +
+        '</div>' +
+      '</article>';
+
+    tocNav.hidden = false;
+    setTocOpen(false);
+    buildToc(post);
+  }
+
+  /* =====================================================================
+     视图：列表（搜索 + 标签筛选）
+     ===================================================================== */
+  function allTags() {
+    var seen = [];
+    POSTS.forEach(function (p) {
+      (p.tags || []).forEach(function (t) { if (seen.indexOf(t) < 0) seen.push(t); });
+    });
+    return seen;
+  }
+
+  function highlight(text, q) {
+    var safe = esc(text);
+    if (!q) return safe;
+    var needle = esc(q).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    try {
+      return safe.replace(new RegExp(needle, 'gi'), function (m) { return '<mark>' + m + '</mark>'; });
+    } catch (e) { return safe; }
+  }
+
+  function renderRows() {
+    var q = state.query.trim();
+    var ql = q.toLowerCase();
+    var list = POSTS.filter(function (p) {
+      if (state.tag !== '全部' && (p.tags || []).indexOf(state.tag) < 0) return false;
+      if (ql && p._hay.indexOf(ql) < 0) return false;
+      return true;
+    });
+
+    $('#post-list').innerHTML = list.map(function (p) {
+      var i = POSTS.indexOf(p);
+      return '<li class="post-row"><a href="#/a/' + p.slug + '">' +
+        '<span class="pr-num">' + pad(i + 1) + '</span>' +
+        '<span class="pr-main">' +
+          '<span class="pr-title">' + highlight(p.title, q) + '</span>' +
+          '<span class="pr-sub">' + highlight(p.subtitle, q) + '</span>' +
+        '</span>' +
+        '<span class="pr-meta">' +
+          '<span class="pr-tags">' + (p.tags || []).map(esc).join(' / ') + '</span>' +
+          '<span>' + esc(p.date) + '</span>' +
+        '</span>' +
+        '<span class="pr-arrow" aria-hidden="true">→</span>' +
+      '</a></li>';
+    }).join('');
+
+    $('#lc-live').textContent = '共 ' + list.length + ' 篇';
+    $('#list-empty').hidden = list.length > 0;
+
+    // 标签计数
+    $$('#chips .chip').forEach(function (b) {
+      var t = b.getAttribute('data-tag');
+      var n = t === '全部' ? POSTS.length
+        : POSTS.filter(function (p) { return (p.tags || []).indexOf(t) >= 0; }).length;
+      var cnt = $('.chip-n', b);
+      if (cnt) cnt.textContent = n;
+    });
+  }
+
+  function updateChips() {
+    $$('#chips .chip').forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-tag') === state.tag);
+    });
+  }
+
+  function renderList() {
+    tocNav.hidden = true;
+    setTocOpen(false);
+
+    var tags = ['全部'].concat(allTags());
+    var kicker = 'INDEX · 全部文章';
+    var sub = POSTS.length + ' 篇随笔，关于做事、工具和写作。慢慢看，不用着急。';
+
+    main.innerHTML =
+      '<div class="view view-list">' +
+        '<header class="list-head">' +
+          '<div class="list-kicker">' + kicker + '</div>' +
+          '<h1 class="list-title ink-offset ink-offset--ink" data-text="文章">文章</h1>' +
+          '<p class="list-sub">' + esc(sub) + '</p>' +
+        '</header>' +
+        '<div class="list-tools">' +
+          '<div class="search-wrap">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true">' +
+              '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.3-3.3"/></svg>' +
+            '<input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="搜索标题、标签或正文…" value="' + esc(state.query) + '" aria-label="搜索文章">' +
+            '<button class="search-clear" id="q-clear" type="button" aria-label="清空搜索"' + (state.query ? '' : ' hidden') + '>×</button>' +
+          '</div>' +
+          '<div class="tag-chips" id="chips" role="group" aria-label="按标签筛选">' +
+            tags.map(function (t) {
+              return '<button type="button" class="chip' + (t === state.tag ? ' on' : '') + '" data-tag="' + esc(t) + '">' +
+                esc(t) + '<span class="chip-n"></span></button>';
+            }).join('') +
+          '</div>' +
+        '</div>' +
+        '<div class="list-count"><span id="lc-live">共 ' + POSTS.length + ' 篇</span><span>按写作时间排序</span></div>' +
+        '<ul class="post-list" id="post-list"></ul>' +
+        '<div class="list-empty" id="list-empty" hidden><span class="le-k">NO MATCH</span>没有匹配的文章，换个词试试。</div>' +
+      '</div>';
+
+    renderRows();
+
+    var q = $('#q');
+    q.addEventListener('input', function () {
+      state.query = q.value;
+      $('#q-clear').hidden = !q.value;
+      renderRows();
+    });
+    $('#q-clear').addEventListener('click', function () {
+      state.query = '';
+      q.value = '';
+      $('#q-clear').hidden = true;
+      renderRows();
+      q.focus();
+    });
+    $('#chips').addEventListener('click', function (e) {
+      var b = e.target.closest('.chip');
+      if (!b) return;
+      state.tag = b.getAttribute('data-tag');
+      updateChips();
+      renderRows();
+    });
+  }
+
+  /* =====================================================================
+     视图：首页（封面）
+     ===================================================================== */
+  function renderHome() {
+    tocNav.hidden = true;
+    setTocOpen(false);
+
+    var latest = POSTS[0];
+    var picks = POSTS.slice(1, 4);
+    var issue = 'ISSUE ' + pad(new Date().getMonth() + 1);
+
+    var latestBlock = latest
+      ? '<div class="home-latest">' +
+          '<div class="latest-kicker"><span class="lk-dot"></span>最新一篇</div>' +
+          '<a class="latest-card" href="#/a/' + latest.slug + '">' +
+            '<h2 class="latest-title">' + esc(latest.title) + '</h2>' +
+            '<p class="latest-sub">' + esc(latest.subtitle) + '</p>' +
+            '<div class="latest-meta">' +
+              '<span>' + (latest.tags || []).map(esc).join(' · ') + '</span>' +
+              '<span>' + esc(latest.date) + '</span>' +
+              '<span>' + readTime(latest) + '</span>' +
+            '</div>' +
+            '<span class="latest-cta">阅读全文 <i>→</i></span>' +
+          '</a>' +
+        '</div>'
+      : '';
+
+    var pickCards = picks.map(function (p, i) {
+      return '<a class="pick-card" href="#/a/' + p.slug + '">' +
+        '<span class="pick-no">' + pad(i + 2) + '</span>' +
+        '<span class="pick-title">' + esc(p.title) + '</span>' +
+        '<span class="pick-sub">' + esc(p.subtitle) + '</span>' +
+        '<span class="pick-meta">' + (p.tags || []).map(esc).join(' · ') + ' · ' + esc(p.date) + '</span>' +
+        '</a>';
+    }).join('');
+
+    main.innerHTML =
+      '<div class="view view-home">' +
+        '<header class="home-hero">' +
+          '<div class="home-hero-media">' +
+            '<img src="assets/img/hero-dolphins.jpg" ' +
+              'alt="两只穿芭蕾舞裙的海豚在海面上直立，其中一只戴着礼帽、拿着手杖" ' +
+              'fetchpriority="high">' +
+            '<div class="home-hero-shade"></div>' +
+            '<span class="vert-tag" style="top:20px;right:18px;color:rgba(244,245,247,.55)">' +
+              'SPECIMEN SET · VOL. 01 · 五件藏品' +
+            '</span>' +
+          '</div>' +
+          '<div class="home-hero-body">' +
+            '<div class="home-hero-main">' +
+              '<div class="home-hero-tags">' +
+                '<span class="tag-glitch">' + issue + '</span>' +
+                '<span class="home-kicker">标本馆 · 观察记录</span>' +
+              '</div>' +
+              '<h1 class="home-title ink-offset" data-text="' + esc(SITE.name) + '">' + esc(SITE.name) + '</h1>' +
+              '<p class="home-tagline">' + esc(SITE.tagline || '') + '</p>' +
+            '</div>' +
+            '<div class="home-hero-side">' +
+              '<div class="hs-item"><span class="hs-k">篇目</span><span class="hs-v">' + POSTS.length + '</span></div>' +
+              '<div class="hs-item"><span class="hs-k">更新</span><span class="hs-v">' + (latest ? esc(latest.date) : '—') + '</span></div>' +
+              '<div class="hs-item"><span class="hs-k">读法</span><span class="hs-v">随便挑一篇</span></div>' +
+            '</div>' +
+          '</div>' +
+        '</header>' +
+        '<div class="home-body">' +
+          latestBlock +
+          (picks.length
+            ? '<section class="home-picks">' +
+                '<div class="picks-head"><span class="picks-kicker">也看看这些</span>' +
+                  '<a class="picks-all" href="#/articles">全部文章 →</a></div>' +
+                '<div class="pick-grid">' + pickCards + '</div>' +
+              '</section>'
+            : '') +
+        '</div>' +
+      '</div>';
+  }
+
+  /* =====================================================================
+     视图：关于
+     ===================================================================== */
+  function renderAbout() {
+    tocNav.hidden = true;
+    setTocOpen(false);
+
+    var social = (SITE.social || []).map(function (s) {
+      var external = /^https?:/i.test(s.href || '');
+      return '<a class="social-row" href="' + esc(s.href || '#') + '"' +
+        (external ? ' target="_blank" rel="noopener noreferrer"' : '') + '>' +
+        '<span class="social-label">' + esc(s.label) + '</span>' +
+        '<span class="social-note">' + esc(s.note || '') + '</span></a>';
+    }).join('');
+
+    main.innerHTML =
+      '<div class="view view-about">' +
+        '<header class="about-head">' +
+          '<div class="list-kicker">ABOUT · 关于</div>' +
+          '<h1 class="about-title ink-offset ink-offset--ink" data-text="' + esc(SITE.name || 'cccr') + '">' +
+            esc(SITE.name || 'cccr') + '</h1>' +
+        '</header>' +
+        '<div class="about-body">' +
+          (SITE.about || []).map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') +
+        '</div>' +
+        '<figure class="post-figure fig-band about-figure fig-halftone crop-marks">' +
+          '<img src="assets/img/forest-lake.jpg" alt="秋日白桦林与湖面倒影" loading="lazy">' +
+          '<figcaption><span class="fig-no">PLATE A</span>住所西北 1.2 公里。水面很静，像没人来过。</figcaption>' +
+        '</figure>' +
+        '<hr class="about-rule">' +
+        '<div class="social-grid">' + social + '</div>' +
+        '<div class="rss-row"><span class="rss-chip">' + esc((SITE.rss || {}).label || 'RSS') + '</span>' +
+          '<span>' + esc((SITE.rss || {}).note || '订阅还没接上') + '</span></div>' +
+        '<div class="about-foot"><span>建站 2026</span><span>共 ' + POSTS.length + ' 篇</span></div>' +
+      '</div>';
+  }
+
+  /* =====================================================================
+     路由
+     ===================================================================== */
+  function route() {
+    var raw = location.hash.replace(/^#\/?/, '');
+    var seg = raw.split('/').filter(Boolean);
+    if (!seg.length || seg[0] === 'home') return { name: 'home' };
+    if (seg[0] === 'articles') return { name: 'list' };
+    if (seg[0] === 'about') return { name: 'about' };
+    if (seg[0] === 'a' && seg[1] && bySlug.has(seg[1])) return { name: 'post', post: bySlug.get(seg[1]) };
+    return { name: 'home' };
+  }
+
+  function updateReadbar() {
+    var isPost = route().name === 'post' && !!state.post;
+    readbar.style.display = isPost ? 'block' : 'none';
+    if (!isPost) { readbarFill.style.width = '0%'; return; }
+    var max = root.scrollHeight - root.clientHeight;
+    var p = max > 0 ? Math.min(1, Math.max(0, root.scrollTop / max)) : 0;
+    readbarFill.style.width = (p * 100).toFixed(2) + '%';
+  }
+
+  function render() {
+    var r = route();
+    state.post = r.post || null;
+    if (spy) { spy.disconnect(); spy = null; }
+
+    window.scrollTo({ top: 0, behavior: 'auto' });
+    root.classList.remove('is-scrolling');
+
+    if (r.name === 'list') {
+      renderList();
+      document.title = '文章 · ' + (SITE.name || 'cccr');
+    } else if (r.name === 'about') {
+      renderAbout();
+      document.title = '关于 · ' + (SITE.name || 'cccr');
+    } else if (r.name === 'home') {
+      renderHome();
+      document.title = (SITE.name || 'cccr') + ' · 笔记';
+    } else if (r.post) {
+      renderPost(r.post);
+      document.title = r.post.title + ' · ' + (SITE.name || 'cccr');
+    } else {
+      main.innerHTML = '<div class="view view-list"><div class="list-empty">还没有文章。</div></div>';
+      document.title = SITE.name || 'cccr';
+    }
+
+    var activeNav = r.name === 'about' ? 'about' : (r.name === 'home' ? '' : 'articles');
+    navLinks.forEach(function (a) { a.classList.toggle('on', a.getAttribute('data-nav') === activeNav); });
+
+    updateReadbar();
+    requestAnimationFrame(function () { startSpy(); startReveal(); });
+  }
+
+  /* ---------- 顶栏搜索 ---------- */
+  $('#search-jump').addEventListener('click', function () {
+    if (route().name === 'list') {
+      var qi = $('#q');
+      if (qi) qi.focus();
+      return;
+    }
+    location.hash = '#/articles';
+    setTimeout(function () { var qi2 = $('#q'); if (qi2) qi2.focus(); }, 80);
+  });
+
+  /* =====================================================================
+     阅读设置：配色 / 明暗 / 字号 / 字体
+     ===================================================================== */
+  var PREF_KEY = 'cccr-blog-prefs-v2';
+  var fabToggle = $('#hf-settings-toggle');
+  var fabDropdown = $('#hf-settings-dropdown');
+  var readOptions = { s: '0.99', m: '1.0625', l: '1.16', xl: '1.27' };
+
+  function savePrefs() {
+    try {
+      var fontOpt = $('.hf-font-option.active');
+      localStorage.setItem(PREF_KEY, JSON.stringify({
+        theme: root.dataset.theme,
+        read: root.dataset.read,
+        font: fontOpt ? fontOpt.getAttribute('data-family') : ''
+      }));
+    } catch (e) { /* 隐私模式下不保存，不影响阅读 */ }
+  }
+
+  function setTheme(id, scheme) {
+    root.dataset.theme = id;
+    root.dataset.scheme = scheme || 'light';
+    root.style.colorScheme = root.dataset.scheme;
+    $$('.hf-swatch').forEach(function (s) {
+      s.classList.toggle('active', s.getAttribute('data-theme-id') === id);
+    });
+    var isNight = id === 'midnight-ink';
+    $$('#scheme-row .hf-size-btn').forEach(function (b) {
+      b.classList.toggle('on', (b.getAttribute('data-scheme-mode') === 'night') === isNight);
+    });
+    savePrefs();
+  }
+
+  function setRead(v) {
+    if (!readOptions[v]) v = 'm';
+    root.dataset.read = v;
+    $$('#size-row .hf-size-btn').forEach(function (b) {
+      b.classList.toggle('on', b.getAttribute('data-read') === v);
+    });
+    savePrefs();
+  }
+
+  function setFont(opt) {
+    $$('.hf-font-option').forEach(function (o) { o.classList.toggle('active', o === opt); });
+    (opt.getAttribute('data-vars') || '--font-sans').split(' ').forEach(function (v) {
+      root.style.setProperty(v, opt.getAttribute('data-family'));
+    });
+    var href = opt.getAttribute('data-href');
+    if (href && !document.querySelector('link[data-hf-font="' + href + '"]')) {
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.dataset.hfFont = href;
+      link.href = href;
+      document.head.appendChild(link);
+    }
+    savePrefs();
+  }
+
+  function closeDropdown() {
+    fabDropdown.classList.remove('open');
+    fabToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  fabToggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    var willOpen = !fabDropdown.classList.contains('open');
+    fabDropdown.classList.toggle('open', willOpen);
+    fabToggle.setAttribute('aria-expanded', String(willOpen));
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.hf-dropdown') && !e.target.closest('.hf-fab-btn')) closeDropdown();
+  });
+
+  $$('.hf-swatch').forEach(function (sw) {
+    sw.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setTheme(sw.getAttribute('data-theme-id'), sw.getAttribute('data-scheme'));
+    });
+  });
+
+  $$('#scheme-row .hf-size-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (b.getAttribute('data-scheme-mode') === 'night') setTheme('midnight-ink', 'dark');
+      else setTheme('indigo-porcelain', 'light');
+    });
+  });
+
+  $$('#size-row .hf-size-btn').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setRead(b.getAttribute('data-read'));
+    });
+  });
+
+  $$('.hf-font-option').forEach(function (opt) {
+    opt.addEventListener('click', function (e) { e.stopPropagation(); setFont(opt); });
+  });
+
+  function restorePrefs() {
+    try {
+      var p = JSON.parse(localStorage.getItem(PREF_KEY) || 'null');
+      if (!p) return;
+      if (p.theme) setTheme(p.theme, p.theme === 'midnight-ink' ? 'dark' : 'light');
+      if (p.read) setRead(p.read);
+      if (p.font) {
+        var opt = $$('.hf-font-option').filter(function (o) { return o.getAttribute('data-family') === p.font; })[0];
+        if (opt) setFont(opt);
+      }
+    } catch (e) { /* 忽略损坏的偏好记录 */ }
+  }
+
+  /* ---------- 全局键盘 ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (tocOpen) setTocOpen(false);
+      closeDropdown();
+    }
+  });
+
+  /* ---------- 滚动 / 尺寸 ---------- */
+  var scrollIdle = null;
+  function markScrolling() {
+    root.classList.add('is-scrolling');
+    clearTimeout(scrollIdle);
+    scrollIdle = setTimeout(function () { root.classList.remove('is-scrolling'); }, 280);
+  }
+  window.addEventListener('scroll', updateReadbar, { passive: true });
+  window.addEventListener('scroll', markScrolling, { passive: true });
+  window.addEventListener('resize', updateReadbar);
+
+  /* ---------- 启动 ---------- */
+  restorePrefs();
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
+</body>
+</html>
